@@ -1,4 +1,6 @@
 #include <iostream>
+#include <numeric>
+#include <functional>
 
 using namespace std;
 
@@ -7,6 +9,7 @@ struct studentas
     string vardas, pavarde;
     int nd[5];
     int egz;
+    double vidurkis, galutinis;
 };
 
 int main()
@@ -22,6 +25,12 @@ int main()
             cin >> stud[i].nd[j];
         }
         cout << "Iveskite studento egzamino pazymi: "; cin >> stud[i].egz;
+    }
+
+    for (int i = 0; i < 5; i++)
+    {
+        stud[i].vidurkis = accumulate(stud[i].nd, stud[i].nd + 5, 0.0) / 5;
+        stud[i].galutinis = 0.4 * stud[i].vidurkis + 0.6 * stud[i].egz;
     }
 
     return 0;
