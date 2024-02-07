@@ -1,6 +1,7 @@
 #include <iostream>
 #include <numeric>
 #include <functional>
+#include <iomanip>
 
 using namespace std;
 
@@ -33,5 +34,14 @@ int main()
         stud[i].galutinis = 0.4 * stud[i].vidurkis + 0.6 * stud[i].egz;
     }
 
+    cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << endl;
+    cout << left << setw(80) << setfill('-') << "-" << endl;
+    cout << setfill(' ');
+
+    for(int i = 0; i < 5; i++)
+    {
+        cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << stud[i].galutinis << endl;
+    }
+    
     return 0;
 }
