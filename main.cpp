@@ -40,7 +40,7 @@ int main()
 
     for(int i = 0; i < 5; i++)
     {
-        cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << stud[i].galutinis << endl;
+        cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << fixed << setprecision(2) << stud[i].galutinis << endl;
     }
     
     return 0;
