@@ -1,6 +1,6 @@
 # ObjektinisProgramavimas
 
-This is the forth subversion of my project v.pradinė
+This is the fifth subversion of my project v.pradinė
 
 ## Features
 
@@ -9,3 +9,4 @@ This is the forth subversion of my project v.pradinė
 3. After taking input from a user it accumulates the average homework grade for every student, and also calculates the final grade for every student.
 4. At the end of the program it outputs the name, surname and final grade of every single student to the console.
 5. Has a feature where the user can choose what method to use to count the final grade - by using average of the homework grades or by using the median of homework grades in the final grade calculation.
+6. If any of the inputs done by the user are incorrect, he is informed about a mistake and is prompted to input a value again.

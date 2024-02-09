@@ -5,6 +5,8 @@
 
 using namespace std;
 
+bool onlyLetters(string vardas, string pavarde);
+
 const int n = 5;
 const int m = 5;
 
@@ -21,20 +23,61 @@ int main()
     studentas stud[m];
     char skaiciavimoBudas;
 
-    cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \"V\" arba \"M\") "; cin >> skaiciavimoBudas;
+    do
+    {
+        cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \'V\' arba \'M\') "; cin >> skaiciavimoBudas;
+        skaiciavimoBudas = toupper(skaiciavimoBudas);
+        if (skaiciavimoBudas != 'V' && skaiciavimoBudas != 'M')
+        {
+            cout << "Klaidingi duomenys. Iveskite V arba M." << endl;
+        }
+    } while (skaiciavimoBudas != 'V' && skaiciavimoBudas != 'M');
 
     for (int i = 0; i < m; i++)
         {
-            cout << "Iveskite studento varda ir pavarde: "; cin >> stud[i].vardas >> stud[i].pavarde;
+            do
+            {
+                cout << "Iveskite studento varda ir pavarde: "; cin >> stud[i].vardas >> stud[i].pavarde;
+                if (!onlyLetters(stud[i].vardas, stud[i].pavarde))
+                {
+                    cout << "Klaidingi duomenys. Varda ir pavarde turi sudaryti tik raides." << endl;
+                }
+                for(char &c : stud[i].vardas)
+                {
+                    c = toupper(c);
+                }
+                for(char &c : stud[i].pavarde)
+                {
+                    c = toupper(c);
+                }
+            } while (!onlyLetters(stud[i].vardas, stud[i].pavarde));
+
             cout << "Iveskite " << n << " studento pazymiu(-ius): ";
             for(int j = 0; j < n; j++)
             {
-                cin >> stud[i].nd[j];
+                do
+                {
+                    if (!(cin >> stud[i].nd[j]) || (stud[i].nd[j] < 1 || stud[i].nd[j] > 10))
+                    {
+                        cout << "KLaidingi duomenys. Pazymys turi buti skaicius nuo 1 iki 10 imtinai." << endl;
+                        cin.clear();
+                        cin.ignore();
+                    }
+                } while (stud[i].nd[j] < 1 || stud[i].nd[j] > 10);
             }
-            cout << "Iveskite studento egzamino pazymi: "; cin >> stud[i].egz;
+            do
+            {
+                cout << "Iveskite studento egzamino pazymi: ";
+                if (!(cin >> stud[i].egz) || (stud[i].egz < 1 || stud[i].egz > 10))
+                {
+                    cout << "KLaidingi duomenys. Pazymys turi buti skaicius nuo 1 iki 10 imtinai." << endl;
+                    cin.clear();
+                    cin.ignore();
+                }
+            } while (stud[i].egz < 1 || stud[i].egz > 10);
         }
 
-    if (toupper(skaiciavimoBudas) == 'V') {
+    if (skaiciavimoBudas == 'V') {
         for (int i = 0; i < m; i++)
         {
             stud[i].vidurkis = accumulate(stud[i].nd, stud[i].nd + n, 0.0) / n;
@@ -68,4 +111,19 @@ int main()
     }
     
     return 0;
+}
+
+bool onlyLetters(string vardas, string pavarde)
+{
+    for(char c : vardas)
+        {
+            if(!isalpha(c))
+                return false;
+        }
+        for(char c : pavarde)
+        {
+            if(!isalpha(c))
+                return false;
+        }
+    return true;
 }
