@@ -33,6 +33,27 @@ int main()
     bool teisingasIvedimas;
     int i = 0, j;
     char testiPrograma;
+    int parinktis;
+
+    do // Prasome studento ivesti skaiciu, nuo kurio priklausys, kaip bus vykdoma programa
+    {
+        cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n"; cin >> parinktis;
+
+        teisingasIvedimas = true;
+
+        if (parinktis != 1 && parinktis != 2 && parinktis != 3 && parinktis != 4 || cin.peek() != '\n')
+        {
+            teisingasIvedimas = false;
+            cout << "Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 4 imtinai." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    } while (!teisingasIvedimas);
+
+    if (parinktis == 4)
+    {
+        exit(0);
+    }
 
     do
     {
@@ -89,45 +110,50 @@ int main()
 
         j = 0;
 
-        while (true) // Ciklas, einantis per visus kiekvieno studento pazymius
+        if (parinktis == 1)
         {
-            string ivedimas;
-            do
+            while (true) // Ciklas, einantis per visus kiekvieno studento pazymius
             {
-                cout << "Iveskite " << i + 1 << "-o studento " << j + 1 << "-aji pazymi (jei nenorite vesti daugiau pazymiu, iveskite \"stop\" ir spauskite \"Enter\"): ";
-                cin >> ivedimas;
-                if (didziosios(ivedimas) == "STOP" && cin.peek() == '\n') // Jei vartotojas iraso zodi "stop", pazymiu ivestis baigiasi
+                string ivedimas;
+                
+                do
                 {
-                    break;
-                }
-
-                teisingasIvedimas = true;
-
-                if (ivedimas.size() < 1 || (ivedimas.size() > 2 || (ivedimas.size() == 2 && (ivedimas[0] != '1' || ivedimas[1] != '0')) || cin.peek() != '\n') || !isdigit(ivedimas[0])) // Tikriname, ar vartotojo ivedima sudaro vienas arba du simboliai, jei ji sudaro du simboliai tikriname ar pirmas simbolis - vienetas, o antras - nulis, ir tikriname ar po pirmo skaiciaus iskart eina naujos eilutes simbolis
-                {
-                    teisingasIvedimas = false; // Jei atsitinka taip, kad kazkuris is reikalavimu yra patenkinamas, tuomet pranesame apie klaida, isvalome klaidu flag'us ir ignoruojame likusia eilutes dali
-                    cout << "Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10." << endl;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                }
-                else
-                {
-                    int pazymys = stoi(ivedimas); // Paverciame ivesta string'a i int'a
-                    if (pazymys < 1 || pazymys > 10) // Jei tas skaicius nera tarp 1 ir 10 imtinai, pranesame apie klaida
+                    cout << "Iveskite " << i + 1 << "-o studento " << j + 1 << "-aji pazymi (jei nenorite vesti daugiau pazymiu, iveskite \"stop\" ir spauskite \"Enter\"): ";
+                    cin >> ivedimas;
+                    if (didziosios(ivedimas) == "STOP" && cin.peek() == '\n') // Jei vartotojas iraso zodi "stop", pazymiu ivestis baigiasi
                     {
-                        teisingasIvedimas = false;
+                        break;
+                    }
+
+                    teisingasIvedimas = true;
+
+                    if (ivedimas.size() < 1 || (ivedimas.size() > 2 || (ivedimas.size() == 2 && (ivedimas[0] != '1' || ivedimas[1] != '0')) || cin.peek() != '\n') || !isdigit(ivedimas[0])) // Tikriname, ar vartotojo ivedima sudaro vienas arba du simboliai, jei ji sudaro du simboliai tikriname ar pirmas simbolis - vienetas, o antras - nulis, ir tikriname ar po pirmo skaiciaus iskart eina naujos eilutes simbolis
+                    {
+                        teisingasIvedimas = false; // Jei atsitinka taip, kad kazkuris is reikalavimu yra patenkinamas, tuomet pranesame apie klaida, isvalome klaidu flag'us ir ignoruojame likusia eilutes dali
                         cout << "Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10." << endl;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     }
                     else
                     {
-                        naujasStudentas.nd.push_back(pazymys); // Jei skaicius yra tarp 1 ir 10 imtinai, priskiriame ji i atitinkamo studento pazymiu masyva
+                        int pazymys = stoi(ivedimas); // Paverciame ivesta string'a i int'a
+                        if (pazymys < 1 || pazymys > 10) // Jei tas skaicius nera tarp 1 ir 10 imtinai, pranesame apie klaida
+                        {
+                            teisingasIvedimas = false;
+                            cout << "Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10." << endl;
+                        }
+                        else
+                        {
+                            naujasStudentas.nd.push_back(pazymys); // Jei skaicius yra tarp 1 ir 10 imtinai, priskiriame ji i atitinkamo studento pazymiu masyva
+                        }
                     }
+                } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas yra neteisingas
+
+                j++;
+                if (didziosios(ivedimas) == "STOP" && cin.peek() == '\n')
+                {
+                    break;
                 }
-            } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas yra neteisingas
-            j++;
-            if (didziosios(ivedimas) == "STOP" && cin.peek() == '\n')
-            {
-                break;
             }
         }
         do
