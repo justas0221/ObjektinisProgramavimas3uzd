@@ -1,6 +1,6 @@
 # ObjektinisProgramavimas
 
-This is the first subversion of my project v.0.1
+This is the second subversion of my project v0.1
 
 ## Features
 
@@ -11,4 +11,5 @@ This is the first subversion of my project v.0.1
 5. Has a feature where the user can choose what method to use to count the final grade - by using average of the homework grades or by using the median of homework grades in the final grade calculation.
 6. If any of the inputs done by the user are incorrect, he is informed about a mistake and is prompted to input a value again.
 7. Has the feature where a user can enter the amount of students and grades per student at runtime.
-8. Has all the code commented out
+8. Has two files, one is using dynamic memory to store student structures and their grades and the other uses vector for the same purpose and lets users input as many grades as they want at runtime.
+9. Has all the code commented out
