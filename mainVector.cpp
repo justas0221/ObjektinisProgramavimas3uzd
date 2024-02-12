@@ -6,12 +6,15 @@
 #include <limits>
 #include <vector>
 #include <cmath>
+#include <random>
+#include <ctime>
 
 using namespace std;
 
 bool tikRaides(string ivedimas);
 string didziosios(string &tekstas);
 int tarpuSkaicius(string ivedimas);
+int generuotiPazymi();
 
 // Studento duomenis sauganti struktura
 struct studentas
@@ -155,38 +158,71 @@ int main()
                     break;
                 }
             }
-        }
-        do
-        {
-        string ivedimas;
-        cout << "Iveskite studento egzamino pazymi: ";
-        cin >> ivedimas;
-            
-        teisingasIvedimas = true;
+            do
+            {
+                string ivedimas;
 
-        if (ivedimas.size() < 1 || (ivedimas.size() > 2 || (ivedimas.size() == 2 && (ivedimas[0] != '1' || ivedimas[1] != '0')) || cin.peek() != '\n') || !isdigit(ivedimas[0])) // Tikriname, ar vartotojo ivedima sudaro vienas arba du simboliai, jei ji sudaro du simboliai tikriname ar pirmas simbolis - vienetas, o antras - nulis, ir tikriname ar po pirmo skaiciaus iskart eina naujos eilutes simbolis
+                cout << "Iveskite studento egzamino pazymi: ";
+                cin >> ivedimas;
+                    
+                teisingasIvedimas = true;
+
+                if (ivedimas.size() < 1 || (ivedimas.size() > 2 || (ivedimas.size() == 2 && (ivedimas[0] != '1' || ivedimas[1] != '0')) || cin.peek() != '\n') || !isdigit(ivedimas[0])) // Tikriname, ar vartotojo ivedima sudaro vienas arba du simboliai, jei ji sudaro du simboliai tikriname ar pirmas simbolis - vienetas, o antras - nulis, ir tikriname ar po pirmo skaiciaus iskart eina naujos eilutes simbolis
+                    {
+                        teisingasIvedimas = false; // Jei atsitinka taip, kad kazkuris is reikalavimu yra patenkinamas, tuomet pranesame apie klaida, isvalome klaidu flag'us ir ignoruojame likusia eilutes dali
+                        cout << "Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10." << endl;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    }
+                    else
+                    {
+                        int pazymys = stoi(ivedimas); // Paverciame ivesta string'a i int'a
+                        if (pazymys < 1 || pazymys > 10) // Jei tas skaicius nera tarp 1 ir 10 imtinai, pranesame apie klaida
+                        {
+                            teisingasIvedimas = false;
+                            cout << "Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10." << endl;
+                        }
+                        else
+                        {
+                            naujasStudentas.egz = pazymys; // Jei skaicius yra tarp 1 ir 10 imtinai, priskiriame ji kaip atitinkamo studento egzamino pazymi
+                        }
+                    }
+            } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas yra neteisingas
+        }
+
+        if (parinktis == 2)
+        {
+            while (true) // Ciklas, generuojantis studento pazymius
             {
-                teisingasIvedimas = false; // Jei atsitinka taip, kad kazkuris is reikalavimu yra patenkinamas, tuomet pranesame apie klaida, isvalome klaidu flag'us ir ignoruojame likusia eilutes dali
-                cout << "Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10." << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
-            else
-            {
-                int pazymys = stoi(ivedimas); // Paverciame ivesta string'a i int'a
-                if (pazymys < 1 || pazymys > 10) // Jei tas skaicius nera tarp 1 ir 10 imtinai, pranesame apie klaida
+                do
                 {
-                    teisingasIvedimas = false;
-                    cout << "Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10." << endl;
-                }
-                else
-                {
-                    naujasStudentas.egz = pazymys; // Jei skaicius yra tarp 1 ir 10 imtinai, priskiriame ji kaip atitinkamo studento egzamino pazymi
+                    int pazymys = generuotiPazymi();
+                    
+                    naujasStudentas.nd.push_back(pazymys); // Sugeneruota pazymi pridedame i vektoriu
+                    
+                    cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-aji pazymys: " << pazymys << endl;
+
+                    cout << "Jei norite sugeneruoti dar viena pazymi, iveskite \'+\' ir spauskite \'Enter\'. Jei norite baigti pazymiu generavima, iveskite bet koki kita simboli ir spauskite \'Enter\': "; cin >> testiPrograma; // Klausiame vartotojo ar jis nores generuoti dar viena pazymi
+
+                    j++;
+                } while (testiPrograma == '+' && cin.peek() == '\n'); // Vykdome cikla kol vartotojas nori generuoti daugiau pazymiu
+                
+                int pazymys = generuotiPazymi();
+
+                naujasStudentas.egz = pazymys;
+
+                cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
+
+                break;
             }
-            }
-        } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas yra neteisingas
-        stud.push_back(naujasStudentas);
-        cout << "Ar norite prideti dar viena studenta? Jei taip, iveskite \'+\' ir spauskite \"Enter\", jei ne, iveskite bet koki kita simboli ir spauskite \"Enter\": "; cin >> testiPrograma;
+        }
+
+        stud.push_back(naujasStudentas); // Ikeliame studento duomenis i vektoriu
+
+        cin.clear();    // Isvalome inputa nuo klaidu ir ignoruojame likusia eilute
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        cout << "Ar norite prideti dar viena studenta? Jei taip, iveskite \'+\' ir spauskite \"Enter\", jei ne, iveskite bet koki kita simboli ir spauskite \"Enter\": "; cin >> testiPrograma; // Klausiame vartotojo, ar jis nores i vektoriu prideti dar vieno studento duomenis
     } while (testiPrograma == '+' && cin.peek() == '\n');
 
     if (skaiciavimoBudas == "V") {
@@ -258,4 +294,14 @@ int tarpuSkaicius(string ivedimas)
             kiekis++;
     }
     return kiekis;
+}
+
+// Funkcija, sugeneruojanti atsitiktini skaiciu nuo 1 iki 10 imtinai
+int generuotiPazymi()
+{
+    srand(time(0));
+
+    int skaicius = rand() % 10 + 1;
+
+    return skaicius;
 }

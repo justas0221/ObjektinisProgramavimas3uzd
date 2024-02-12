@@ -1,6 +1,6 @@
 # ObjektinisProgramavimas
 
-This is the third subversion of my project v0.1
+This is the forth subversion of my project v0.1
 
 ## Features
 
@@ -12,5 +12,5 @@ This is the third subversion of my project v0.1
 6. If any of the inputs done by the user are incorrect, he is informed about a mistake and is prompted to input a value again.
 7. Has the feature where a user can enter the amount of students and grades per student at runtime.
 8. Has two files, one is using dynamic memory to store student structures and their grades and the other uses vector for the same purpose and lets users input as many grades as they want at runtime.
-9. Has a feature where at the very start of the program the user can choose, how does he want to run the program, so far, if the user enter a '1', then he will have to type out everything by hand, and if the user enter a '4', the program will terminate.
+9. Has a feature where at the very start of the program the user can choose, how does he want to run the program, so far, if the user enter a '1', then he will have to type out everything by hand, if he enters '2' the grades will be generated randomly and he will be able to generate as many grades as he wants, and if the user enter a '4', the program will terminate.
 10. Has all the code commented out.
