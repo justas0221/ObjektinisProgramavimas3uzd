@@ -13,9 +13,6 @@ bool tikRaides(string ivedimas);
 string didziosios(string &tekstas);
 int tarpuSkaicius(string ivedimas);
 
-int n; // Vieno studento pazymiu skaicius
-int m; // Studentu skaicius
-
 // Studento duomenis sauganti struktura
 struct studentas
 {
@@ -127,7 +124,6 @@ int main()
                     }
                 }
             } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas yra neteisingas
-            //cout << "Ar norite prideti dar viena pazymi? Jei taip, iveskite \'+\' ir spauskite \"Enter\", jei ne, iveskite \'-\' ir spauskite \"Enter\": "; cin >> testiPrograma;
             j++;
             if (didziosios(ivedimas) == "STOP" && cin.peek() == '\n')
             {
