@@ -8,6 +8,7 @@
 #include <cmath>
 #include <random>
 #include <ctime>
+#include <fstream>
 
 using namespace std;
 
@@ -15,6 +16,8 @@ bool tikRaides(string ivedimas);
 string didziosios(string &tekstas);
 int tarpuSkaicius(string ivedimas);
 int generuotiPazymi();
+string generuotiVarda();
+string generuotiPavarde();
 
 // Studento duomenis sauganti struktura
 struct studentas
@@ -27,9 +30,6 @@ struct studentas
 
 int main()
 {
-    // cout << "Iveskite studentu kieki: "; cin >> m; // Prasidejus programos vykdymui vartotojo prasome ivesti studentu kieki
-    // cout << "Iveskite vieno studento pazymiu kieki: "; cin >> n; // Prasidejus programos vykdymui vartotojo prasome ivesti kiekvieno student pazymiu kieki
-
     vector<studentas> stud; // Studentu strukturu vektorius
     string skaiciavimoBudas; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     int tarpai;
@@ -37,6 +37,8 @@ int main()
     int i = 0, j;
     char testiPrograma;
     int parinktis;
+
+    srand(time(0));
 
     do // Prasome studento ivesti skaiciu, nuo kurio priklausys, kaip bus vykdoma programa
     {
@@ -79,37 +81,40 @@ int main()
     {
         studentas naujasStudentas;
         
-        do
+        if (parinktis != 3)
         {
-            cout << "Iveskite studento varda: "; cin >> naujasStudentas.vardas; // Prasome vartotojo ivesti kiekvieno studento varda tol, kol tas vardas yra vienas zodis, sudarytas tik is raidziu
-            teisingasIvedimas = true;
-
-            tarpai = tarpuSkaicius(naujasStudentas.vardas); // Randame ivesties tarpu skaiciu
-            if (tarpai != 0 || !tikRaides(naujasStudentas.vardas) || cin.peek() != '\n') // Jei tarpu skaicius nera nulis arba vardas sudarytas ne tik is raidziu, arba sekantis po zodzio esantis simbolis nera naujos eilutes simbolis, pranesame apie klaida, laikome ivedima neteisingu
+            do
             {
-                teisingasIvedimas = false;
-                cout << "Klaidingi duomenys. Vardas turi buti vienas zodis, sudarytas tik is raidziu (jei studentas turi du vardus, iveskite tik viena is ju)." << endl;
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoruojama viskas, kas ivesta po pirmojo zodzio
-            }
-        } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas neteisingas
-        do
-        {
-            cout << "Iveskite studento pavarde: "; cin >> naujasStudentas.pavarde; // Prasome vartotojo ivesti kiekvieno studento pavarde tol, kol ta pavarde yra vienas zodis, sudarytas tik is raidziu
-            teisingasIvedimas = true;
+                cout << "Iveskite studento varda: "; cin >> naujasStudentas.vardas; // Prasome vartotojo ivesti kiekvieno studento varda tol, kol tas vardas yra vienas zodis, sudarytas tik is raidziu
+                teisingasIvedimas = true;
 
-            tarpai = tarpuSkaicius(naujasStudentas.pavarde);
-            if (tarpai != 0 || !tikRaides(naujasStudentas.pavarde) || cin.peek() != '\n') // Jei tarpu skaicius nera nulis arba vardas sudarytas ne tik is raidziu, arba sekantis po zodzio esantis simbolis nera naujos eilutes simbolis, pranesame apie klaida, laikome ivedima neteisingu
+                tarpai = tarpuSkaicius(naujasStudentas.vardas); // Randame ivesties tarpu skaiciu
+                if (tarpai != 0 || !tikRaides(naujasStudentas.vardas) || cin.peek() != '\n') // Jei tarpu skaicius nera nulis arba vardas sudarytas ne tik is raidziu, arba sekantis po zodzio esantis simbolis nera naujos eilutes simbolis, pranesame apie klaida, laikome ivedima neteisingu
+                {
+                    teisingasIvedimas = false;
+                    cout << "Klaidingi duomenys. Vardas turi buti vienas zodis, sudarytas tik is raidziu (jei studentas turi du vardus, iveskite tik viena is ju)." << endl;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoruojama viskas, kas ivesta po pirmojo zodzio
+                }
+            } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas neteisingas
+            do
             {
-                teisingasIvedimas = false;
-                cout << "Klaidingi duomenys. Pavarde turi buti vienas zodis, sudarytas tik is raidziu." << endl;
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoruojama viskas, kas ivesta po pirmojo zodzio
-            }
-            
-        } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas neteisingas
+                cout << "Iveskite studento pavarde: "; cin >> naujasStudentas.pavarde; // Prasome vartotojo ivesti kiekvieno studento pavarde tol, kol ta pavarde yra vienas zodis, sudarytas tik is raidziu
+                teisingasIvedimas = true;
 
-        naujasStudentas.vardas = didziosios(naujasStudentas.vardas); // Kiekviena vardo raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
+                tarpai = tarpuSkaicius(naujasStudentas.pavarde);
+                if (tarpai != 0 || !tikRaides(naujasStudentas.pavarde) || cin.peek() != '\n') // Jei tarpu skaicius nera nulis arba vardas sudarytas ne tik is raidziu, arba sekantis po zodzio esantis simbolis nera naujos eilutes simbolis, pranesame apie klaida, laikome ivedima neteisingu
+                {
+                    teisingasIvedimas = false;
+                    cout << "Klaidingi duomenys. Pavarde turi buti vienas zodis, sudarytas tik is raidziu." << endl;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoruojama viskas, kas ivesta po pirmojo zodzio
+                }
                 
-        naujasStudentas.pavarde = didziosios(naujasStudentas.pavarde); // Kiekviena pavardes raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
+            } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas neteisingas
+
+            naujasStudentas.vardas = didziosios(naujasStudentas.vardas); // Kiekviena vardo raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
+                    
+            naujasStudentas.pavarde = didziosios(naujasStudentas.pavarde); // Kiekviena pavardes raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
+        }
 
         j = 0;
 
@@ -162,7 +167,7 @@ int main()
             {
                 string ivedimas;
 
-                cout << "Iveskite studento egzamino pazymi: ";
+                cout << "Iveskite " << i + 1 << "-o studento egzamino pazymi: ";
                 cin >> ivedimas;
                     
                 teisingasIvedimas = true;
@@ -188,6 +193,7 @@ int main()
                         }
                     }
             } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas yra neteisingas
+            i++;
         }
 
         if (parinktis == 2)
@@ -215,6 +221,39 @@ int main()
 
                 break;
             }
+            i++;
+        }
+
+        if (parinktis == 3)
+        {
+            while (true) // Ciklas, generuojantis studento vardus, pavardes ir pazymius
+            {
+                naujasStudentas.vardas = generuotiVarda(); // Sugeneruota varda priskiriame naujam studentui
+                naujasStudentas.pavarde = generuotiPavarde(); // Sugeneruota pavarde priskiriame naujam studentui
+
+                cout << "Sugeneruoti " << i + 1 << "-o studento vardas ir pavarde: " << naujasStudentas.vardas << " " << naujasStudentas.pavarde << endl;
+                do
+                {
+                    int pazymys = generuotiPazymi();
+                    
+                    naujasStudentas.nd.push_back(pazymys); // Sugeneruota pazymi pridedame i vektoriu
+
+                    cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-asis pazymys: " << pazymys << endl;
+
+                    cout << "Jei norite sugeneruoti dar viena pazymi, iveskite \'+\' ir spauskite \'Enter\'. Jei norite baigti pazymiu generavima, iveskite bet koki kita simboli ir spauskite \'Enter\': "; cin >> testiPrograma; // Klausiame vartotojo ar jis nores generuoti dar viena pazymi
+
+                    j++;
+                } while (testiPrograma == '+' && cin.peek() == '\n'); // Vykdome cikla kol vartotojas nori generuoti daugiau pazymiu
+                
+                int pazymys = generuotiPazymi();
+
+                naujasStudentas.egz = pazymys;
+
+                cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
+
+                break;
+            }
+            i++;
         }
 
         stud.push_back(naujasStudentas); // Ikeliame studento duomenis i vektoriu
@@ -299,9 +338,81 @@ int tarpuSkaicius(string ivedimas)
 // Funkcija, sugeneruojanti atsitiktini skaiciu nuo 1 iki 10 imtinai
 int generuotiPazymi()
 {
-    srand(time(0));
-
     int skaicius = rand() % 10 + 1;
 
     return skaicius;
+}
+
+// Funkcija, sugeneruojanti studento varda
+string generuotiVarda()
+{
+    ifstream vardai;
+    vardai.open("names.txt");
+
+    string vardas;
+    int eiluciuSkaicius = 0;
+
+    if (!vardai.is_open())
+    {
+        cout << "Nepavyko atidaryti vardu failo!" << endl;
+        exit(0);
+    }
+
+    while(getline(vardai, vardas)) // Skaiciuojame eiluciu skaiciu faile
+    {
+        eiluciuSkaicius++;
+    }
+
+    int eilute = rand() % eiluciuSkaicius + 1; // Atsitiktinai sugeneruotas eilutes numeris
+
+    vardai.clear();
+    vardai.seekg(0);
+
+    for (int i = 1; i < eilute; i++) // Einame per faila iki eilutes, esancios pries ta, kurios numeri sugeneravome
+    {
+        getline(vardai, vardas);
+    }
+
+    getline(vardai, vardas); // Nuskaitome sugeneruotu numeriu pazymetoje eiluteje esanti varda
+
+    vardai.close();
+
+    return vardas;
+}
+
+// Funkcija, sugeneruojanti studento pavarde
+string generuotiPavarde()
+{
+    ifstream pavardes;
+    pavardes.open("surnames.txt");
+
+    string pavarde;
+    int eiluciuSkaicius = 0;
+
+    if (!pavardes.is_open())
+    {
+        cout << "Nepavyko atidaryti pavardziu failo!" << endl;
+        exit(0);
+    }
+
+    while(getline(pavardes, pavarde)) // Skaiciuojame eiluciu skaiciu faile
+    {
+        eiluciuSkaicius++;
+    }
+
+    int eilute = rand() % eiluciuSkaicius + 1; // Atsitiktinai sugeneruotas eilutes numeris
+
+    pavardes.clear();
+    pavardes.seekg(0);
+
+    for (int i = 1; i < eilute; i++) // Einame per faila iki eilutes, esancios pries ta, kurios numeri sugeneravome
+    {
+        getline(pavardes, pavarde);
+    }
+
+    getline(pavardes, pavarde); // Nuskaitome sugeneruotu numeriu pazymetoje eiluteje esanti varda
+
+    pavardes.close();
+
+    return pavarde;
 }
