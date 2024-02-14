@@ -1,6 +1,6 @@
 # ObjektinisProgramavimas
 
-This is the sixth subversion of my project v0.1
+This is the first subversion of my project v0.2
 
 ## Features
 
