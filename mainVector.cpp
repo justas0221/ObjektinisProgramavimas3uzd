@@ -9,6 +9,7 @@
 #include <random>
 #include <ctime>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -31,11 +32,12 @@ struct studentas
 int main()
 {
     vector<studentas> stud; // Studentu strukturu vektorius
-    string skaiciavimoBudas; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
+    string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     int tarpai;
-    bool teisingasIvedimas;
+    bool teisingasIvedimas, isvedimasFaile;
     int i = 0, j, parinktis, studentuKiekis, k, l, papildymas;
     char testiPrograma;
+    ifstream input;
 
     srand(time(0));
 
@@ -67,7 +69,7 @@ int main()
     }
     else
     {
-        cout << "Iveskite studentu kieki (ivedus bet koki simboli arba skaiciu, mazesni uz 1 arba didesnis uz 10, studentu kiekis bus atsitiktinis)"; cin >> studentuKiekis;
+        cout << "Iveskite studentu kieki (ivedus bet koki simboli arba skaiciu, mazesni uz 1 arba didesnis uz 10, studentu kiekis bus atsitiktinis): "; cin >> studentuKiekis;
     }
 
     teisingasIvedimas = true;
@@ -75,10 +77,20 @@ int main()
     if (parinktis != 5 && (studentuKiekis < 1 || studentuKiekis > 10 || cin.peek() != '\n'))
     {
         studentuKiekis = rand() % 10 + 1;
+        cout << "Sugeneruotas atsitiktinis studentu kiekis: " << studentuKiekis << endl;
     }
     else if (parinktis == 5 && (studentuKiekis < 1 || studentuKiekis > 1000000 || cin.peek() != '\n'))
     {
         studentuKiekis = rand() % 1000000 + 1;
+        cout << "Sugeneruotas atsitiktinis studentu kiekis: " << studentuKiekis << endl;
+    }
+
+    cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": "; cin >> isvedimasFaile;
+
+    if (parinktis == 5)
+    {
+        input.open("studentai1000000.txt");
+        getline(input, eilute);
     }
 
     do
@@ -111,7 +123,7 @@ int main()
             int randomPazymiuKiekis = rand() % 10 + 1;
             int pazymiuKiekis = 0;
             
-            if (parinktis != 3)
+            if (parinktis == 1 || parinktis == 2)
             {
                 do
                 {
@@ -306,7 +318,27 @@ int main()
                     cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
             }
 
+            if (parinktis == 5)
+            {
+                getline(input, eilute);
+
+                istringstream iss(eilute);
+                string dalis;
+
+                iss >> naujasStudentas.vardas >> naujasStudentas.pavarde;
+
+                for (int j = 0; j < 7; j++)
+                {
+                    iss >> dalis;
+                    int pazymys = stoi(dalis);
+                    naujasStudentas.nd.push_back(pazymys);
+                }
+
+                iss >> naujasStudentas.egz;
+            }
+
             stud.push_back(naujasStudentas);
+            naujasStudentas.nd.clear();
             l = i + 1;
         }
 
