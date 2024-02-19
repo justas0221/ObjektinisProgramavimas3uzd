@@ -33,14 +33,29 @@ int main()
     vector<studentas> stud; // Studentu strukturu vektorius
     string skaiciavimoBudas; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     int tarpai;
-    bool teisingasIvedimas;
+    bool teisingasIvedimas, failoDuomenys;
     int i = 0, j;
     char testiPrograma;
     int parinktis;
 
     srand(time(0));
 
-    do // Prasome studento ivesti skaiciu, nuo kurio priklausys, kaip bus vykdoma programa
+    do // Klausiame vartotojo, ar jis nori skaityti duomenis is failo
+    {
+        cout << "Ar norite skaityti duomenis is failo? (Jei taip, iveskite \"1\", jei ne, iveskite \"0\"): "; cin >> failoDuomenys;
+
+        teisingasIvedimas = true;
+
+        if (failoDuomenys != 1 && failoDuomenys != 0 || cin.peek() != '\n')
+        {
+            teisingasIvedimas = false;
+            cout << "Klaidingi duomenys. Iveskite \"1\", jei norite skaityti duomenis is failo, arba iveskite \"0\", jei nenorite." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    } while (!teisingasIvedimas);
+
+    do // Prasome vartotojo ivesti skaiciu, nuo kurio priklausys, kaip bus vykdoma programa
     {
         cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n"; cin >> parinktis;
 
