@@ -1,6 +1,6 @@
 # ObjektinisProgramavimas
 
-This is the first subversion of my project v0.2
+This is the third subversion of my project v0.2
 
 ## Features
 
@@ -14,4 +14,5 @@ This is the first subversion of my project v0.2
 8. Has two files, one is using dynamic memory to store student structures and their grades and the other uses vector for the same purpose and lets users input as many grades as they want at runtime.
 9. Has a feature where at the very start of the program the user can choose, how does he want to run the program, so far, if the user enter a '1', then he will have to type out everything by hand, if he enters '2' the grades will be generated randomly and he will be able to generate as many grades as he wants, if he enters '3' the grades will be generated randomly and all the names and surnames will be picked randomly from the files that have one thousand names and one thousand surnames, and if the user enter a '4', the program will terminate.
 10. Has all the features added to both of the files, to mainMasyvai.cpp, which only uses C arrays to store data, and to mainVector.cpp, which only uses vectors to store data.
-11. Has all the code commented out.
+11. Has a feature where a user can choose how he wants to sort the students (in ascending order or in descending order depending on their final grade).
+12. Has all the code commented out.

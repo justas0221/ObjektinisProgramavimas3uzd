@@ -10,15 +10,9 @@
 #include <ctime>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
-
-bool tikRaides(string ivedimas);
-string didziosios(string &tekstas);
-int tarpuSkaicius(string ivedimas);
-int generuotiPazymi();
-string generuotiVarda();
-string generuotiPavarde();
 
 // Studento duomenis sauganti struktura
 struct studentas
@@ -29,12 +23,21 @@ struct studentas
     double vidurkis, mediana, galutinis;
 };
 
+bool tikRaides(string ivedimas);
+string didziosios(string &tekstas);
+int tarpuSkaicius(string ivedimas);
+int generuotiPazymi();
+string generuotiVarda();
+string generuotiPavarde();
+bool palygintiMazejant(studentas a, studentas b);
+bool palygintiDidejant(studentas a, studentas b);
+
 int main()
 {
     vector<studentas> stud; // Studentu strukturu vektorius
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     int tarpai;
-    bool teisingasIvedimas, isvedimasFaile;
+    bool teisingasIvedimas, isvedimasFaile, rikiavimas;
     int i = 0, j, parinktis, studentuKiekis, k, l, papildymas;
     char testiPrograma;
     ifstream input;
@@ -85,7 +88,20 @@ int main()
         cout << "Sugeneruotas atsitiktinis studentu kiekis: " << studentuKiekis << endl;
     }
 
-    cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": "; cin >> isvedimasFaile;
+    do
+    {
+        cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": "; cin >> isvedimasFaile;
+
+        teisingasIvedimas = true;
+
+        if (isvedimasFaile != 1 && isvedimasFaile != 0 || cin.peek() != '\n')
+        {
+            cout << "Klaidingi duomenys. Iveskite \"1\" arba \"0\"." << endl;
+            teisingasIvedimas = false;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    } while (!teisingasIvedimas);
 
     if (parinktis == 5)
     {
@@ -109,6 +125,22 @@ int main()
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
     } while (!teisingasIvedimas);
+
+    do
+    {
+        cout << "Jei norite studentus isrikiuoti pagal galutini bala didejimo tvarka, iveskite \"1\", jei mazejimo, iveskite \"0\": "; cin >> rikiavimas;
+
+        teisingasIvedimas = true;
+
+        if (rikiavimas != 1 && rikiavimas != 0 || cin.peek() != '\n')
+        {
+            teisingasIvedimas = false;
+            cout << "Klaidingi duomenys. Iveskite \"1\" arba \"0\"." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    } while (!teisingasIvedimas);
+    
 
     l = 0;
     papildymas = 0;
@@ -386,41 +418,56 @@ int main()
 
     input.close();
 
-    if (!isvedimasFaile)
+    for (int i = 0; i < stud.size(); i++) // Skaiciuojame kiekvieno studento vidurki, mediana, o paskui ir galutinius balus 
     {
-        if (skaiciavimoBudas == "V") {
-            for (int i = 0; i < stud.size(); i++) // Jei vartotojas galutinio balo skaiciavimui pasirinko naudoti pazymiu vidurki, tuomet skaiciuojame kiekvieno studento vidurki, o paskui ir galutini bala 
-            {
-                stud[i].vidurkis = accumulate(stud[i].nd.begin(), stud[i].nd.end(), 0.0) / stud[i].nd.size();
-                stud[i].galutinis = 0.4 * stud[i].vidurkis + 0.6 * stud[i].egz;
-            }
-            cout << endl;
-            cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << endl; // Tvarkingai isvedame antrastine eilute
+        stud[i].vidurkis = accumulate(stud[i].nd.begin(), stud[i].nd.end(), 0.0) / stud[i].nd.size();
+        if (stud[i].nd.size() % 2 == 0)
+        {
+            stud[i].mediana = (stud[i].nd[stud[i].nd.size() / 2] + stud[i].nd[stud[i].nd.size() / 2 - 1]) / 2.0; // Jei pazymiu kiekis yra lyginis skaicius, mediana skaiciuojame rasdami dvieju viduriniu pazymiu aritmetini vidurki
         }
         else
         {
-            for (int i = 0; i < stud.size(); i++) // Jei vartotojas galutinio balo skaiciavimui pasirinko naudoti pazymiu mediana, tuomet skaiciuojame kiekvieno studento pazymiu mediana, o paskui ir galutini bala
-            {
-                if (stud[i].nd.size() % 2 == 0)
-                {
-                    stud[i].mediana = (stud[i].nd[stud[i].nd.size() / 2] + stud[i].nd[stud[i].nd.size() / 2 - 1]) / 2.0; // Jei pazymiu kiekis yra lyginis skaicius, mediana skaiciuojame rasdami dvieju viduriniu pazymiu aritmetini vidurki
-                }
-                else
-                {
-                    stud[i].mediana = stud[i].nd[floor(stud[i].nd.size() / 2)]; // Jei pazymiu kiekis yra nelyginis skaicius, medianai priskiriame vidurini pazymi is pazymiu aibes
-                }
-                stud[i].galutinis = 0.4 * stud[i].mediana + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
-            }
-            cout << endl;
-            cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
+            stud[i].mediana = stud[i].nd[floor(stud[i].nd.size() / 2)]; // Jei pazymiu kiekis yra nelyginis skaicius, medianai priskiriame vidurini pazymi is pazymiu aibes
         }
+        if (skaiciavimoBudas == "V")
+        {
+            stud[i].galutinis = 0.4 * stud[i].vidurkis + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu vidurki
+        }
+        else
+        {
+            stud[i].galutinis = 0.4 * stud[i].mediana + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
+        }
+    }
+    
+    if (rikiavimas)
+    {
+        sort(stud.begin(), stud.begin() + studentuKiekis, palygintiMazejant);
+    }
+    else
+    {
+        sort(stud.begin(), stud.begin() + studentuKiekis, palygintiDidejant);
+    }
 
+    if (!isvedimasFaile)
+    {
+        cout << endl;
+        cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
         cout << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
         cout << setfill(' ');
 
-        for(int i = 0; i < stud.size(); i++)
+        if (skaiciavimoBudas == "V")
+        {    
+            for(int i = 0; i < stud.size(); i++)
+            {
+                cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << fixed << setprecision(2) << stud[i].galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+            }
+        }
+        else
         {
-            cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << fixed << setprecision(2) << stud[i].galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+            for(int i = 0; i < stud.size(); i++)
+            {
+                cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << stud[i].galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+            }
         }
     }
     else
@@ -428,37 +475,23 @@ int main()
         ofstream output;
         output.open("output.txt");
 
-        if (skaiciavimoBudas == "V") {
-            for (int i = 0; i < stud.size(); i++) // Jei vartotojas galutinio balo skaiciavimui pasirinko naudoti pazymiu vidurki, tuomet skaiciuojame kiekvieno studento vidurki, o paskui ir galutini bala 
+        output << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
+        output << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
+        output << setfill(' ');
+        
+        if (skaiciavimoBudas == "V")
+        {    
+            for(int i = 0; i < stud.size(); i++)
             {
-                stud[i].vidurkis = accumulate(stud[i].nd.begin(), stud[i].nd.end(), 0.0) / stud[i].nd.size();
-                stud[i].galutinis = 0.4 * stud[i].vidurkis + 0.6 * stud[i].egz;
+                output << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << fixed << setprecision(2) << stud[i].galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
             }
-            output << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << endl; // Tvarkingai isvedame antrastine eilute
         }
         else
         {
-            for (int i = 0; i < stud.size(); i++) // Jei vartotojas galutinio balo skaiciavimui pasirinko naudoti pazymiu mediana, tuomet skaiciuojame kiekvieno studento pazymiu mediana, o paskui ir galutini bala
+            for(int i = 0; i < stud.size(); i++)
             {
-                if (stud[i].nd.size() % 2 == 0)
-                {
-                    stud[i].mediana = (stud[i].nd[stud[i].nd.size() / 2] + stud[i].nd[stud[i].nd.size() / 2 - 1]) / 2.0; // Jei pazymiu kiekis yra lyginis skaicius, mediana skaiciuojame rasdami dvieju viduriniu pazymiu aritmetini vidurki
-                }
-                else
-                {
-                    stud[i].mediana = stud[i].nd[floor(stud[i].nd.size() / 2)]; // Jei pazymiu kiekis yra nelyginis skaicius, medianai priskiriame vidurini pazymi is pazymiu aibes
-                }
-                stud[i].galutinis = 0.4 * stud[i].mediana + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
+                output << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << stud[i].galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
             }
-            output << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
-        }
-
-        output << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
-        output << setfill(' ');
-
-        for(int i = 0; i < stud.size(); i++)
-        {
-            output << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << fixed << setprecision(2) << stud[i].galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
         }
     }
     
@@ -578,4 +611,15 @@ string generuotiPavarde()
     pavardes.close();
 
     return pavarde;
+}
+
+bool palygintiDidejant(studentas a, studentas b)
+{
+    return a.galutinis >= b.galutinis;
+}
+
+
+bool palygintiMazejant(studentas a, studentas b)
+{
+    return a.galutinis <= b.galutinis;
 }
