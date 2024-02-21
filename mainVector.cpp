@@ -392,14 +392,15 @@ int main()
 
                 iss >> naujasStudentas.vardas >> naujasStudentas.pavarde;
 
-                for (int j = 0; j < 7; j++)
+                while (iss >> dalis)
                 {
-                    iss >> dalis;
                     int pazymys = stoi(dalis); // Pazymi paverciame is string'o i int'a ir pridedame i naujo studento pazymiu vektoriu
                     naujasStudentas.nd.push_back(pazymys);
                 }
 
-                iss >> naujasStudentas.egz;
+                naujasStudentas.egz = naujasStudentas.nd.back();
+
+                naujasStudentas.nd.pop_back();
 
                 stud.push_back(naujasStudentas); // Nauja studenta pridedame i studentu vektoriaus gala
                 naujasStudentas.nd.clear();
