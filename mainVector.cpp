@@ -55,7 +55,18 @@ int main()
     if (parinktis == 5) // Jei vartotojas nori nuskaityti duomenis is failo, atidarome duomenu faila ir praleidziame pirmaja eilute, kuri yra antrastine
     {
         input.open("studentai10000.txt");
-        getline(input, eilute);
+        try
+        {
+            if (!input)
+            {
+                throw runtime_error("Failas neegzistuoja.");
+            }
+        }
+        catch(const std::exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
+            exit(1);
+        }
     }
 
     do
