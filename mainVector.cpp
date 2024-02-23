@@ -38,9 +38,6 @@ int main()
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         }
-
-        break;
-        
     } while (!teisingasIvedimas);
 
     if (parinktis == 4)
@@ -75,9 +72,6 @@ int main()
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
             }
-
-            break;
-
         } while (!teisingasIvedimas);
     
     }
@@ -101,33 +95,57 @@ int main()
 
     do
     {
-        cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \'V\' arba \'M\') "; cin >> skaiciavimoBudas; // Vartotojo prasome ivesti vidurkio skaiciavimo buda tol, kol jis ives reikiama simboli
-
-        teisingasIvedimas = true;
-
-        skaiciavimoBudas = didziosios(skaiciavimoBudas); // Ivestos raides pakeiciamos i didziasias, kad reiktu maziau tikrinti
-
-        if (skaiciavimoBudas != "V" && skaiciavimoBudas != "M" || cin.peek() != '\n') // Tikriname, ar vartotojas ivede viena is dvieju galimu ivesti raidziu be jokiu papildomu simboliu, jei ne, tuomet pranesame vartotojui apie klaida
+        try
         {
-            teisingasIvedimas = false;
-            cout << "Klaidingi duomenys. Iveskite V arba M." << endl;
+            cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \'V\' arba \'M\') "; // Vartotojo prasome ivesti vidurkio skaiciavimo buda tol, kol jis ives reikiama simboli
+
+            if (!(cin >> skaiciavimoBudas))
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite V arba M.");
+            }
+
+            skaiciavimoBudas = didziosios(skaiciavimoBudas); // Ivestos raides pakeiciamos i didziasias, kad reiktu maziau tikrinti
+
+            teisingasIvedimas = ((skaiciavimoBudas == "V" || skaiciavimoBudas == "M") && cin.peek() == '\n');
+
+            if (!teisingasIvedimas) // Tikriname, ar vartotojas ivede viena is dvieju galimu ivesti raidziu be jokiu papildomu simboliu, jei ne, tuomet pranesame vartotojui apie klaida
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite V arba M.");
+            }
+        }
+        catch(const exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
         }
     } while (!teisingasIvedimas);
 
     do // Klausiame vartotojo, kokia tvarka jis nori isrikiuoti studentus rezultatuose
     {
-        cout << "Jei norite studentus isrikiuoti pagal galutini bala mazejimo tvarka, iveskite \"1\", jei didejimo, iveskite \"0\": "; cin >> rikiavimas;
-
-        teisingasIvedimas = true;
-
-        if (rikiavimas != 1 && rikiavimas != 0 || cin.peek() != '\n')
+        try
         {
-            teisingasIvedimas = false;
-            cout << "Klaidingi duomenys. Iveskite \"1\" arba \"0\"." << endl;
+            cout << "Jei norite studentus isrikiuoti pagal galutini bala mazejimo tvarka, iveskite \"1\", jei didejimo, iveskite \"0\": ";
+
+            if (!(cin >> rikiavimas))
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+            }
+
+            teisingasIvedimas = ((rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n');
+
+            if (!teisingasIvedimas)
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+            }
+        }
+        catch(const exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
         }
     } while (!teisingasIvedimas);
 
