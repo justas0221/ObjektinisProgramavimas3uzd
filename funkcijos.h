@@ -15,15 +15,7 @@
 
 using namespace std;
 
-// Studento duomenis sauganti struktura
-struct studentas
-{
-    string vardas, pavarde;
-    vector<int> nd;
-    int egz;
-    double vidurkis, mediana, galutinis;
-};
-
+struct studentas;
 bool tikRaides(string);
 string didziosios(string &);
 int tarpuSkaicius(string);

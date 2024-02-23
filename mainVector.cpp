@@ -1,4 +1,5 @@
 #include "funkcijos.h"
+#include "strukturos.h"
 
 int main()
 {
