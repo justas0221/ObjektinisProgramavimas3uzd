@@ -15,17 +15,32 @@ int main()
 
     do // Prasome studento ivesti skaiciu, nuo kurio priklausys, kaip bus vykdoma programa
     {
-        cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n"; cin >> parinktis;
-
-        teisingasIvedimas = true;
-
-        if (parinktis != 1 && parinktis != 2 && parinktis != 3 && parinktis != 4 && parinktis != 5 || cin.peek() != '\n')
+        try
         {
-            teisingasIvedimas = false;
-            cout << "Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai." << endl;
+            cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n"; 
+            
+            if (!(cin >> parinktis))
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
+            }
+
+            teisingasIvedimas = (parinktis >= 1 && parinktis <= 5 && cin.peek() == '\n');
+
+            if (!teisingasIvedimas)
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
+            }
+        }
+        catch (const exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
         }
+
+        break;
+        
     } while (!teisingasIvedimas);
 
     if (parinktis == 4)
@@ -37,17 +52,32 @@ int main()
     {
         do
         {
-            cout << "Iveskite studentu kieki (nuo 1 iki 10 imtinai): "; cin >> studentuKiekis;
-
-            teisingasIvedimas = true;
-
-            if (studentuKiekis > 10 || studentuKiekis < 1 || cin.peek() != '\n')
+            try
             {
-                teisingasIvedimas = false;
-                cout << "Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai." << endl;
+                cout << "Iveskite studentu kieki (nuo 1 iki 10 imtinai): ";
+
+                if (!(cin >> studentuKiekis))
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
+                }
+
+                teisingasIvedimas = (studentuKiekis >= 1 && studentuKiekis <= 10 && cin.peek() == '\n');
+
+                if (!teisingasIvedimas)
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
+                }
+            }
+            catch (const exception& e)
+            {
+                cerr << "Klaida: " << e.what() << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
             }
+
+            break;
+
         } while (!teisingasIvedimas);
     
     }
@@ -62,7 +92,7 @@ int main()
                 throw runtime_error("Failas neegzistuoja.");
             }
         }
-        catch(const std::exception& e)
+        catch(const exception& e)
         {
             cerr << "Klaida: " << e.what() << endl;
             exit(1);
