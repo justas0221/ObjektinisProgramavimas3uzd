@@ -49,7 +49,7 @@ int main()
     {
         do
         {
-            try
+            try // Jei vartotojas iveda ne skaiciu arba skaiciu, nepatenkanti i reikiama intervala, pranesame apie klaida
             {
                 cout << "Iveskite studentu kieki (nuo 1 iki 10 imtinai): ";
 
@@ -183,8 +183,8 @@ int main()
 
     while (true)
     {
-        studentuKiekis += papildymas;
-        studentas naujasStudentas;
+        studentuKiekis += papildymas; // Prie esamo studentu kiekio pridedame vartotojo norima papildymo kieki
+        studentas naujasStudentas; // Sukuriame viena studento strukturos kintamaji, kuri pildysime, o veliau pridesime i studentu vektoriu
 
         if (parinktis != 5)
         {
@@ -261,7 +261,7 @@ int main()
                 {
                     do
                     {
-                        try
+                        try // Klausiame vartotojo, kiek pazymiu jis nori ivesti dabartiniam studentui
                         {
                             cout << "Kiek pazymiu norite ivesti siam studentui? (Irasykite skaiciu nuo 1 iki 10 imtinai): ";
 
@@ -291,7 +291,7 @@ int main()
                     
                     while (true)
                     {
-                        pazymiuKiekis += papildymas;
+                        pazymiuKiekis += papildymas; // Prie esamo pazymiu kiekio pridedame vartotojo parinkta papildymo kieki
 
                         for (int j = k; j < pazymiuKiekis; j++)
                         {
@@ -383,7 +383,7 @@ int main()
                     {
                         string ivedimas;
 
-                        try
+                        try // Prasome vartotojo ivesti studento pazymius viena po kito
                         {
                             cout << "Iveskite " << i + 1 << "-o studento egzamino pazymi: ";
                             
@@ -422,7 +422,7 @@ int main()
                     } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas yra neteisingas
                 }
 
-                if (parinktis == 2)
+                if (parinktis == 2) // Jeigu parinktis yra 2, tuomet generuojame pazymius
                 {
                         for (int j = 0; j < randomPazymiuKiekis; j++)
                         {
@@ -440,7 +440,7 @@ int main()
                         cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
                 }
 
-                if (parinktis == 3)
+                if (parinktis == 3) // Jei parinktis yra 3 tuomet generuojame vardus, pavardes ir pazymius
                 {
                         naujasStudentas.vardas = generuotiVarda(); // Sugeneruota varda priskiriame naujam studentui
                         naujasStudentas.pavarde = generuotiPavarde(); // Sugeneruota pavarde priskiriame naujam studentui
@@ -462,8 +462,8 @@ int main()
                         cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
                 }
 
-                stud.push_back(naujasStudentas);
-                naujasStudentas.nd.clear();
+                stud.push_back(naujasStudentas); // Uzpildzius studento duomenis pridedame ji i studentu vektoriaus gala
+                naujasStudentas.nd.clear(); // Isvalome dabartinio studento pazymiu vektoriu
                 l = i + 1;
             }
     
