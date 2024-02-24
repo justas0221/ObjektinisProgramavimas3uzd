@@ -6,8 +6,8 @@ int main()
     vector<studentas> stud; // Studentu strukturu vektorius
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     int tarpai;
-    bool teisingasIvedimas, isvedimasFaile, rikiavimas;
-    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas;
+    bool teisingasIvedimas;
+    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile, rikiavimas;
     char testiPrograma;
     ifstream input;
 
@@ -128,7 +128,7 @@ int main()
         {
             cout << "Jei norite studentus isrikiuoti pagal galutini bala mazejimo tvarka, iveskite \"1\", jei didejimo, iveskite \"0\": ";
 
-            if (!(cin >> rikiavimas))
+            if (!(cin >> rikiavimas) && (rikiavimas != 1 || rikiavimas != 0 || cin.peek() != '\n'))
             {
                 throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
             }
@@ -151,16 +151,28 @@ int main()
 
     do // Klausiame vartotojo, ar jis nori rezultatus irasyti i faila, ar isvesti i ekrana
     {
-        cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": "; cin >> isvedimasFaile;
-
-        teisingasIvedimas = true;
-
-        if (isvedimasFaile != 1 && isvedimasFaile != 0 || cin.peek() != '\n')
+        try
         {
-            cout << "Klaidingi duomenys. Iveskite \"1\" arba \"0\"." << endl;
-            teisingasIvedimas = false;
+            cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": ";
+
+            if (!(cin >> isvedimasFaile) && (isvedimasFaile != 1 || isvedimasFaile != 0 || cin.peek() != '\n'))
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+            }
+
+            teisingasIvedimas = ((isvedimasFaile == 1 || isvedimasFaile == 0) && cin.peek() == '\n');
+
+            if (!teisingasIvedimas)
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+            }
+        }
+        catch(const exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
         }
     } while (!teisingasIvedimas);
 
@@ -463,7 +475,7 @@ int main()
         }
     }
 
-    if (rikiavimas) // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
+    if (rikiavimas == 1) // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
     {
         sort(stud.begin(), stud.end(), palygintiDidejant);
     }
