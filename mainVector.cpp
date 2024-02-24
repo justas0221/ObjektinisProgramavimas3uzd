@@ -197,30 +197,59 @@ int main()
                 {
                     do
                     {
-                        cout << "Iveskite studento varda: "; cin >> naujasStudentas.vardas; // Prasome vartotojo ivesti kiekvieno studento varda tol, kol tas vardas yra vienas zodis, sudarytas tik is raidziu
-                        teisingasIvedimas = true;
-
-                        tarpai = tarpuSkaicius(naujasStudentas.vardas); // Randame ivesties tarpu skaiciu
-                        if (tarpai != 0 || !tikRaides(naujasStudentas.vardas) || cin.peek() != '\n') // Jei tarpu skaicius nera nulis arba vardas sudarytas ne tik is raidziu, arba sekantis po zodzio esantis simbolis nera naujos eilutes simbolis, pranesame apie klaida, laikome ivedima neteisingu
+                        try
                         {
-                            teisingasIvedimas = false;
-                            cout << "Klaidingi duomenys. Vardas turi buti vienas zodis, sudarytas tik is raidziu (jei studentas turi du vardus, iveskite tik viena is ju)." << endl;
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoruojama viskas, kas ivesta po pirmojo zodzio
+                            cout << "Iveskite studento varda: "; // Prasome vartotojo ivesti kiekvieno studento varda tol, kol tas vardas yra vienas zodis, sudarytas tik is raidziu
+                            
+                            if (!(cin >> naujasStudentas.vardas))
+                            {
+                                throw runtime_error("Klaidingi duomenys. Vardas turi buti vienas zodis, sudarytas tik is raidziu (jei studentas turi du vardus, iveskite tik viena is ju).");
+                            }
+
+                            tarpai = tarpuSkaicius(naujasStudentas.vardas); // Randame ivesties tarpu skaiciu
+
+                            teisingasIvedimas = (tarpai == 0 && tikRaides(naujasStudentas.vardas) && cin.peek() == '\n');
+
+                            if (!teisingasIvedimas) // Jei tarpu skaicius nera nulis arba vardas sudarytas ne tik is raidziu, arba sekantis po zodzio esantis simbolis nera naujos eilutes simbolis, pranesame apie klaida, laikome ivedima neteisingu
+                            {
+                                throw runtime_error("Klaidingi duomenys. Vardas turi buti vienas zodis, sudarytas tik is raidziu (jei studentas turi du vardus, iveskite tik viena is ju).");
+                            }
+                        }
+                        catch(const exception& e)
+                        {
+                            cerr << "Klaida: " << e.what() << endl;
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            continue;
                         }
                     } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas neteisingas
                     do
                     {
-                        cout << "Iveskite studento pavarde: "; cin >> naujasStudentas.pavarde; // Prasome vartotojo ivesti kiekvieno studento pavarde tol, kol ta pavarde yra vienas zodis, sudarytas tik is raidziu
-                        teisingasIvedimas = true;
-
-                        tarpai = tarpuSkaicius(naujasStudentas.pavarde);
-                        if (tarpai != 0 || !tikRaides(naujasStudentas.pavarde) || cin.peek() != '\n') // Jei tarpu skaicius nera nulis arba vardas sudarytas ne tik is raidziu, arba sekantis po zodzio esantis simbolis nera naujos eilutes simbolis, pranesame apie klaida, laikome ivedima neteisingu
+                        try
                         {
-                            teisingasIvedimas = false;
-                            cout << "Klaidingi duomenys. Pavarde turi buti vienas zodis, sudarytas tik is raidziu." << endl;
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoruojama viskas, kas ivesta po pirmojo zodzio
+                            cout << "Iveskite studento pavarde: "; // Prasome vartotojo ivesti kiekvieno studento pavarde tol, kol ta pavarde yra vienas zodis, sudarytas tik is raidziu
+                            
+                            if (!(cin >> naujasStudentas.pavarde))
+                            {
+                                throw runtime_error("Klaidingi duomenys. Pavarde turi buti vienas zodis, sudarytas tik is raidziu.");
+                            }
+
+                            tarpai = tarpuSkaicius(naujasStudentas.pavarde); // Randame ivesties tarpu skaiciu
+
+                            teisingasIvedimas = (tarpai == 0 && tikRaides(naujasStudentas.pavarde) && cin.peek() == '\n');
+
+                            if (!teisingasIvedimas) // Jei tarpu skaicius nera nulis arba vardas sudarytas ne tik is raidziu, arba sekantis po zodzio esantis simbolis nera naujos eilutes simbolis, pranesame apie klaida, laikome ivedima neteisingu
+                            {
+                                throw runtime_error("Klaidingi duomenys. Pavarde turi buti vienas zodis, sudarytas tik is raidziu.");
+                            }
                         }
-                        
+                        catch(const exception& e)
+                        {
+                            cerr << "Klaida: " << e.what() << endl;
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            continue;
+                        }
                     } while (!teisingasIvedimas); // Vykdome cikla kol ivedimas neteisingas
 
                     naujasStudentas.vardas = didziosios(naujasStudentas.vardas); // Kiekviena vardo raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
