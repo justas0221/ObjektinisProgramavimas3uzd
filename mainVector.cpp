@@ -78,7 +78,7 @@ int main()
 
     if (parinktis == 5) // Jei vartotojas nori nuskaityti duomenis is failo, atidarome duomenu faila ir praleidziame pirmaja eilute, kuri yra antrastine
     {
-        input.open("studentai10000.txt");
+        input.open("studentai1000.txt");
         try
         {
             if (!input)
@@ -463,7 +463,7 @@ int main()
                 }
 
                 stud.push_back(naujasStudentas); // Uzpildzius studento duomenis pridedame ji i studentu vektoriaus gala
-                naujasStudentas.nd.clear(); // Isvalome dabartinio studento pazymiu vektoriu
+                naujasStudentas.nd.clear(); // Isvalome dabartinio studento pazymiu vektorius
                 l = i + 1;
             }
     

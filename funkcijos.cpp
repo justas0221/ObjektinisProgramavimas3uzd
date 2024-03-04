@@ -1,4 +1,5 @@
 #include "funkcijos.h"
+#include "strukturos.h"
 
 // Funkcija, tikrinanti, ar vardas bei pavarde yra sudaryti tik is raidziu
 bool tikRaides(string ivedimas)
@@ -124,4 +125,34 @@ bool palygintiDidejant(studentas a, studentas b)
 bool palygintiMazejant(studentas a, studentas b)
 {
     return a.galutinis < b.galutinis;
+}
+
+void generuotiFaila(int studKiekis, int pazKiekis)
+{
+    ofstream naujas("sugeneruotas.txt");
+
+    naujas << left << setw(20) << "Vardas" << setw(20) << "Pavarde"; // Isvedame antrastine eilute
+    for (int i = 0; i < pazKiekis; i++)
+    {
+        string nd = "ND" + to_string(i + 1);
+
+        naujas << setw(10) << nd;
+    }
+    naujas << setw(10) << "Egz." << endl;
+    naujas << endl;
+
+    for (int i = 0; i < studKiekis; i++)
+    {
+        string vardas = "Vardas" + to_string(i + 1);
+        string pavarde = "Pavarde" + to_string(i + 1);
+
+        naujas << left << setw(20) << vardas << setw(20) << pavarde; // Isvedame kiekvieno studento varda ir pavarde
+        for (int j = 0; j <= pazKiekis; j++)
+        {
+            naujas << setw(10) << generuotiPazymi();
+        }
+        naujas << endl;
+    }
+
+    naujas.close();
 }
