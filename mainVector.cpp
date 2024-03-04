@@ -4,6 +4,8 @@
 int main()
 {
     vector<studentas> stud; // Studentu strukturu vektorius
+    vector<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
+    vector<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yr aukstesnis negu arba lygus 5
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     int tarpai;
     bool teisingasIvedimas;
@@ -224,32 +226,35 @@ int main()
         }
     } while (!teisingasIvedimas);
 
-    do // Klausiame vartotojo, ar jis nori rezultatus irasyti i faila, ar isvesti i ekrana
+    if (parinktis != 6)
     {
-        try
+        do // Klausiame vartotojo, ar jis nori rezultatus irasyti i faila, ar isvesti i ekrana
         {
-            cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": ";
-
-            if (!(cin >> isvedimasFaile) && (isvedimasFaile != 1 || isvedimasFaile != 0 || cin.peek() != '\n'))
+            try
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": ";
+
+                if (!(cin >> isvedimasFaile) && (isvedimasFaile != 1 || isvedimasFaile != 0 || cin.peek() != '\n'))
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                }
+
+                teisingasIvedimas = ((isvedimasFaile == 1 || isvedimasFaile == 0) && cin.peek() == '\n');
+
+                if (!teisingasIvedimas)
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                }
             }
-
-            teisingasIvedimas = ((isvedimasFaile == 1 || isvedimasFaile == 0) && cin.peek() == '\n');
-
-            if (!teisingasIvedimas)
+            catch(const exception& e)
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                cerr << "Klaida: " << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
             }
-        }
-        catch(const exception& e)
-        {
-            cerr << "Klaida: " << e.what() << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-    } while (!teisingasIvedimas);
+        } while (!teisingasIvedimas);
+    }
 
     auto start = chrono::high_resolution_clock::now(); // Pradedame programos veikimo laikmati
 
@@ -580,7 +585,7 @@ int main()
                 break;
             }
         }
-        else
+        else if (parinktis == 5)
         {
             getline(input, eilute); // Praleidziame pirmaja failo eilute
 
@@ -605,6 +610,57 @@ int main()
                 naujasStudentas.nd.clear();
             }
         }
+        else if (parinktis == 6)
+        {
+            getline(input, eilute); // Praleidziame pirmaja failo eilute
+
+            while (getline(input, eilute)) // Skaitome duomenis is failo kol ju yra
+            {
+                istringstream iss(eilute); // Padaliname juos i atskirus string'us, atskirtus tarpais
+                string dalis;
+
+                iss >> naujasStudentas.vardas >> naujasStudentas.pavarde;
+
+                while (iss >> dalis)
+                {
+                    int pazymys = stoi(dalis); // Pazymi paverciame is string'o i int'a ir pridedame i naujo studento pazymiu vektoriu
+                    naujasStudentas.nd.push_back(pazymys);
+                }
+
+                naujasStudentas.egz = naujasStudentas.nd.back();
+
+                naujasStudentas.nd.pop_back();
+
+                if (skaiciavimoBudas == "V")
+                {
+                    naujasStudentas.vidurkis = accumulate(naujasStudentas.nd.begin(), naujasStudentas.nd.end(), 0.0) / naujasStudentas.nd.size();
+                    naujasStudentas.galutinis = 0.4 * naujasStudentas.vidurkis + 0.6 * naujasStudentas.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu vidurki
+                }
+                else
+                {
+                    if (naujasStudentas.nd.size() % 2 == 0)
+                    {
+                        naujasStudentas.mediana = (naujasStudentas.nd[naujasStudentas.nd.size() / 2] + naujasStudentas.nd[naujasStudentas.nd.size() / 2 - 1]) / 2.0; // Jei pazymiu kiekis yra lyginis skaicius, mediana skaiciuojame rasdami dvieju viduriniu pazymiu aritmetini vidurki
+                    }
+                    else
+                    {
+                        naujasStudentas.mediana = naujasStudentas.nd[floor(naujasStudentas.nd.size() / 2)]; // Jei pazymiu kiekis yra nelyginis skaicius, medianai priskiriame vidurini pazymi is pazymiu aibes
+                    }
+                    naujasStudentas.galutinis = 0.4 * naujasStudentas.mediana + 0.6 * naujasStudentas.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
+                }
+
+                if (naujasStudentas.galutinis < 5)
+                {
+                    vargsiukai.push_back(naujasStudentas);
+                    naujasStudentas.nd.clear();
+                }
+                else
+                {
+                    galvociai.push_back(naujasStudentas);
+                    naujasStudentas.nd.clear();
+                }
+            }
+        }
         if (parinktis == 5 || parinktis == 6) // Jei vartotojas rinkosi nuskaityti duomenis is failo, cia nuskaitymas ir baigiasi, nes prideti studentu neimanoma
         {
             break;
@@ -615,21 +671,21 @@ int main()
 
     for (int i = 0; i < stud.size(); i++) // Skaiciuojame kiekvieno studento vidurki, mediana, o paskui ir galutinius balus 
     {
-        stud[i].vidurkis = accumulate(stud[i].nd.begin(), stud[i].nd.end(), 0.0) / stud[i].nd.size();
-        if (stud[i].nd.size() % 2 == 0)
-        {
-            stud[i].mediana = (stud[i].nd[stud[i].nd.size() / 2] + stud[i].nd[stud[i].nd.size() / 2 - 1]) / 2.0; // Jei pazymiu kiekis yra lyginis skaicius, mediana skaiciuojame rasdami dvieju viduriniu pazymiu aritmetini vidurki
-        }
-        else
-        {
-            stud[i].mediana = stud[i].nd[floor(stud[i].nd.size() / 2)]; // Jei pazymiu kiekis yra nelyginis skaicius, medianai priskiriame vidurini pazymi is pazymiu aibes
-        }
         if (skaiciavimoBudas == "V")
         {
+            stud[i].vidurkis = accumulate(stud[i].nd.begin(), stud[i].nd.end(), 0.0) / stud[i].nd.size();
             stud[i].galutinis = 0.4 * stud[i].vidurkis + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu vidurki
         }
         else
         {
+            if (stud[i].nd.size() % 2 == 0)
+            {
+                stud[i].mediana = (stud[i].nd[stud[i].nd.size() / 2] + stud[i].nd[stud[i].nd.size() / 2 - 1]) / 2.0; // Jei pazymiu kiekis yra lyginis skaicius, mediana skaiciuojame rasdami dvieju viduriniu pazymiu aritmetini vidurki
+            }
+            else
+            {
+                stud[i].mediana = stud[i].nd[floor(stud[i].nd.size() / 2)]; // Jei pazymiu kiekis yra nelyginis skaicius, medianai priskiriame vidurini pazymi is pazymiu aibes
+            }
             stud[i].galutinis = 0.4 * stud[i].mediana + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
         }
     }
@@ -669,7 +725,7 @@ int main()
 
         output.close();
     }
-    else
+    else if (parinktis != 6)
     {
         cout << endl;
         cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
