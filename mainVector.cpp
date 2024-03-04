@@ -199,32 +199,35 @@ int main()
         }
     } while (!teisingasIvedimas);
 
-    do // Klausiame vartotojo, kokia tvarka jis nori isrikiuoti studentus rezultatuose
+    if (parinktis != 6)
     {
-        try
+        do // Klausiame vartotojo, kokia tvarka jis nori isrikiuoti studentus rezultatuose
         {
-            cout << "Jei norite studentus isrikiuoti pagal galutini bala mazejimo tvarka, iveskite \"1\", jei didejimo, iveskite \"0\": ";
-
-            if (!(cin >> rikiavimas) && (rikiavimas != 1 || rikiavimas != 0 || cin.peek() != '\n'))
+            try
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                cout << "Jei norite studentus isrikiuoti pagal galutini bala mazejimo tvarka, iveskite \"1\", jei didejimo, iveskite \"0\": ";
+
+                if (!(cin >> rikiavimas) && (rikiavimas != 1 || rikiavimas != 0 || cin.peek() != '\n'))
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                }
+
+                teisingasIvedimas = ((rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n');
+
+                if (!teisingasIvedimas)
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                }
             }
-
-            teisingasIvedimas = ((rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n');
-
-            if (!teisingasIvedimas)
+            catch(const exception& e)
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                cerr << "Klaida: " << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
             }
-        }
-        catch(const exception& e)
-        {
-            cerr << "Klaida: " << e.what() << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-    } while (!teisingasIvedimas);
+        } while (!teisingasIvedimas);
+    }
 
     if (parinktis != 6)
     {
@@ -744,6 +747,44 @@ int main()
             for(int i = 0; i < stud.size(); i++)
             {
                 cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << stud[i].galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+            }
+        }
+    }
+    if (parinktis == 6)
+    {
+        ofstream vargsai("vargsiukai.txt");
+        ofstream galvoti("galvociai.txt");
+
+        vargsai << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
+        vargsai << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
+        vargsai << setfill(' ');
+
+        galvoti << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
+        galvoti << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
+        galvoti << setfill(' ');
+
+        if (skaiciavimoBudas == "V")
+        {    
+            for(int i = 0; i < vargsiukai.size(); i++)
+            {
+                vargsai << left << setw(20) << vargsiukai[i].vardas << setw(20) << vargsiukai[i].pavarde << setw(20) << fixed << setprecision(2) << vargsiukai[i].galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+            }
+
+            for(int i = 0; i < galvociai.size(); i++)
+            {
+                galvoti << left << setw(20) << galvociai[i].vardas << setw(20) << galvociai[i].pavarde << setw(20) << fixed << setprecision(2) << galvociai[i].galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+            }
+        }
+        else
+        {
+            for(int i = 0; i < vargsiukai.size(); i++)
+            {
+                vargsai << left << setw(20) << vargsiukai[i].vardas << setw(20) << vargsiukai[i].pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << vargsiukai[i].galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+            }
+
+            for(int i = 0; i < galvociai.size(); i++)
+            {
+                galvoti << left << setw(20) << galvociai[i].vardas << setw(20) << galvociai[i].pavarde << setw(20) << fixed << setprecision(2) << galvociai[i].galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
             }
         }
     }
