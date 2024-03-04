@@ -139,7 +139,6 @@ void generuotiFaila(int studKiekis, int pazKiekis)
         naujas << setw(10) << nd;
     }
     naujas << setw(10) << "Egz." << endl;
-    naujas << endl;
 
     for (int i = 0; i < studKiekis; i++)
     {

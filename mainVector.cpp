@@ -261,7 +261,7 @@ int main()
         studentuKiekis += papildymas; // Prie esamo studentu kiekio pridedame vartotojo norima papildymo kieki
         studentas naujasStudentas; // Sukuriame viena studento strukturos kintamaji, kuri pildysime, o veliau pridesime i studentu vektoriu
 
-        if (parinktis != 5)
+        if (parinktis != 5 && parinktis != 6)
         {
             for (int i = l; i < studentuKiekis; i++)
             {
@@ -604,7 +604,6 @@ int main()
                 stud.push_back(naujasStudentas); // Nauja studenta pridedame i studentu vektoriaus gala
                 naujasStudentas.nd.clear();
             }
-
         }
         if (parinktis == 5 || parinktis == 6) // Jei vartotojas rinkosi nuskaityti duomenis is failo, cia nuskaitymas ir baigiasi, nes prideti studentu neimanoma
         {
