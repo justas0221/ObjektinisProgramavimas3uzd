@@ -17,18 +17,18 @@ int main()
     {
         try
         {
-            cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n"; 
+            cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n6 - Generuoti faila su atsitiktiniais pazymiais\n"; 
             
             if (!(cin >> parinktis))
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
+                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 6 imtinai.");
             }
 
-            teisingasIvedimas = (parinktis >= 1 && parinktis <= 5 && cin.peek() == '\n');
+            teisingasIvedimas = (parinktis >= 1 && parinktis <= 6 && cin.peek() == '\n');
 
             if (!teisingasIvedimas)
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
+                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 6 imtinai.");
             }
         }
         catch (const exception& e)
@@ -45,7 +45,7 @@ int main()
         exit(0);
     }
 
-    if (parinktis != 5) // Prasome ivesti pradini studentu kieki
+    if (parinktis != 5 && parinktis != 6) // Prasome ivesti pradini studentu kieki
     {
         do
         {
@@ -76,9 +76,84 @@ int main()
     
     }
 
-    if (parinktis == 5) // Jei vartotojas nori nuskaityti duomenis is failo, atidarome duomenu faila ir praleidziame pirmaja eilute, kuri yra antrastine
+    if (parinktis == 5) // Jei vartotojas nori nuskaityti duomenis is failo, atidarome duomenu faila
     {
         input.open("studentai1000.txt");
+        try
+        {
+            if (!input)
+            {
+                throw runtime_error("Failas neegzistuoja.");
+            }
+        }
+        catch(const exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
+            exit(1);
+        }
+    }
+
+    if (parinktis == 6) // Jei vartotojas nori nuskaityti duomenis is sugeneruoto failo, atidarome duomenu faila
+    {
+        int studKiekis, pazKiekis;
+
+        do
+        {
+            try // Jei vartotojas iveda ne skaiciu arba skaiciu, nepatenkanti i reikiama intervala, pranesame apie klaida
+            {
+                cout << "Iveskite studentu kieki (nuo 1 iki 10 000 000 imtinai): ";
+
+                if (!(cin >> studKiekis))
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
+                }
+
+                teisingasIvedimas = (studKiekis >= 1 && studKiekis <= 10000000 && cin.peek() == '\n');
+
+                if (!teisingasIvedimas)
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
+                }
+            }
+            catch (const exception& e)
+            {
+                cerr << "Klaida: " << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+        } while (!teisingasIvedimas);
+
+        do
+        {
+            try // Klausiame vartotojo, kiek pazymiu jis nori ivesti dabartiniam studentui
+            {
+                cout << "Kiek pazymiu norite ivesti kiekvienam studentui? (Irasykite skaiciu nuo 1 iki 100 imtinai): ";
+
+                if (!(cin >> pazKiekis))
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
+                }
+
+                teisingasIvedimas = (pazKiekis >= 1 && pazKiekis <= 100 && cin.peek() == '\n');
+
+                if (!teisingasIvedimas)
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
+                }
+            }
+            catch(const exception& e)
+            {
+                cerr << "Klaida: " << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+        } while (!teisingasIvedimas);
+
+        generuotiFaila(studKiekis, pazKiekis);
+                
+        input.open("sugeneruotas.txt");
         try
         {
             if (!input)
@@ -531,7 +606,7 @@ int main()
             }
 
         }
-        if (parinktis == 5) // Jei vartotojas rinkosi nuskaityti duomenis is failo, cia nuskaitymas ir baigiasi, nes prideti studentu neimanoma
+        if (parinktis == 5 || parinktis == 6) // Jei vartotojas rinkosi nuskaityti duomenis is failo, cia nuskaitymas ir baigiasi, nes prideti studentu neimanoma
         {
             break;
         }
