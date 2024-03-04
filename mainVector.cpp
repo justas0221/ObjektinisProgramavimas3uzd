@@ -9,11 +9,13 @@ int main()
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     int tarpai;
     bool teisingasIvedimas;
-    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile, rikiavimas;
+    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile, rikiavimas, studKiekis, pazKiekis;
     char testiPrograma;
     ifstream input;
 
     srand(time(0));
+
+    cout << "Maximum size of std::vector: " << numeric_limits<size_t>::max() << endl;
 
     do // Prasome studento ivesti skaiciu, nuo kurio priklausys, kaip bus vykdoma programa
     {
@@ -97,8 +99,6 @@ int main()
 
     if (parinktis == 6) // Jei vartotojas nori nuskaityti duomenis is sugeneruoto failo, atidarome duomenu faila
     {
-        int studKiekis, pazKiekis;
-
         do
         {
             try // Jei vartotojas iveda ne skaiciu arba skaiciu, nepatenkanti i reikiama intervala, pranesame apie klaida
@@ -617,21 +617,22 @@ int main()
         {
             getline(input, eilute); // Praleidziame pirmaja failo eilute
 
+            string dalis;
+            int pazymys;
+
             while (getline(input, eilute)) // Skaitome duomenis is failo kol ju yra
             {
                 istringstream iss(eilute); // Padaliname juos i atskirus string'us, atskirtus tarpais
-                string dalis;
 
                 iss >> naujasStudentas.vardas >> naujasStudentas.pavarde;
 
-                while (iss >> dalis)
+                while(iss >> dalis)
                 {
-                    int pazymys = stoi(dalis); // Pazymi paverciame is string'o i int'a ir pridedame i naujo studento pazymiu vektoriu
+                    pazymys = stoi(dalis); // Pazymi paverciame is string'o i int'a ir pridedame i naujo studento pazymiu vektoriu
                     naujasStudentas.nd.push_back(pazymys);
                 }
 
                 naujasStudentas.egz = naujasStudentas.nd.back();
-
                 naujasStudentas.nd.pop_back();
 
                 if (skaiciavimoBudas == "V")
@@ -641,13 +642,19 @@ int main()
                 }
                 else
                 {
+                    auto it = naujasStudentas.nd.begin();
+                    advance(it, naujasStudentas.nd.size() / 2); // advance the iterator to the middle of the list
+
                     if (naujasStudentas.nd.size() % 2 == 0)
                     {
-                        naujasStudentas.mediana = (naujasStudentas.nd[naujasStudentas.nd.size() / 2] + naujasStudentas.nd[naujasStudentas.nd.size() / 2 - 1]) / 2.0; // Jei pazymiu kiekis yra lyginis skaicius, mediana skaiciuojame rasdami dvieju viduriniu pazymiu aritmetini vidurki
+                        int a = *it;
+                        --it;
+                        int b = *it;
+                        naujasStudentas.mediana = (a + b) / 2.0;
                     }
                     else
                     {
-                        naujasStudentas.mediana = naujasStudentas.nd[floor(naujasStudentas.nd.size() / 2)]; // Jei pazymiu kiekis yra nelyginis skaicius, medianai priskiriame vidurini pazymi is pazymiu aibes
+                        naujasStudentas.mediana = *it;
                     }
                     naujasStudentas.galutinis = 0.4 * naujasStudentas.mediana + 0.6 * naujasStudentas.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
                 }
@@ -655,14 +662,15 @@ int main()
                 if (naujasStudentas.galutinis < 5)
                 {
                     vargsiukai.push_back(naujasStudentas);
-                    naujasStudentas.nd.clear();
                 }
                 else
                 {
                     galvociai.push_back(naujasStudentas);
-                    naujasStudentas.nd.clear();
                 }
+
+                naujasStudentas.nd.clear();
             }
+
         }
         if (parinktis == 5 || parinktis == 6) // Jei vartotojas rinkosi nuskaityti duomenis is failo, cia nuskaitymas ir baigiasi, nes prideti studentu neimanoma
         {
@@ -681,17 +689,24 @@ int main()
         }
         else
         {
+            auto it = stud[i].nd.begin();
+            std::advance(it, stud[i].nd.size() / 2); // advance the iterator to the middle of the list
+
             if (stud[i].nd.size() % 2 == 0)
             {
-                stud[i].mediana = (stud[i].nd[stud[i].nd.size() / 2] + stud[i].nd[stud[i].nd.size() / 2 - 1]) / 2.0; // Jei pazymiu kiekis yra lyginis skaicius, mediana skaiciuojame rasdami dvieju viduriniu pazymiu aritmetini vidurki
+                int a = *it;
+                --it;
+                int b = *it;
+                stud[i].mediana = (a + b) / 2.0;
             }
             else
             {
-                stud[i].mediana = stud[i].nd[floor(stud[i].nd.size() / 2)]; // Jei pazymiu kiekis yra nelyginis skaicius, medianai priskiriame vidurini pazymi is pazymiu aibes
+                stud[i].mediana = *it;
             }
             stud[i].galutinis = 0.4 * stud[i].mediana + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
         }
     }
+
 
     if (rikiavimas == 1) // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
     {
