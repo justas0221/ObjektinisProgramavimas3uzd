@@ -27,3 +27,6 @@ This is the fifth subversion of my project v0.4
 | 100000            | 0.866324                | 0.470184                               | 2.02274                  | 0.658424                         | 4.01767           |
 | 1000000           | 7.93778                 | 5.66045                                | 24.038                   | 8.05929                          | 44.6956           |
 | 10000000          | 76.7063                 | 74.112                                 | 639.439                  | 79.2677                          | 869.525           |
+
+![The first image of the analysis](image1.png)
+![The second image of the analysis](image2.png)
