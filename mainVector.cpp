@@ -11,6 +11,7 @@ int main()
     bool teisingasIvedimas;
     int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile, rikiavimas, studKiekis, pazKiekis;
     char testiPrograma;
+    duration<double> failoGeneravimas, nuskaitymasIrRusiavimas, rusiavimas, isvedimas;
     ifstream input;
 
     srand(time(0));
@@ -153,8 +154,11 @@ int main()
             }
         } while (!teisingasIvedimas);
 
+        auto start = high_resolution_clock::now();
         generuotiFaila(studKiekis, pazKiekis);
-                
+        auto end = high_resolution_clock::now();
+        failoGeneravimas = end-start;
+
         input.open("sugeneruotas.txt");
         try
         {
@@ -255,8 +259,6 @@ int main()
             }
         } while (!teisingasIvedimas);
     }
-
-    auto start = chrono::high_resolution_clock::now(); // Pradedame programos veikimo laikmati
 
     l = 0;
     papildymas = 0;
@@ -612,6 +614,8 @@ int main()
         }
         else if (parinktis == 6)
         {
+            auto start = high_resolution_clock::now();
+
             getline(input, eilute); // Praleidziame pirmaja failo eilute
 
             string dalis;
@@ -668,6 +672,9 @@ int main()
                 naujasStudentas.nd.clear();
             }
 
+            auto end = high_resolution_clock::now();
+            nuskaitymasIrRusiavimas = end-start;
+
         }
         if (parinktis == 5 || parinktis == 6) // Jei vartotojas rinkosi nuskaityti duomenis is failo, cia nuskaitymas ir baigiasi, nes prideti studentu neimanoma
         {
@@ -687,7 +694,7 @@ int main()
         else
         {
             auto it = stud[i].nd.begin();
-            std::advance(it, stud[i].nd.size() / 2); // advance the iterator to the middle of the list
+            advance(it, stud[i].nd.size() / 2); // advance the iterator to the middle of the list
 
             if (stud[i].nd.size() % 2 == 0)
             {
@@ -715,13 +722,23 @@ int main()
     }
     else if (parinktis == 6 && rikiavimas == 1)
     {
+        auto start = high_resolution_clock::now();
+
         sort(vargsiukai.begin(), vargsiukai.end(), palygintiDidejant);
         sort(galvociai.begin(), galvociai.end(), palygintiDidejant);
+
+        auto end = high_resolution_clock::now();
+        rusiavimas = end - start;
     }
     else if (parinktis == 6 && rikiavimas == 0)
     {
+        auto start = high_resolution_clock::now();
+
         sort(vargsiukai.begin(), vargsiukai.end(), palygintiMazejant);
         sort(galvociai.begin(), galvociai.end(), palygintiMazejant);
+
+        auto end = high_resolution_clock::now();
+        rusiavimas = end - start;
     }
     
     if (isvedimasFaile)
@@ -774,6 +791,8 @@ int main()
     }
     if (parinktis == 6)
     {
+        auto start = high_resolution_clock::now();
+
         ofstream vargsai("vargsiukai.txt");
         ofstream galvoti("galvociai.txt");
 
@@ -809,13 +828,18 @@ int main()
                 galvoti << left << setw(20) << galvociai[i].vardas << setw(20) << galvociai[i].pavarde << setw(20) << fixed << setprecision(2) << galvociai[i].galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
             }
         }
+
+        auto end = high_resolution_clock::now();
+        isvedimas = end - start;
     }
 
-    auto end = chrono::high_resolution_clock::now(); // Sustabdome laikmati
+    duration<double> duration = failoGeneravimas + nuskaitymasIrRusiavimas + rusiavimas + isvedimas; // Apskaiciuojame programos veikimo laika ir ji atspausdiname i ekrana
 
-    chrono::duration<double> duration = end - start; // Apskaiciuojame programos veikimo laika ir ji atspausdiname i ekrana
-
-    cout << "Programos veikimo laikas sekundemis: " << duration.count() << endl;
+    cout << studKiekis << "irasu failo generavimo trukme: " << failoGeneravimas.count() << endl;
+    cout << studKiekis << "irasu failo nuskaitymo ir rusiavimo i dvi grupes trukme: " << nuskaitymasIrRusiavimas.count() << endl;
+    cout << studKiekis << " irasu rikiavimo trukme: " << rusiavimas.count() << endl;
+    cout << studKiekis << " irasu duomenu isvedimo i faila trukme: " << isvedimas.count() << endl;
+    cout << studKiekis << " irasu testo trukme sekundemis: " << duration.count() << endl;
 
     return 0;
 }
