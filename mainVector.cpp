@@ -17,8 +17,6 @@ int main()
 
     srand(time(0));
 
-    cout << "Maximum size of vector: " << numeric_limits<size_t>::max() << endl;
-
     do // Prasome studento ivesti skaiciu, nuo kurio priklausys, kaip bus vykdoma programa
     {
         try
@@ -84,7 +82,7 @@ int main()
 
     if (parinktis == 5) // Jei vartotojas nori nuskaityti duomenis is failo, atidarome duomenu faila
     {
-        input.open("studentai1000.txt");
+        input.open("studentai10000.txt");
         try
         {
             if (!input)

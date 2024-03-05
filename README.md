@@ -1,6 +1,6 @@
 # ObjektinisProgramavimas
 
-This is the first subversion of my project v0.4
+This is the fifth subversion of my project v0.4
 
 ## Features
 
@@ -16,4 +16,14 @@ This is the first subversion of my project v0.4
 10. Has all the features added to both of the files, to mainMasyvai.cpp, which only uses C arrays to store data, and to mainVector.cpp, which only uses vectors to store data.
 11. Has a feature where a user can choose how he wants to sort the students (in ascending order or in descending order depending on their final grade).
 12. Has a function which generates a file with names, surnames and grades of a student.
-13. Has all the code commented out.
+13. Has a feature of sorting the students into two different containers depending on their final grade and outputting them into two seperate files
+14. Has a feature of testing several generated files throughout only one execution of the program
+15. Has all the code commented out.
+
+| Studentu skaicius | Failo generavimo trukme | Duomenu nuskaitymo ir rusiavimo trukme | Duomenu rikiavimo trukme | Duomenu isvedimo i failus trukme | Viso testo trukme |
+| ----------------- | ----------------------- | -------------------------------------- | ------------------------ | -------------------------------- | ----------------- |
+| 1000              | 0.015651                | 0                                      | 0.015728                 | 0                                | 0.031379          |
+| 10000             | 0.124849                | 0.064676                               | 0.165002                 | 0.081386                         | 0.435913          |
+| 100000            | 0.866324                | 0.470184                               | 2.02274                  | 0.658424                         | 4.01767           |
+| 1000000           | 7.93778                 | 5.66045                                | 24.038                   | 8.05929                          | 44.6956           |
+| 10000000          | 76.7063                 | 74.112                                 | 639.439                  | 79.2677                          | 869.525           |
