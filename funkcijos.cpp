@@ -127,9 +127,9 @@ bool palygintiMazejant(studentas a, studentas b)
     return a.galutinis < b.galutinis;
 }
 
-void generuotiFaila(int studKiekis, int pazKiekis)
+void generuotiFaila(int studKiekis, int pazKiekis, string failoVardas)
 {
-    ofstream naujas("sugeneruotas.txt");
+    ofstream naujas(failoVardas);
 
     naujas << left << setw(20) << "Vardas" << setw(20) << "Pavarde"; // Isvedame antrastine eilute
     for (int i = 0; i < pazKiekis; i++)

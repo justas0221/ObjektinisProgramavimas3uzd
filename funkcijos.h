@@ -26,4 +26,4 @@ string generuotiVarda();
 string generuotiPavarde();
 bool palygintiMazejant(studentas, studentas);
 bool palygintiDidejant(studentas, studentas);
-void generuotiFaila(int, int);
+void generuotiFaila(int, int, string);
