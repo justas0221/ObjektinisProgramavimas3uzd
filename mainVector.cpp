@@ -199,35 +199,32 @@ int main()
         }
     } while (!teisingasIvedimas);
 
-    if (parinktis != 6)
+    do // Klausiame vartotojo, kokia tvarka jis nori isrikiuoti studentus rezultatuose
     {
-        do // Klausiame vartotojo, kokia tvarka jis nori isrikiuoti studentus rezultatuose
+        try
         {
-            try
+            cout << "Jei norite studentus isrikiuoti pagal galutini bala mazejimo tvarka, iveskite \"1\", jei didejimo, iveskite \"0\": ";
+
+            if (!(cin >> rikiavimas) && (rikiavimas != 1 || rikiavimas != 0 || cin.peek() != '\n'))
             {
-                cout << "Jei norite studentus isrikiuoti pagal galutini bala mazejimo tvarka, iveskite \"1\", jei didejimo, iveskite \"0\": ";
-
-                if (!(cin >> rikiavimas) && (rikiavimas != 1 || rikiavimas != 0 || cin.peek() != '\n'))
-                {
-                    throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
-                }
-
-                teisingasIvedimas = ((rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n');
-
-                if (!teisingasIvedimas)
-                {
-                    throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
-                }
+                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
             }
-            catch(const exception& e)
+
+            teisingasIvedimas = ((rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n');
+
+            if (!teisingasIvedimas)
             {
-                cerr << "Klaida: " << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                continue;
+                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
             }
-        } while (!teisingasIvedimas);
-    }
+        }
+        catch(const exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+    } while (!teisingasIvedimas);
 
     if (parinktis != 6)
     {
@@ -708,13 +705,23 @@ int main()
     }
 
 
-    if (rikiavimas == 1) // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
+    if (parinktis != 6 && rikiavimas == 1) // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
     {
         sort(stud.begin(), stud.end(), palygintiDidejant);
     }
-    else
+    else if (parinktis != 6 && rikiavimas == 0)
     {
         sort(stud.begin(), stud.end(), palygintiMazejant);
+    }
+    else if (parinktis == 6 && rikiavimas == 1)
+    {
+        sort(vargsiukai.begin(), vargsiukai.end(), palygintiDidejant);
+        sort(galvociai.begin(), galvociai.end(), palygintiDidejant);
+    }
+    else if (parinktis == 6 && rikiavimas == 0)
+    {
+        sort(vargsiukai.begin(), vargsiukai.end(), palygintiMazejant);
+        sort(galvociai.begin(), galvociai.end(), palygintiMazejant);
     }
     
     if (isvedimasFaile)
