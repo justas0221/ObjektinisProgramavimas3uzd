@@ -642,11 +642,11 @@ int main()
         if (parinktis == 6)
         {
             auto start = high_resolution_clock::now();
+            auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis < 5; });
 
-            vargsiukai.insert(vargsiukai.end(), partition_point, stud.end());
-            
-            stud.erase(partition_point, stud.end());
-            
+            vargsiukai.insert(vargsiukai.end(), it, stud.end());
+
+            stud.erase(it, stud.end());
             auto end = high_resolution_clock::now();
             skirstymas = end - start;
         }
