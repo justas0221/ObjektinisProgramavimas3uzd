@@ -79,7 +79,7 @@ Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog 
 
 ## Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
-Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu
+Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu, lyginant su 2 strategija
 
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
@@ -90,3 +90,15 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu
 | 10000000          | -                        |
 
 ![The first image of the analysis](6.png)
+
+Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, laimime dar siek tiek laiko
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0.002508                 |
+| 10000             | 0.00501                  |
+| 100000            | 0.040915                 |
+| 1000000           | 0.449494                 |
+| 10000000          | -                        |
+
+![The first image of the analysis](7.png)
