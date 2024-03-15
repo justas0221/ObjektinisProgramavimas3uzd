@@ -62,3 +62,15 @@ This is the fifth subversion of my project v1.0
 CPU: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
 RAM: 16GB
 SSD: Micron NVMe 512GB
+
+## Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 2 strategija
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0.023451                 |
+| 10000             | 3.07504                  |
+| 100000            | 367.063                  |
+| 1000000           | 1000+                    |
+| 10000000          | -                        |
+
+![The first image of the analysis](5.png)

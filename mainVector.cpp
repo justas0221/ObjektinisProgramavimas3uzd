@@ -5,7 +5,6 @@ int main()
 {
     vector<studentas> stud; // Studentu strukturu vektorius
     vector<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
-    vector<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yr aukstesnis negu arba lygus 5
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
@@ -639,20 +638,25 @@ int main()
             rusiavimas = end - start;
         }
         
-        auto start = high_resolution_clock::now();
-        for (auto &i : stud)
+        if (parinktis == 6)
         {
-            if (i.galutinis >= 5)
+            auto start = high_resolution_clock::now();
+            vector<studentas>::iterator it = stud.begin();
+            while (it != stud.end())
             {
-                galvociai.push_back(i);
+                if (it->galutinis < 5)
+                {
+                    vargsiukai.push_back(*it);
+                    it = stud.erase(it);
+                }
+                else
+                {
+                    ++it;
+                }
             }
-            else
-            {
-                vargsiukai.push_back(i);
-            }
+            auto end = high_resolution_clock::now();
+            skirstymas = end - start;
         }
-        auto end = high_resolution_clock::now();
-        skirstymas = end - start;
 
         if (isvedimasFaile)
         {
@@ -727,7 +731,7 @@ int main()
                     vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
 
-                for(auto &i : galvociai)
+                for(auto &i : stud)
                 {
                     galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
@@ -739,7 +743,7 @@ int main()
                     vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
                 }
 
-                for(auto &i : galvociai)
+                for(auto &i : stud)
                 {
                     galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
