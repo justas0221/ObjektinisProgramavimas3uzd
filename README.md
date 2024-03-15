@@ -32,3 +32,15 @@ This is the fifth subversion of my project v1.0
 
 ![The first image of the analysis](1.png)
 ![The second image of the analysis](2.png)
+
+## Darbo su list'ais rezultatai
+
+| Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
+| ----------------- | ------------------------- | ------------------------ | ------------------------ | ----------------- |
+| 1000              | 0.011375                  | 0                        | 0.002009                 | 0.028298          |
+| 10000             | 0.114092                  | 0.005                    | 0.009831                 | 0.190499          |
+| 100000            | 0.938607                  | 0.071131                 | 0.200386                 | 1.89285           |
+| 1000000           | 9.51845                   | 1.03467                  | 2.0869                   | 19.7203           |
+| 10000000          | -                         | -                        | -                        | -                 |
+
+![The first image of the analysis](3.png)
