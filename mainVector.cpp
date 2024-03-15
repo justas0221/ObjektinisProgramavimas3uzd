@@ -770,7 +770,7 @@ int main()
     if (parinktis == 6)
     {
         double visuTestuVidurkis = visuTestuTrukme.count() / 5.0;
-        cout << "5 skirtingu testu laiku vidurkis: " << visuTestuVidurkis << endl;
+        cout << "Visu 5 skirtingu testu laiku vidurkis: " << visuTestuVidurkis << endl;
     }
 
     return 0;

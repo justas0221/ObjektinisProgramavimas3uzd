@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <chrono>
 #include <list>
+#include <deque>
 
 using namespace std;
 using namespace chrono;
@@ -24,6 +25,6 @@ int tarpuSkaicius(string);
 int generuotiPazymi();
 string generuotiVarda();
 string generuotiPavarde();
-bool palygintiMazejant(studentas, studentas);
-bool palygintiDidejant(studentas, studentas);
+bool palygintiMazejant(studentas&, studentas&);
+bool palygintiDidejant(studentas&, studentas&);
 void generuotiFaila(int, int, string);

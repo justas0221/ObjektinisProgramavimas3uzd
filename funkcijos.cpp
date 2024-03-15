@@ -116,13 +116,13 @@ string generuotiPavarde()
     return pavarde;
 }
 
-bool palygintiDidejant(studentas a, studentas b)
+bool palygintiDidejant(studentas& a, studentas& b)
 {
     return a.galutinis > b.galutinis;
 }
 
 
-bool palygintiMazejant(studentas a, studentas b)
+bool palygintiMazejant(studentas& a, studentas& b)
 {
     return a.galutinis < b.galutinis;
 }
@@ -130,28 +130,38 @@ bool palygintiMazejant(studentas a, studentas b)
 void generuotiFaila(int studKiekis, int pazKiekis, string failoVardas)
 {
     ofstream naujas(failoVardas);
+    stringstream eilute;
 
-    naujas << left << setw(20) << "Vardas" << setw(20) << "Pavarde"; // Isvedame antrastine eilute
+    eilute << left << setw(20) << "Vardas" << setw(20) << "Pavarde"; // Isvedame antrastine eilute
     for (int i = 0; i < pazKiekis; i++)
     {
         string nd = "ND" + to_string(i + 1);
 
-        naujas << setw(10) << nd;
+        eilute << setw(10) << nd;
     }
-    naujas << setw(10) << "Egz." << endl;
+    eilute << setw(10) << "Egz." << endl;
 
     for (int i = 0; i < studKiekis; i++)
     {
         string vardas = "Vardas" + to_string(i + 1);
         string pavarde = "Pavarde" + to_string(i + 1);
 
-        naujas << left << setw(20) << vardas << setw(20) << pavarde; // Isvedame kiekvieno studento varda ir pavarde
+        eilute << left << setw(20) << vardas << setw(20) << pavarde; // Isvedame kiekvieno studento varda ir pavarde
         for (int j = 0; j <= pazKiekis; j++)
         {
-            naujas << setw(10) << generuotiPazymi();
+            eilute << setw(10) << generuotiPazymi();
         }
-        naujas << endl;
+        eilute << endl;
+
+        if ((i + 1) % 1000000 == 0)
+        {
+            naujas << eilute.str();
+            eilute.str("");
+        }
     }
+
+    naujas << eilute.str();
+    eilute.clear();
 
     naujas.close();
 }

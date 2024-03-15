@@ -4,7 +4,7 @@
 struct studentas
 {
     string vardas, pavarde;
-    list<int> nd;
+    vector<int> nd;
     int egz;
     double vidurkis, mediana, galutinis;
 };
