@@ -73,4 +73,20 @@ SSD: Micron NVMe 512GB
 | 1000000           | 1000+                    |
 | 10000000          | -                        |
 
+Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
+
 ![The first image of the analysis](5.png)
+
+## Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 3 strategija
+
+Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0                        |
+| 10000             | 0.007194                 |
+| 100000            | 0.050748                 |
+| 1000000           | 0.505167                 |
+| 10000000          | -                        |
+
+![The first image of the analysis](6.png)
