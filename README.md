@@ -30,8 +30,8 @@ This is the fifth subversion of my project v1.0
 | 1000000           | 5.70716                 | 8.93732                   | 8.12317                  | 1.08218                  | 7.37217                          | 25.5148           |
 | 10000000          | 56.1039                 | -                         | -                        | -                        | -                                | -                 |
 
-![The first image of the analysis](1.png)
-![The second image of the analysis](2.png)
+![The image of the analysis](1.png)
+![The image of the analysis](2.png)
 
 ## Darbo su list'ais rezultatai
 
@@ -43,7 +43,7 @@ This is the fifth subversion of my project v1.0
 | 1000000           | 9.51845                   | 1.03467                  | 2.0869                   | 19.7203           |
 | 10000000          | -                         | -                        | -                        | -                 |
 
-![The first image of the analysis](3.png)
+![The image of the analysis](3.png)
 
 ## Darbo su deque'ais rezultatai
 
@@ -55,7 +55,7 @@ This is the fifth subversion of my project v1.0
 | 1000000           | 8.69274                   | 2.62574                  | 0.709939                 | 19.3006           |
 | 10000000          | -                         | -                        | -                        | -                 |
 
-![The first image of the analysis](4.png)
+![The image of the analysis](4.png)
 
 ## Testavimo parametrai
 
@@ -75,7 +75,7 @@ SSD: Micron NVMe 512GB
 
 Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
 
-![The first image of the analysis](5.png)
+![The image of the analysis](5.png)
 
 ## Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
@@ -89,7 +89,7 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu,
 | 1000000           | 0.505167                 |
 | 10000000          | -                        |
 
-![The first image of the analysis](6.png)
+![The image of the analysis](6.png)
 
 Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, laimime dar siek tiek laiko
 
@@ -101,7 +101,7 @@ Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, 
 | 1000000           | 0.449494                 |
 | 10000000          | -                        |
 
-![The first image of the analysis](7.png)
+![The image of the analysis](7.png)
 
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
@@ -115,7 +115,7 @@ Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, 
 
 Neapsakomai greiciau, nei naudojant 2 strategija su vektoriais
 
-![The first image of the analysis](8.png)
+![The image of the analysis](8.png)
 
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
@@ -129,4 +129,16 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas siek tiek padideja
 | 1000000           | 1.16523                  |
 | 10000000          | -                        |
 
-![The first image of the analysis](9.png)
+![The image of the analysis](9.png)
+
+Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau pailgeja
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0                        |
+| 10000             | 0.007995                 |
+| 100000            | 0.225845                 |
+| 1000000           | 1.85678                  |
+| 10000000          | -                        |
+
+![The image of the analysis](10.png)
