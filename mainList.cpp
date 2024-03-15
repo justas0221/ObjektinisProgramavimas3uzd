@@ -642,19 +642,11 @@ int main()
         if (parinktis == 6)
         {
             auto start = high_resolution_clock::now();
-            list<studentas>::iterator it = stud.begin();
-            while (it != stud.end())
-            {
-                if (it->galutinis < 5)
-                {
-                    vargsiukai.push_back(*it);
-                    it = stud.erase(it);
-                }
-                else
-                {
-                    ++it;
-                }
-            }
+
+            vargsiukai.insert(vargsiukai.end(), partition_point, stud.end());
+            
+            stud.erase(partition_point, stud.end());
+            
             auto end = high_resolution_clock::now();
             skirstymas = end - start;
         }

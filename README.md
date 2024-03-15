@@ -116,3 +116,17 @@ Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, 
 Neapsakomai greiciau, nei naudojant 2 strategija su vektoriais
 
 ![The first image of the analysis](8.png)
+
+## List'e esanciu studentu rikiavimo rezultatai naudojant 3 strategija
+
+Pirmiausia naudojame funkcija remove_if, skirstymo laikas siek tiek padideja
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0                        |
+| 10000             | 0.008008                 |
+| 100000            | 0.08891                  |
+| 1000000           | 1.16523                  |
+| 10000000          | -                        |
+
+![The first image of the analysis](9.png)
