@@ -102,3 +102,17 @@ Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, 
 | 10000000          | -                        |
 
 ![The first image of the analysis](7.png)
+
+## List'e esanciu studentu rikiavimo rezultatai naudojant 2 strategija
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0.002334                 |
+| 10000             | 0.013007                 |
+| 100000            | 0.10355                  |
+| 1000000           | 1.10066                  |
+| 10000000          | -                        |
+
+Neapsakomai greiciau, nei naudojant 2 strategija su vektoriais
+
+![The first image of the analysis](8.png)
