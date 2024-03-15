@@ -44,3 +44,21 @@ This is the fifth subversion of my project v1.0
 | 10000000          | -                         | -                        | -                        | -                 |
 
 ![The first image of the analysis](3.png)
+
+## Darbo su deque'ais rezultatai
+
+| Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
+| ----------------- | ------------------------- | ------------------------ | ------------------------ | ----------------- |
+| 1000              | 0.015745                  | 0.002521                 | 0.000896                 | 0.035939          |
+| 10000             | 0.081108                  | 0.032829                 | 0.007117                 | 0.199751          |
+| 100000            | 0.770116                  | 0.423263                 | 0.063259                 | 1.95423           |
+| 1000000           | 8.69274                   | 2.62574                  | 0.709939                 | 19.3006           |
+| 10000000          | -                         | -                        | -                        | -                 |
+
+![The first image of the analysis](4.png)
+
+## Testavimo parametrai
+
+CPU: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
+RAM: 16GB
+SSD: Micron NVMe 512GB
