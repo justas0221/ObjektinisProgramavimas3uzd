@@ -4,15 +4,14 @@
 int main()
 {
     vector<studentas> stud; // Studentu strukturu vektorius
-    list<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
-    list<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yr aukstesnis negu arba lygus 5
+    vector<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
+    vector<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yr aukstesnis negu arba lygus 5
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
-    duration<double> failoGeneravimas, nuskaitymasIrRusiavimas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
+    duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
     bool teisingasIvedimas;
-    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile, rikiavimas, studKiekis, pazKiekis;
+    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile, rikiavimas, studKiekis = 1000, pazKiekis;
     char testiPrograma;
-    double failuKiekis;
     ifstream input;
 
     srand(time(0));
@@ -97,104 +96,70 @@ int main()
         }
     }
 
-    if (parinktis == 6)
+    do
     {
-        do
+        try
         {
-            try // Jei vartotojas iveda ne skaiciu arba skaiciu, nepatenkanti i reikiama intervala, pranesame apie klaida
+            cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \'V\' arba \'M\') "; // Vartotojo prasome ivesti vidurkio skaiciavimo buda tol, kol jis ives reikiama simboli
+
+            if (!(cin >> skaiciavimoBudas))
             {
-                cout << "Iveskite failu kieki (nuo 1 iki 5 imtinai): ";
-
-                if (!(cin >> failuKiekis))
-                {
-                    throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 5 imtinai.");
-                }
-
-                teisingasIvedimas = (failuKiekis >= 1 && failuKiekis <= 5 && cin.peek() == '\n');
-
-                if (!teisingasIvedimas)
-                {
-                    throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 5 imtinai.");
-                }
+                throw runtime_error("Klaidingi duomenys. Iveskite V arba M.");
             }
-            catch (const exception& e)
+
+            skaiciavimoBudas = didziosios(skaiciavimoBudas); // Ivestos raides pakeiciamos i didziasias, kad reiktu maziau tikrinti
+
+            teisingasIvedimas = ((skaiciavimoBudas == "V" || skaiciavimoBudas == "M") && cin.peek() == '\n');
+
+            if (!teisingasIvedimas) // Tikriname, ar vartotojas ivede viena is dvieju galimu ivesti raidziu be jokiu papildomu simboliu, jei ne, tuomet pranesame vartotojui apie klaida
             {
-                cerr << "Klaida: " << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                continue;
+                throw runtime_error("Klaidingi duomenys. Iveskite V arba M.");
             }
-        } while (!teisingasIvedimas);
-    }
+        }
+        catch(const exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+    } while (!teisingasIvedimas);
 
-    for (int q = 0; q < failuKiekis; q++)
+    do // Klausiame vartotojo, kokia tvarka jis nori isrikiuoti studentus rezultatuose
+    {
+        try
+        {
+            cout << "Jei norite studentus isrikiuoti pagal galutini bala didejimo tvarka, iveskite \"1\", jei mazejimo, iveskite \"0\": ";
+
+            if (!(cin >> rikiavimas) && (rikiavimas != 1 || rikiavimas != 0 || cin.peek() != '\n'))
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+            }
+
+            teisingasIvedimas = ((rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n');
+
+            if (!teisingasIvedimas)
+            {
+                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+            }
+        }
+        catch(const exception& e)
+        {
+            cerr << "Klaida: " << e.what() << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+    } while (!teisingasIvedimas);
+
+    for (int q = 0; q < 5; q++)
     {
         if (parinktis == 6) // Jei vartotojas nori nuskaityti duomenis is sugeneruoto failo, atidarome duomenu faila
         {
-            do
-            {
-                try // Jei vartotojas iveda ne skaiciu arba skaiciu, nepatenkanti i reikiama intervala, pranesame apie klaida
-                {
-                    cout << "Iveskite " << q + 1 << "-ojo failo studentu kieki (nuo 1 iki 10 000 000 imtinai): ";
-
-                    if (!(cin >> studKiekis))
-                    {
-                        throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
-                    }
-
-                    teisingasIvedimas = (studKiekis >= 1 && studKiekis <= 10000000 && cin.peek() == '\n');
-
-                    if (!teisingasIvedimas)
-                    {
-                        throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
-                    }
-                }
-                catch (const exception& e)
-                {
-                    cerr << "Klaida: " << e.what() << endl;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    continue;
-                }
-            } while (!teisingasIvedimas);
-
             string failoVardas = "sugeneruoti" + to_string(studKiekis) + ".txt";
-
-            do
-            {
-                try // Klausiame vartotojo, kiek pazymiu jis nori ivesti dabartiniam studentui
-                {
-                    cout << "Kiek pazymiu norite ivesti kiekvienam studentui? (Irasykite skaiciu nuo 1 iki 100 imtinai): ";
-
-                    if (!(cin >> pazKiekis))
-                    {
-                        throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
-                    }
-
-                    teisingasIvedimas = (pazKiekis >= 1 && pazKiekis <= 100 && cin.peek() == '\n');
-
-                    if (!teisingasIvedimas)
-                    {
-                        throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
-                    }
-                }
-                catch(const exception& e)
-                {
-                    cerr << "Klaida: " << e.what() << endl;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    continue;
-                }
-            } while (!teisingasIvedimas);
-
-            auto start = high_resolution_clock::now();
-
-            generuotiFaila(studKiekis, pazKiekis, failoVardas);
-
-            auto end = high_resolution_clock::now();
-            failoGeneravimas = end - start;
                     
             input.open(failoVardas);
+
             try
             {
                 if (!input)
@@ -208,63 +173,6 @@ int main()
                 exit(1);
             }
         }
-
-        do
-        {
-            try
-            {
-                cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \'V\' arba \'M\') "; // Vartotojo prasome ivesti vidurkio skaiciavimo buda tol, kol jis ives reikiama simboli
-
-                if (!(cin >> skaiciavimoBudas))
-                {
-                    throw runtime_error("Klaidingi duomenys. Iveskite V arba M.");
-                }
-
-                skaiciavimoBudas = didziosios(skaiciavimoBudas); // Ivestos raides pakeiciamos i didziasias, kad reiktu maziau tikrinti
-
-                teisingasIvedimas = ((skaiciavimoBudas == "V" || skaiciavimoBudas == "M") && cin.peek() == '\n');
-
-                if (!teisingasIvedimas) // Tikriname, ar vartotojas ivede viena is dvieju galimu ivesti raidziu be jokiu papildomu simboliu, jei ne, tuomet pranesame vartotojui apie klaida
-                {
-                    throw runtime_error("Klaidingi duomenys. Iveskite V arba M.");
-                }
-            }
-            catch(const exception& e)
-            {
-                cerr << "Klaida: " << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                continue;
-            }
-        } while (!teisingasIvedimas);
-
-        do // Klausiame vartotojo, kokia tvarka jis nori isrikiuoti studentus rezultatuose
-        {
-            try
-            {
-                cout << "Jei norite studentus isrikiuoti pagal galutini bala mazejimo tvarka, iveskite \"1\", jei didejimo, iveskite \"0\": ";
-
-                if (!(cin >> rikiavimas) && (rikiavimas != 1 || rikiavimas != 0 || cin.peek() != '\n'))
-                {
-                    throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
-                }
-
-                teisingasIvedimas = ((rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n');
-
-                if (!teisingasIvedimas)
-                {
-                    throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
-                }
-            }
-            catch(const exception& e)
-            {
-                cerr << "Klaida: " << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                continue;
-            }
-        } while (!teisingasIvedimas);
-        
 
         if (parinktis != 6)
         {
@@ -654,63 +562,27 @@ int main()
 
                 getline(input, eilute); // Praleidziame pirmaja failo eilute
 
-                string dalis;
                 int pazymys;
 
                 while (getline(input, eilute)) // Skaitome duomenis is failo kol ju yra
                 {
                     istringstream iss(eilute); // Padaliname juos i atskirus string'us, atskirtus tarpais
+                    studentas student;
 
-                    iss >> naujasStudentas.vardas >> naujasStudentas.pavarde;
+                    iss >> student.vardas >> student.pavarde;
 
-                    while(iss >> dalis)
+                    while(iss >> pazymys)
                     {
-                        pazymys = stoi(dalis); // Pazymi paverciame is string'o i int'a ir pridedame i naujo studento pazymiu vektoriu
-                        naujasStudentas.nd.push_back(pazymys);
+                        student.nd.push_back(pazymys);
                     }
 
-                    naujasStudentas.egz = naujasStudentas.nd.back();
-                    naujasStudentas.nd.pop_back();
+                    student.egz = student.nd.back();
+                    student.nd.pop_back();
 
-                    if (skaiciavimoBudas == "V")
-                    {
-                        naujasStudentas.vidurkis = accumulate(naujasStudentas.nd.begin(), naujasStudentas.nd.end(), 0.0) / naujasStudentas.nd.size();
-                        naujasStudentas.galutinis = 0.4 * naujasStudentas.vidurkis + 0.6 * naujasStudentas.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu vidurki
-                    }
-                    else
-                    {
-                        auto it = naujasStudentas.nd.begin();
-                        advance(it, naujasStudentas.nd.size() / 2); // advance the iterator to the middle of the list
-
-                        if (naujasStudentas.nd.size() % 2 == 0)
-                        {
-                            int a = *it;
-                            --it;
-                            int b = *it;
-                            naujasStudentas.mediana = (a + b) / 2.0;
-                        }
-                        else
-                        {
-                            naujasStudentas.mediana = *it;
-                        }
-                        naujasStudentas.galutinis = 0.4 * naujasStudentas.mediana + 0.6 * naujasStudentas.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
-                    }
-
-                    if (naujasStudentas.galutinis < 5)
-                    {
-                        vargsiukai.push_back(naujasStudentas);
-                    }
-                    else
-                    {
-                        galvociai.push_back(naujasStudentas);
-                    }
-
-                    naujasStudentas.nd.clear();
-
-                    auto end = high_resolution_clock::now();
-                    nuskaitymasIrRusiavimas = end - start;
+                    stud.push_back(student);
                 }
-
+                auto end = high_resolution_clock::now();
+                nuskaitymas = end - start;
             }
             if (parinktis == 5 || parinktis == 6) // Jei vartotojas rinkosi nuskaityti duomenis is failo, cia nuskaitymas ir baigiasi, nes prideti studentu neimanoma
             {
@@ -720,63 +592,68 @@ int main()
 
         input.close(); // Uzdarome duomenu faila
 
-        for (int i = 0; i < stud.size(); i++) // Skaiciuojame kiekvieno studento vidurki, mediana, o paskui ir galutinius balus 
+        for(auto &i : stud) // Skaiciuojame kiekvieno studento vidurki, mediana, o paskui ir galutinius balus 
         {
             if (skaiciavimoBudas == "V")
             {
-                stud[i].vidurkis = accumulate(stud[i].nd.begin(), stud[i].nd.end(), 0.0) / stud[i].nd.size();
-                stud[i].galutinis = 0.4 * stud[i].vidurkis + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu vidurki
+                i.vidurkis = accumulate(i.nd.begin(), i.nd.end(), 0.0) / i.nd.size();
+                i.galutinis = 0.4 * i.vidurkis + 0.6 * i.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu vidurki
             }
             else
             {
-                auto it = stud[i].nd.begin();
-                advance(it, stud[i].nd.size() / 2); // advance the iterator to the middle of the list
+                auto it = i.nd.begin();
+                advance(it, i.nd.size() / 2); // advance the iterator to the middle of the list
 
-                if (stud[i].nd.size() % 2 == 0)
+                if (i.nd.size() % 2 == 0)
                 {
                     int a = *it;
                     --it;
                     int b = *it;
-                    stud[i].mediana = (a + b) / 2.0;
+                    i.mediana = (a + b) / 2.0;
                 }
                 else
                 {
-                    stud[i].mediana = *it;
+                    i.mediana = *it;
                 }
-                stud[i].galutinis = 0.4 * stud[i].mediana + 0.6 * stud[i].egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
+                i.galutinis = 0.4 * i.mediana + 0.6 * i.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
             }
         }
 
-
-        if (parinktis != 6 && rikiavimas == 1) // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
-        {
-            sort(stud.begin(), stud.end(), palygintiDidejant);
-        }
-        else if (parinktis != 6 && rikiavimas == 0)
-        {
-            sort(stud.begin(), stud.end(), palygintiMazejant);
-        }
-        else if (parinktis == 6 && rikiavimas == 1)
+        // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
+        if (rikiavimas == 1)
         {
             auto start = high_resolution_clock::now();
 
-            vargsiukai.sort(palygintiDidejant);
-            galvociai.sort(palygintiDidejant);
+            sort(stud.begin(), stud.end(), palygintiMazejant);
 
             auto end = high_resolution_clock::now();
             rusiavimas = end - start;
         }
-        else if (parinktis == 6 && rikiavimas == 0)
+        else
         {
             auto start = high_resolution_clock::now();
 
-            vargsiukai.sort(palygintiMazejant);
-            galvociai.sort(palygintiMazejant);
+            sort(stud.begin(), stud.end(), palygintiDidejant);
 
             auto end = high_resolution_clock::now();
             rusiavimas = end - start;
         }
         
+        auto start = high_resolution_clock::now();
+        for (auto &i : stud)
+        {
+            if (i.galutinis >= 5)
+            {
+                galvociai.push_back(i);
+            }
+            else
+            {
+                vargsiukai.push_back(i);
+            }
+        }
+        auto end = high_resolution_clock::now();
+        skirstymas = end - start;
+
         if (isvedimasFaile)
         {
             ofstream output;
@@ -788,16 +665,16 @@ int main()
             
             if (skaiciavimoBudas == "V")
             {    
-                for(int i = 0; i < stud.size(); i++)
+                for(auto &i : stud)
                 {
-                    output << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << fixed << setprecision(2) << stud[i].galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                    output << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                 }
             }
             else
             {
-                for(int i = 0; i < stud.size(); i++)
+                for(auto &i : stud)
                 {
-                    output << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << stud[i].galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                    output << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                 }
             }
 
@@ -812,16 +689,16 @@ int main()
 
             if (skaiciavimoBudas == "V")
             {    
-                for(int i = 0; i < stud.size(); i++)
+                for(auto &i : stud)
                 {
-                    cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << fixed << setprecision(2) << stud[i].galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                    cout << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                 }
             }
             else
             {
-                for(int i = 0; i < stud.size(); i++)
+                for(auto &i : stud)
                 {
-                    cout << left << setw(20) << stud[i].vardas << setw(20) << stud[i].pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << stud[i].galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                    cout << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                 }
             }
         }
@@ -845,26 +722,26 @@ int main()
 
             if (skaiciavimoBudas == "V")
             {    
-                for(auto it = vargsiukai.begin(); it != vargsiukai.end(); ++it)
+                for(auto &i : vargsiukai)
                 {
-                    vargsai << left << setw(20) << it->vardas << setw(20) << it->pavarde << setw(20) << fixed << setprecision(2) << it->galutinis << setw(20) << "-.--" << endl;
+                    vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
 
-                for(auto it = galvociai.begin(); it != galvociai.end(); ++it)
+                for(auto &i : galvociai)
                 {
-                    galvoti << left << setw(20) << it->vardas << setw(20) << it->pavarde << setw(20) << fixed << setprecision(2) << it->galutinis << setw(20) << "-.--" << endl;
+                    galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
             }
             else
             {
-                for(auto it = vargsiukai.begin(); it != vargsiukai.end(); ++it)
+                for(auto &i : vargsiukai)
                 {
-                    vargsai << left << setw(20) << it->vardas << setw(20) << it->pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << it->galutinis << endl;
+                    vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
                 }
 
-                for(auto it = galvociai.begin(); it != galvociai.end(); ++it)
+                for(auto &i : galvociai)
                 {
-                    galvoti << left << setw(20) << it->vardas << setw(20) << it->pavarde << setw(20) << fixed << setprecision(2) << it->galutinis << setw(20) << "-.--" << endl;
+                    galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
             }
 
@@ -874,12 +751,12 @@ int main()
 
         if (parinktis == 6)
         {
-            bendraTrukme = failoGeneravimas + nuskaitymasIrRusiavimas + rusiavimas + isvedimas; // Apskaiciuojame programos veikimo laika ir ji atspausdiname i ekrana
+            bendraTrukme =  nuskaitymas + skirstymas + rusiavimas + isvedimas; // Apskaiciuojame programos veikimo laika ir ji atspausdiname i ekrana
             visuTestuTrukme += bendraTrukme;
 
-            cout << studKiekis << " irasu failo generavimo trukme: " << failoGeneravimas.count() << endl;
-            cout << studKiekis << " irasu failo nuskaitymo ir rusiavimo i dvi grupes trukme: " << nuskaitymasIrRusiavimas.count() << endl;
+            cout << studKiekis << " irasu failo nuskaitymo trukme: " << nuskaitymas.count() << endl;
             cout << studKiekis << " irasu rikiavimo trukme: " << rusiavimas.count() << endl;
+            cout << studKiekis << " irasu skirstymo i dvi grupes trukme: " << skirstymas.count() << endl;
             cout << studKiekis << " irasu duomenu isvedimo i faila trukme: " << isvedimas.count() << endl;
             cout << studKiekis << " irasu testo trukme sekundemis: " << bendraTrukme.count() << endl;
         }
@@ -887,12 +764,13 @@ int main()
         {
             break;
         }
+        studKiekis *= 10;
     }
 
     if (parinktis == 6)
     {
-        double visuTestuVidurkis = visuTestuTrukme.count() / failuKiekis;
-        cout << failuKiekis << " skirtingu testu laiku vidurkis: " << visuTestuVidurkis << endl;
+        double visuTestuVidurkis = visuTestuTrukme.count() / 5.0;
+        cout << "5 skirtingu testu laiku vidurkis: " << visuTestuVidurkis << endl;
     }
 
     return 0;

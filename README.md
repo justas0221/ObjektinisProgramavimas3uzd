@@ -1,6 +1,6 @@
 # ObjektinisProgramavimas
 
-This is the fifth subversion of my project v0.4
+This is the fifth subversion of my project v1.0
 
 ## Features
 
@@ -17,15 +17,17 @@ This is the fifth subversion of my project v0.4
 11. Has a feature where a user can choose how he wants to sort the students (in ascending order or in descending order depending on their final grade).
 12. Has a function which generates a file with names, surnames and grades of a student.
 13. Has a feature of sorting the students into two different containers depending on their final grade and outputting them into two seperate files
-14. Has a feature of testing several generated files throughout only one execution of the program
+14. Has a feature of testing several earlier generated files throughout only one execution of the program
 15. Has all the code commented out.
 
-| Studentu skaicius | Failo generavimo trukme | Duomenu nuskaitymo trukme | Duomenu skirstymo trukme | Duomenu rikiavimo trukme | Duomenu isvedimo i failus trukme | Viso testo trukme |
+## Darbo su vektoriais rezultatai
+
+| Studentu skaicius | Failo generavimo trukme | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Duomenu isvedimo i failus trukme | Viso testo trukme |
 | ----------------- | ----------------------- | ------------------------- | ------------------------ | ------------------------ | -------------------------------- | ----------------- |
-| 1000              | 0.015606                | 0.022077                  | 0.0096                   | 0                        | 0.014761                         | 0.046438          |
-| 10000             | 0.066734                | 0.098023                  | 0.017541                 | 0.037079                 | 0.094765                         | 0.247408          |
-| 100000            | 0.579735                | 0.953051                  | 0.126286                 | 0.738203                 | 0.721543                         | 2.53988           |
-| 1000000           | 5.70716                 | 8.93732                   | 1.08218                  | 8.12317                  | 7.37217                          | 25.5148           |
+| 1000              | 0.015606                | 0.022077                  | 0                        | 0.0096                   | 0.014761                         | 0.046438          |
+| 10000             | 0.066734                | 0.098023                  | 0.037079                 | 0.017541                 | 0.094765                         | 0.247408          |
+| 100000            | 0.579735                | 0.953051                  | 0.738203                 | 0.126286                 | 0.721543                         | 2.53988           |
+| 1000000           | 5.70716                 | 8.93732                   | 8.12317                  | 1.08218                  | 7.37217                          | 25.5148           |
 | 10000000          | 56.1039                 | -                         | -                        | -                        | -                                | -                 |
 
 ![The first image of the analysis](1.png)
