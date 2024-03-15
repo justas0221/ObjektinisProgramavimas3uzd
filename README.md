@@ -20,13 +20,13 @@ This is the fifth subversion of my project v0.4
 14. Has a feature of testing several generated files throughout only one execution of the program
 15. Has all the code commented out.
 
-| Studentu skaicius | Failo generavimo trukme | Duomenu nuskaitymo ir rusiavimo trukme | Duomenu rikiavimo trukme | Duomenu isvedimo i failus trukme | Viso testo trukme |
-| ----------------- | ----------------------- | -------------------------------------- | ------------------------ | -------------------------------- | ----------------- |
-| 1000              | 0.015651                | 0                                      | 0.015728                 | 0                                | 0.031379          |
-| 10000             | 0.124849                | 0.064676                               | 0.165002                 | 0.081386                         | 0.435913          |
-| 100000            | 0.866324                | 0.470184                               | 2.02274                  | 0.658424                         | 4.01767           |
-| 1000000           | 7.93778                 | 5.66045                                | 24.038                   | 8.05929                          | 44.6956           |
-| 10000000          | 76.7063                 | 74.112                                 | 639.439                  | 79.2677                          | 869.525           |
+| Studentu skaicius | Failo generavimo trukme | Duomenu nuskaitymo trukme | Duomenu skirstymo trukme | Duomenu rikiavimo trukme | Duomenu isvedimo i failus trukme | Viso testo trukme |
+| ----------------- | ----------------------- | ------------------------- | ------------------------ | ------------------------ | -------------------------------- | ----------------- |
+| 1000              | 0.015606                | 0.016218                  | 0.002952                 | 0                        | 0.011302                         | 0.030472          |
+| 10000             | 0.066734                | 0.097742                  | 0.007034                 | 0.042712                 | 0.076832                         | 0.22432           |
+| 100000            | 0.579735                | 0.892337                  | 0.12601                  | 0.763633                 | 0.97092                          | 2.7529            |
+| 1000000           | 5.70716                 | 8.86091                   | 0.927791                 | 8.94512                  | 7.3812                           | 26.115            |
+| 10000000          | 56.1039                 | -                         | -                        | -                        | -                                | -                 |
 
-![The first image of the analysis](image1.png)
-![The second image of the analysis](image2.png)
+![The first image of the analysis](1.png)
+![The second image of the analysis](2.png)
