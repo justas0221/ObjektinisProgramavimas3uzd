@@ -156,3 +156,17 @@ Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau p
 Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
 
 ![The image of the analysis](11.png)
+
+## Deque esanciu studentu rikiavimo rezultatai naudojant 3 strategija
+
+Pirmiausia naudojame funkcija remove_if, skirstymo laikas tukstancius kartu sumazeja
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0.007243                 |
+| 10000             | 0.005007                 |
+| 100000            | 0.059994                 |
+| 1000000           | 0.51805                  |
+| 10000000          | -                        |
+
+![The image of the analysis](12.png)

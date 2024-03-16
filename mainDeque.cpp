@@ -642,22 +642,15 @@ int main()
         if (parinktis == 6)
         {
             auto start = high_resolution_clock::now();
-            deque<studentas>::iterator it = stud.begin();
-            while (it != stud.end())
-            {
-                if (it->galutinis < 5)
-                {
-                    vargsiukai.push_back(*it);
-                    it = stud.erase(it);
-                }
-                else
-                {
-                    ++it;
-                }
-            }
+
+            auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis < 5; });
+
+            vargsiukai.insert(vargsiukai.end(), it, stud.end());
+
+            stud.erase(it, stud.end());
 
             auto end = high_resolution_clock::now();
-        skirstymas = end - start;
+            skirstymas = end - start;
         }
 
         if (isvedimasFaile)
