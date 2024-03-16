@@ -142,3 +142,17 @@ Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau p
 | 10000000          | -                        |
 
 ![The image of the analysis](10.png)
+
+## Deque esanciu studentu rikiavimo rezultatai naudojant 2 strategija
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0.023038                 |
+| 10000             | 2.26224                  |
+| 100000            | 195.859                  |
+| 1000000           | 1000+                    |
+| 10000000          | -                        |
+
+Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
+
+![The image of the analysis](11.png)

@@ -639,20 +639,26 @@ int main()
             rusiavimas = end - start;
         }
         
-        auto start = high_resolution_clock::now();
-        for (auto &i : stud)
+        if (parinktis == 6)
         {
-            if (i.galutinis >= 5)
+            auto start = high_resolution_clock::now();
+            deque<studentas>::iterator it = stud.begin();
+            while (it != stud.end())
             {
-                galvociai.push_back(i);
+                if (it->galutinis < 5)
+                {
+                    vargsiukai.push_back(*it);
+                    it = stud.erase(it);
+                }
+                else
+                {
+                    ++it;
+                }
             }
-            else
-            {
-                vargsiukai.push_back(i);
-            }
-        }
-        auto end = high_resolution_clock::now();
+
+            auto end = high_resolution_clock::now();
         skirstymas = end - start;
+        }
 
         if (isvedimasFaile)
         {
