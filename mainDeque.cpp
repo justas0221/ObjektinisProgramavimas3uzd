@@ -643,11 +643,11 @@ int main()
         {
             auto start = high_resolution_clock::now();
 
-            auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis < 5; });
+            auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
 
-            vargsiukai.insert(vargsiukai.end(), it, stud.end());
-
-            stud.erase(it, stud.end());
+            vargsiukai.insert(vargsiukai.end(), partition_point, stud.end());
+            
+            stud.erase(partition_point, stud.end());
 
             auto end = high_resolution_clock::now();
             skirstymas = end - start;

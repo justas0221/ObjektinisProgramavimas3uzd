@@ -170,3 +170,15 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas tukstancius kartu suma
 | 10000000          | -                        |
 
 ![The image of the analysis](12.png)
+
+Veliau meginame naudoti funkcija partition, taciau skirstymo laikas siek tiek pailgeja
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0                        |
+| 10000             | 0.006988                 |
+| 100000            | 0.076344                 |
+| 1000000           | 1.06546                  |
+| 10000000          | -                        |
+
+![The image of the analysis](13.png)
