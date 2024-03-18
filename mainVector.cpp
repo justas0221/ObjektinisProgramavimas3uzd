@@ -649,18 +649,21 @@ int main()
             // });
             // stud.erase(remove_if(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; }), stud.end());
 
-            copy_if(stud.begin(), stud.end(), back_inserter(vargsiukai),
-                [](const studentas& s)
-                {
-                    return s.galutinis < 5;
-                });
+            // copy_if(stud.begin(), stud.end(), back_inserter(vargsiukai),
+            //     [](const studentas& s)
+            //     {
+            //         return s.galutinis < 5;
+            //     });
+            // stud.erase(remove_if(stud.begin(), stud.end(),
+            //                         [](const studentas& s)
+            //                         {
+            //                             return s.galutinis < 5;
+            //                         }),
+            //         stud.end());
 
-            stud.erase(remove_if(stud.begin(), stud.end(),
-                                    [](const studentas& s)
-                                    {
-                                        return s.galutinis < 5;
-                                    }),
-                    stud.end());
+            auto partition_point = stable_partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
+            vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
+            stud.erase(stud.begin(), partition_point);
 
             auto end = high_resolution_clock::now();
 

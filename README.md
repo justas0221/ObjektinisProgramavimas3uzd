@@ -127,7 +127,17 @@ Dar bandome naudoti copy_if ir remove_if derini, skirstymo laikas islieka labai 
 
 ![The image of the analysis](16.png)
 
+Paskutinis isbandomas algoritmas yra stable_partition, taciau naudojant ji, skirstymo laikas gan zenkliai pailgeja
 
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0                        |
+| 10000             | 0.012925                 |
+| 100000            | 0.140118                 |
+| 1000000           | 1.40111                  |
+| 10000000          | -                        |
+
+![The image of the analysis](17.png)
 
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
