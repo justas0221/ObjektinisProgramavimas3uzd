@@ -655,24 +655,24 @@ int main()
             //     }
             // }
 
-            // auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis < 5; });
+            // auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis >= 5; });
 
-            // vargsiukai.insert(vargsiukai.end(), it, stud.end());
+            // vargsiukai.insert(vargsiukai.end(), stud.begin(), it);
 
-            // stud.erase(it, stud.end());
+            // stud.erase(stud.begin(), it);
 
-            // auto end = high_resolution_clock::now();
+            auto partition_point = std::partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
 
-            auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
-
-            vargsiukai.insert(vargsiukai.end(), partition_point, stud.end());
+            vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
             
-            stud.erase(partition_point, stud.end());
+            stud.erase(stud.begin(), partition_point);
 
             auto end = high_resolution_clock::now();
 
             skirstymas = end - start;
         }
+
+        cout << vargsiukai.size() << " " << stud.size() << endl;
 
         if (isvedimasFaile)
         {
