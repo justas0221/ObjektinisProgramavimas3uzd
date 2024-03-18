@@ -3,9 +3,8 @@
 
 int main()
 {
-    list<studentas> stud; // Studentu strukturu vektorius
-    list<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
-    list<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yr aukstesnis negu arba lygus 5
+    list<studentas> stud; // Studentu strukturu sarasas
+    list<studentas> vargsiukai; // Sarasas studentu, kuriu galutinis balas yra zemesnis negu 5
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
@@ -618,26 +617,6 @@ int main()
                 i.galutinis = 0.4 * i.mediana + 0.6 * i.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
             }
         }
-
-        // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
-        if (rikiavimas == 1)
-        {
-            auto start = high_resolution_clock::now();
-
-            stud.sort(palygintiMazejant);
-
-            auto end = high_resolution_clock::now();
-            rusiavimas = end - start;
-        }
-        else
-        {
-            auto start = high_resolution_clock::now();
-
-            stud.sort(palygintiDidejant);
-
-            auto end = high_resolution_clock::now();
-            rusiavimas = end - start;
-        }
         
         if (parinktis == 6)
         {
@@ -656,21 +635,39 @@ int main()
                     ++it;
                 }
             }
-
-            // auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis >= 5; });
-
-            // vargsiukai.insert(vargsiukai.end(), stud.begin(), it);
-
-            // stud.erase(stud.begin(), it);
-
-            // auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
-
-            // vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
-            
-            // stud.erase(stud.begin(), partition_point);
             
             auto end = high_resolution_clock::now();
             skirstymas = end - start;
+        }
+
+        // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
+        if (rikiavimas == 1)
+        {
+            auto start = high_resolution_clock::now();
+
+            stud.sort(palygintiDidejant);
+            
+            if (parinktis == 6)
+            {
+                vargsiukai.sort(palygintiDidejant);
+            }
+
+            auto end = high_resolution_clock::now();
+            rusiavimas = end - start;
+        }
+        else
+        {
+            auto start = high_resolution_clock::now();
+
+            stud.sort(palygintiMazejant);
+
+            if (parinktis == 6)
+            {
+                vargsiukai.sort(palygintiMazejant);
+            }
+
+            auto end = high_resolution_clock::now();
+            rusiavimas = end - start;
         }
 
         if (isvedimasFaile)
@@ -760,7 +757,7 @@ int main()
 
                 for(auto &i : stud)
                 {
-                    galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                    galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
                 }
             }
 
@@ -777,6 +774,18 @@ int main()
             cout << studKiekis << " irasu rikiavimo trukme: " << rusiavimas.count() << endl;
             cout << studKiekis << " irasu skirstymo i dvi grupes trukme: " << skirstymas.count() << endl;
             cout << studKiekis << " irasu testo trukme sekundemis: " << bendraTrukme.count() << endl;
+
+            for (auto &i : stud)
+            {
+                i.nd.clear();
+            }
+            stud.clear();
+
+            for (auto &i : vargsiukai)
+            {
+                i.nd.clear();
+            }
+            vargsiukai.clear();
         }
         else
         {

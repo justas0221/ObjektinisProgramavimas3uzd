@@ -9,7 +9,7 @@ int main()
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
     bool teisingasIvedimas;
-    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile, rikiavimas, studKiekis = 1000, pazKiekis;
+    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile = 0, rikiavimas, studKiekis = 1000, pazKiekis;
     char testiPrograma;
     ifstream input;
 
@@ -617,26 +617,6 @@ int main()
                 i.galutinis = 0.4 * i.mediana + 0.6 * i.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
             }
         }
-
-        // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
-        if (rikiavimas == 1)
-        {
-            auto start = high_resolution_clock::now();
-
-            sort(stud.begin(), stud.end(), palygintiMazejant);
-
-            auto end = high_resolution_clock::now();
-            rusiavimas = end - start;
-        }
-        else
-        {
-            auto start = high_resolution_clock::now();
-
-            sort(stud.begin(), stud.end(), palygintiDidejant);
-
-            auto end = high_resolution_clock::now();
-            rusiavimas = end - start;
-        }
         
         if (parinktis == 6)
         {
@@ -661,7 +641,7 @@ int main()
 
             // stud.erase(stud.begin(), it);
 
-            auto partition_point = std::partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
+            auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
 
             vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
             
@@ -672,9 +652,37 @@ int main()
             skirstymas = end - start;
         }
 
-        cout << vargsiukai.size() << " " << stud.size() << endl;
+        // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
+        if (rikiavimas == 1)
+        {
+            auto start = high_resolution_clock::now();
 
-        if (isvedimasFaile)
+            sort(stud.begin(), stud.end(), palygintiDidejant);
+            
+            if (parinktis == 6)
+            {
+                sort(vargsiukai.begin(), vargsiukai.end(), palygintiDidejant);
+            }
+
+            auto end = high_resolution_clock::now();
+            rusiavimas = end - start;
+        }
+        else
+        {
+            auto start = high_resolution_clock::now();
+
+            sort(stud.begin(), stud.end(), palygintiMazejant);
+            
+            if (parinktis == 6)
+            {
+                sort(vargsiukai.begin(), vargsiukai.end(), palygintiMazejant);
+            }
+
+            auto end = high_resolution_clock::now();
+            rusiavimas = end - start;
+        }
+
+        if (isvedimasFaile == 1)
         {
             ofstream output;
             output.open("output.txt");
@@ -761,7 +769,7 @@ int main()
 
                 for(auto &i : stud)
                 {
-                    galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                    galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
                 }
             }
 
@@ -779,6 +787,18 @@ int main()
             cout << studKiekis << " irasu skirstymo i dvi grupes trukme: " << skirstymas.count() << endl;
             cout << studKiekis << " irasu duomenu isvedimo i faila trukme: " << isvedimas.count() << endl;
             cout << studKiekis << " irasu testo trukme sekundemis: " << bendraTrukme.count() << endl;
+
+            for (auto &i : stud)
+            {
+                i.nd.clear();
+            }
+            stud.clear();
+
+            for (auto &i : vargsiukai)
+            {
+                i.nd.clear();
+            }
+            vargsiukai.clear();
         }
         else
         {

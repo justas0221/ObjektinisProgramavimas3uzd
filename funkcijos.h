@@ -25,6 +25,6 @@ int tarpuSkaicius(string);
 int generuotiPazymi();
 string generuotiVarda();
 string generuotiPavarde();
-bool palygintiMazejant(studentas&, studentas&);
-bool palygintiDidejant(studentas&, studentas&);
+bool palygintiMazejant(const studentas&, const studentas&);
+bool palygintiDidejant(const studentas&, const studentas&);
 void generuotiFaila(int, int, string);

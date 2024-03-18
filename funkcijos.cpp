@@ -116,13 +116,13 @@ string generuotiPavarde()
     return pavarde;
 }
 
-bool palygintiDidejant(studentas& a, studentas& b)
+bool palygintiMazejant(const studentas& a, const studentas& b)
 {
     return a.galutinis > b.galutinis;
 }
 
 
-bool palygintiMazejant(studentas& a, studentas& b)
+bool palygintiDidejant(const studentas& a, const studentas& b)
 {
     return a.galutinis < b.galutinis;
 }

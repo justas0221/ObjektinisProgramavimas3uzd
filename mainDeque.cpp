@@ -3,9 +3,8 @@
 
 int main()
 {
-    deque<studentas> stud; // Studentu strukturu vektorius
-    deque<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
-    deque<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yr aukstesnis negu arba lygus 5
+    deque<studentas> stud; // Studentu strukturu konteineris
+    deque<studentas> vargsiukai; // Konteineris studentu, kuriu galutinis balas yra zemesnis negu 5
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
@@ -618,13 +617,38 @@ int main()
                 i.galutinis = 0.4 * i.mediana + 0.6 * i.egz; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
             }
         }
+        
+        if (parinktis == 6)
+        {
+            auto start = high_resolution_clock::now();
+
+            auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
+
+            vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
+            
+            stud.erase(stud.begin(), partition_point);
+
+            auto end = high_resolution_clock::now();
+            skirstymas = end - start;
+        }
 
         // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
         if (rikiavimas == 1)
         {
             auto start = high_resolution_clock::now();
 
-            sort(stud.begin(), stud.end(), palygintiMazejant);
+            sort(stud.begin(), stud.end(), [] (const studentas& a, const studentas& b)
+            {
+                return a.galutinis < b.galutinis;
+            });
+
+            if (parinktis == 6)
+            {
+                sort(vargsiukai.begin(), vargsiukai.end(), [] (const studentas& a, const studentas& b)
+                {
+                    return a.galutinis < b.galutinis;
+                });
+            }
 
             auto end = high_resolution_clock::now();
             rusiavimas = end - start;
@@ -633,27 +657,24 @@ int main()
         {
             auto start = high_resolution_clock::now();
 
-            sort(stud.begin(), stud.end(), palygintiDidejant);
+            sort(stud.begin(), stud.end(), [] (const studentas& a, const studentas& b)
+            {
+                return a.galutinis > b.galutinis;
+            });
+            
+            if (parinktis == 6)
+            {
+                sort(vargsiukai.begin(), vargsiukai.end(), [] (const studentas& a, const studentas& b)
+                {
+                    return a.galutinis > b.galutinis;
+                });
+            }
 
             auto end = high_resolution_clock::now();
             rusiavimas = end - start;
         }
-        
-        if (parinktis == 6)
-        {
-            auto start = high_resolution_clock::now();
 
-            auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
-
-            vargsiukai.insert(vargsiukai.end(), partition_point, stud.end());
-            
-            stud.erase(partition_point, stud.end());
-
-            auto end = high_resolution_clock::now();
-            skirstymas = end - start;
-        }
-
-        if (isvedimasFaile)
+        if (isvedimasFaile == 1)
         {
             ofstream output;
             output.open("output.txt");
@@ -726,7 +747,7 @@ int main()
                     vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
 
-                for(auto &i : galvociai)
+                for(auto &i : stud)
                 {
                     galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
@@ -738,9 +759,9 @@ int main()
                     vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
                 }
 
-                for(auto &i : galvociai)
+                for(auto &i : stud)
                 {
-                    galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                    galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
                 }
             }
 
@@ -757,6 +778,18 @@ int main()
             cout << studKiekis << " irasu rikiavimo trukme: " << rusiavimas.count() << endl;
             cout << studKiekis << " irasu skirstymo i dvi grupes trukme: " << skirstymas.count() << endl;
             cout << studKiekis << " irasu testo trukme sekundemis: " << bendraTrukme.count() << endl;
+
+            for (auto &i : stud)
+            {
+                i.nd.clear();
+            }
+            stud.clear();
+
+            for (auto &i : vargsiukai)
+            {
+                i.nd.clear();
+            }
+            vargsiukai.clear();
         }
         else
         {
