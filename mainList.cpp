@@ -643,11 +643,31 @@ int main()
         {
             auto start = high_resolution_clock::now();
 
-            auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
+            list<studentas>::iterator it = stud.begin();
+            while (it != stud.end())
+            {
+                if (it->galutinis < 5)
+                {
+                    vargsiukai.push_back(*it);
+                    it = stud.erase(it);
+                }
+                else
+                {
+                    ++it;
+                }
+            }
 
-            vargsiukai.insert(vargsiukai.end(), partition_point, stud.end());
+            // auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis >= 5; });
+
+            // vargsiukai.insert(vargsiukai.end(), stud.begin(), it);
+
+            // stud.erase(stud.begin(), it);
+
+            // auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
+
+            // vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
             
-            stud.erase(partition_point, stud.end());
+            // stud.erase(stud.begin(), partition_point);
             
             auto end = high_resolution_clock::now();
             skirstymas = end - start;
@@ -726,7 +746,7 @@ int main()
                     vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
 
-                for(auto &i : galvociai)
+                for(auto &i : stud)
                 {
                     galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
@@ -738,7 +758,7 @@ int main()
                     vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
                 }
 
-                for(auto &i : galvociai)
+                for(auto &i : stud)
                 {
                     galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
                 }
