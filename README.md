@@ -115,6 +115,20 @@ Tada bandome naudoti remove_copy_if funkcija, skirstymo laikas pailgeja
 
 ![The image of the analysis](14.png)
 
+Dar bandome naudoti copy_if ir remove_if derini, skirstymo laikas islieka labai panasus i pries tai buvusi
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0.001016                 |
+| 10000             | 0.007766                 |
+| 100000            | 0.063005                 |
+| 1000000           | 0.636348                 |
+| 10000000          | -                        |
+
+![The image of the analysis](16.png)
+
+
+
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
 | Studentu skaicius | Duomenu skirstymo trukme |
