@@ -636,16 +636,18 @@ int main()
             // }
 
             // auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis >= 5; });
-
             // vargsiukai.insert(vargsiukai.end(), stud.begin(), it);
-
             // stud.erase(stud.begin(), it);
 
-            auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
+            // auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
+            // vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
+            // stud.erase(stud.begin(), partition_point);
 
-            vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
-            
-            stud.erase(stud.begin(), partition_point);
+            remove_copy_if(stud.begin(), stud.end(), back_inserter(vargsiukai), [](const studentas& s)
+            {
+                return s.galutinis >= 5;
+            });
+            stud.erase(remove_if(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; }), stud.end());
 
             auto end = high_resolution_clock::now();
 

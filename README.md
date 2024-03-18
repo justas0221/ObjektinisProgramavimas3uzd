@@ -103,6 +103,18 @@ Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, 
 
 ![The image of the analysis](7.png)
 
+Tada bandome naudoti remove_copy_if funkcija, skirstymo laikas pailgeja
+
+| Studentu skaicius | Duomenu skirstymo trukme |
+| ----------------- | ------------------------ |
+| 1000              | 0                        |
+| 10000             | 0.020752                 |
+| 100000            | 0.076956                 |
+| 1000000           | 0.634299                 |
+| 10000000          | -                        |
+
+![The image of the analysis](14.png)
+
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
 | Studentu skaicius | Duomenu skirstymo trukme |
@@ -171,7 +183,7 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas tukstancius kartu suma
 
 ![The image of the analysis](12.png)
 
-Veliau meginame naudoti funkcija partition, taciau skirstymo laikas siek tiek pailgeja
+Veliau meginame naudoti funkcija partition, skirstymo laikas dar labiau sutrumpeja
 
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
