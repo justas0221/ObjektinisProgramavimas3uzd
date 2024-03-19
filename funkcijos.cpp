@@ -43,75 +43,21 @@ int generuotiPazymi()
 }
 
 // Funkcija, sugeneruojanti studento varda
-string generuotiVarda()
+string generuotiVarda(int i)
 {
-    ifstream vardai;
-    vardai.open("names.txt");
-
     string vardas;
-    int eiluciuSkaicius = 0;
-
-    if (!vardai.is_open())
-    {
-        cout << "Nepavyko atidaryti vardu failo!" << endl;
-        exit(0);
-    }
-
-    while(getline(vardai, vardas)) // Skaiciuojame eiluciu skaiciu faile
-    {
-        eiluciuSkaicius++;
-    }
-
-    int eilute = rand() % eiluciuSkaicius + 1; // Atsitiktinai sugeneruotas eilutes numeris
-
-    vardai.clear();
-    vardai.seekg(0);
-
-    for (int i = 1; i < eilute; i++) // Einame per faila iki eilutes, esancios pries ta, kurios numeri sugeneravome
-    {
-        getline(vardai, vardas);
-    }
-
-    getline(vardai, vardas); // Nuskaitome sugeneruotu numeriu pazymetoje eiluteje esanti varda
-
-    vardai.close();
+    
+    vardas = "Vardas" + to_string(i + 1);
 
     return vardas;
 }
 
 // Funkcija, sugeneruojanti studento pavarde
-string generuotiPavarde()
+string generuotiPavarde(int i)
 {
-    ifstream pavardes;
-    pavardes.open("surnames.txt");
-
     string pavarde;
-    int eiluciuSkaicius = 0;
-
-    if (!pavardes.is_open())
-    {
-        cout << "Nepavyko atidaryti pavardziu failo!" << endl;
-        exit(0);
-    }
-
-    while(getline(pavardes, pavarde)) // Skaiciuojame eiluciu skaiciu faile
-    {
-        eiluciuSkaicius++;
-    }
-
-    int eilute = rand() % eiluciuSkaicius + 1; // Atsitiktinai sugeneruotas eilutes numeris
-
-    pavardes.clear();
-    pavardes.seekg(0);
-
-    for (int i = 1; i < eilute; i++) // Einame per faila iki eilutes, esancios pries ta, kurios numeri sugeneravome
-    {
-        getline(pavardes, pavarde);
-    }
-
-    getline(pavardes, pavarde); // Nuskaitome sugeneruotu numeriu pazymetoje eiluteje esanti varda
-
-    pavardes.close();
+    
+    pavarde = "Pavarde" + to_string(i + 1);
 
     return pavarde;
 }

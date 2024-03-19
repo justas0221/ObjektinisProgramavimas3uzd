@@ -11,6 +11,8 @@
 
 ## Naudojimosi instrukcija
 
+Norint naudoti 5 arba 6 parinktį (darbą su failas), pirmiausia turite susigeneruoti failus naudodami funkciją generuotiFaila().
+
 1. Paleisti programą
 2. Sekti programoje nurodomus žingsnius priklausomai nuo to, kaip jūs norite vykdyti programą.
 3. Gauti studentų rezultatus ekrane arba faile (priklausomai nuo to, kokį išvedimo būdą jūs pasirinkote).

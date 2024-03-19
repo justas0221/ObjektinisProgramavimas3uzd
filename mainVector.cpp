@@ -80,7 +80,7 @@ int main()
 
     if (parinktis == 5) // Jei vartotojas nori nuskaityti duomenis is failo, atidarome duomenu faila
     {
-        input.open("studentai10000.txt");
+        input.open("sugeneruoti1000.txt");
         try
         {
             if (!input)
@@ -467,8 +467,8 @@ int main()
 
                     if (parinktis == 3) // Jei parinktis yra 3 tuomet generuojame vardus, pavardes ir pazymius
                     {
-                            naujasStudentas.vardas = generuotiVarda(); // Sugeneruota varda priskiriame naujam studentui
-                            naujasStudentas.pavarde = generuotiPavarde(); // Sugeneruota pavarde priskiriame naujam studentui
+                            naujasStudentas.vardas = generuotiVarda(i); // Sugeneruota varda priskiriame naujam studentui
+                            naujasStudentas.pavarde = generuotiPavarde(i); // Sugeneruota pavarde priskiriame naujam studentui
 
                             cout << "Sugeneruoti " << i + 1 << "-o studento vardas ir pavarde: " << naujasStudentas.vardas << " " << naujasStudentas.pavarde << endl;
                             for (int j = 0; j < randomPazymiuKiekis; j++)
