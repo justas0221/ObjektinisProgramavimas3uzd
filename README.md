@@ -23,7 +23,7 @@ Pamoka, kaip atsisiųsti "Make" Windows naudotojams: [Make](https://www.youtube.
 2. Atsisiųskite programos šaltinio kodą iš mūsų repozitorijos.
 3. Atsidarę terminalą, naviguokite į atsisiųstos programos aplanką.
 4. Įvykdykite komandą: make "konteineris" (vietoj "konteineris" įrašykite, su kokio tipo konteineriu norite testuoti programą: Vector, List ar Deque).
-5. Tuomet terminale įrašykite ./mainVector, ./mainList arba ./mainDeque, kad paleistumėte norimą programą.
+5. Tuomet terminale įrašykite ./mainVector, ./mainList arba ./mainDeque, kad paleistumėte norimą programą Linux sistemoje arba mainVector.exe, mainList.exe ar mainDeque.exe Windows sistemoje.
 
 ## Darbo su vektoriais rezultatai
 
