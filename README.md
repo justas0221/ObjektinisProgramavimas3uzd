@@ -35,8 +35,8 @@ Pamoka, kaip atsisiųsti "Make" Windows naudotojams: [Make](https://www.youtube.
 | 1000000           | 5.70716                 | 8.93732                   | 8.12317                  | 1.08218                  | 7.37217                          | 25.5148           |
 | 10000000          | 56.1039                 | -                         | -                        | -                        | -                                | -                 |
 
-![The image of the analysis](1.png)
-![The image of the analysis](2.png)
+![The image of the analysis](https://i.imgur.com/vi9uxjX.png)
+![The image of the analysis](https://i.imgur.com/mVstnHg.png)
 
 ## Darbo su list'ais rezultatai
 
@@ -48,7 +48,7 @@ Pamoka, kaip atsisiųsti "Make" Windows naudotojams: [Make](https://www.youtube.
 | 1000000           | 9.51845                   | 1.03467                  | 2.0869                   | 19.7203           |
 | 10000000          | -                         | -                        | -                        | -                 |
 
-![The image of the analysis](3.png)
+![The image of the analysis](https://i.imgur.com/5HkEhCi.png)
 
 ## Darbo su deque'ais rezultatai
 
@@ -60,7 +60,7 @@ Pamoka, kaip atsisiųsti "Make" Windows naudotojams: [Make](https://www.youtube.
 | 1000000           | 8.69274                   | 2.62574                  | 0.709939                 | 19.3006           |
 | 10000000          | -                         | -                        | -                        | -                 |
 
-![The image of the analysis](4.png)
+![The image of the analysis](https://i.imgur.com/LMgpiyB.png)
 
 ## Testavimo parametrai
 
@@ -80,7 +80,7 @@ SSD: Micron NVMe 512GB
 
 Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
 
-![The image of the analysis](5.png)
+![The image of the analysis](https://i.imgur.com/NggwGgV.png)
 
 ## Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
@@ -94,7 +94,7 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu,
 | 1000000           | 0.505167                 |
 | 10000000          | -                        |
 
-![The image of the analysis](6.png)
+![The image of the analysis](https://i.imgur.com/Sj00JK0.png)
 
 Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, laimime dar siek tiek laiko
 
@@ -106,7 +106,7 @@ Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, 
 | 1000000           | 0.449494                 |
 | 10000000          | -                        |
 
-![The image of the analysis](7.png)
+![The image of the analysis](https://i.imgur.com/EvWR1zD.png)
 
 Tada bandome naudoti remove_copy_if funkcija, skirstymo laikas pailgeja
 
@@ -118,7 +118,7 @@ Tada bandome naudoti remove_copy_if funkcija, skirstymo laikas pailgeja
 | 1000000           | 0.634299                 |
 | 10000000          | -                        |
 
-![The image of the analysis](14.png)
+![The image of the analysis](https://i.imgur.com/U5KVLnV.png)
 
 Dar bandome naudoti copy_if ir remove_if derini, skirstymo laikas islieka labai panasus i pries tai buvusi
 
@@ -130,7 +130,7 @@ Dar bandome naudoti copy_if ir remove_if derini, skirstymo laikas islieka labai 
 | 1000000           | 0.636348                 |
 | 10000000          | -                        |
 
-![The image of the analysis](16.png)
+![The image of the analysis](https://i.imgur.com/DK3WcdM.png)
 
 Paskutinis isbandomas algoritmas yra stable_partition, taciau naudojant ji, skirstymo laikas gan zenkliai pailgeja
 
@@ -142,7 +142,7 @@ Paskutinis isbandomas algoritmas yra stable_partition, taciau naudojant ji, skir
 | 1000000           | 1.40111                  |
 | 10000000          | -                        |
 
-![The image of the analysis](17.png)
+![The image of the analysis](https://i.ibb.co/SPTkfS6/17.png)
 
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
@@ -156,7 +156,7 @@ Paskutinis isbandomas algoritmas yra stable_partition, taciau naudojant ji, skir
 
 Neapsakomai greiciau, nei naudojant 2 strategija su vektoriais
 
-![The image of the analysis](8.png)
+![The image of the analysis](https://i.imgur.com/5CvISOP.png)
 
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
@@ -170,7 +170,7 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas siek tiek padideja
 | 1000000           | 1.16523                  |
 | 10000000          | -                        |
 
-![The image of the analysis](9.png)
+![The image of the analysis](https://i.imgur.com/08NiY67.png)
 
 Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau pailgeja
 
@@ -182,7 +182,7 @@ Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau p
 | 1000000           | 1.85678                  |
 | 10000000          | -                        |
 
-![The image of the analysis](10.png)
+![The image of the analysis](https://i.imgur.com/8MmKBc4.png)
 
 ## Deque esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
@@ -196,7 +196,7 @@ Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau p
 
 Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
 
-![The image of the analysis](11.png)
+![The image of the analysis](https://i.imgur.com/h5HIybF.png)
 
 ## Deque esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
@@ -210,7 +210,7 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas tukstancius kartu suma
 | 1000000           | 0.714979                 |
 | 10000000          | -                        |
 
-![The image of the analysis](12.png)
+![The image of the analysis](https://i.imgur.com/Y15Vwfe.png)
 
 Veliau meginame naudoti funkcija partition, skirstymo laikas dar labiau sutrumpeja
 
@@ -222,4 +222,4 @@ Veliau meginame naudoti funkcija partition, skirstymo laikas dar labiau sutrumpe
 | 1000000           | 0.626736                 |
 | 10000000          | -                        |
 
-![The image of the analysis](13.png)
+![The image of the analysis](https://i.imgur.com/PXGDCZ6.png)
