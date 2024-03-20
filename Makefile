@@ -1,3 +1,8 @@
+main: funkcijos.o
+	g++ -o mainVector mainVector.cpp funkcijos.o
+	g++ -o mainList mainList.cpp funkcijos.o
+	g++ -o mainDeque mainDeque.cpp funkcijos.o
+	
 Vector: funkcijos.o
 	g++ -o mainVector mainVector.cpp funkcijos.o
 
