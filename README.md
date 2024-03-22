@@ -37,9 +37,6 @@ Pamoka, kaip atsisiųsti "Make" Windows naudotojams: [Make](https://www.youtube.
 | 1000000           | 5.70716                 | 8.93732                   | 8.12317                  | 1.08218                  | 7.37217                          | 25.5148           |
 | 10000000          | 56.1039                 | -                         | -                        | -                        | -                                | -                 |
 
-![The image of the analysis](https://i.imgur.com/vi9uxjX.png)
-![The image of the analysis](https://i.imgur.com/mVstnHg.png)
-
 ## Darbo su list'ais rezultatai
 
 | Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
@@ -50,8 +47,6 @@ Pamoka, kaip atsisiųsti "Make" Windows naudotojams: [Make](https://www.youtube.
 | 1000000           | 9.51845                   | 1.03467                  | 2.0869                   | 19.7203           |
 | 10000000          | -                         | -                        | -                        | -                 |
 
-![The image of the analysis](https://i.imgur.com/5HkEhCi.png)
-
 ## Darbo su deque'ais rezultatai
 
 | Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
@@ -61,8 +56,6 @@ Pamoka, kaip atsisiųsti "Make" Windows naudotojams: [Make](https://www.youtube.
 | 100000            | 0.770116                  | 0.423263                 | 0.063259                 | 1.95423           |
 | 1000000           | 8.69274                   | 2.62574                  | 0.709939                 | 19.3006           |
 | 10000000          | -                         | -                        | -                        | -                 |
-
-![The image of the analysis](https://i.imgur.com/LMgpiyB.png)
 
 ## Testavimo parametrai
 
@@ -82,8 +75,6 @@ SSD: Micron NVMe 512GB
 
 Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
 
-![The image of the analysis](https://i.imgur.com/NggwGgV.png)
-
 ## Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
 Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu, lyginant su 2 strategija
@@ -96,8 +87,6 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu,
 | 1000000           | 0.505167                 |
 | 10000000          | -                        |
 
-![The image of the analysis](https://i.imgur.com/Sj00JK0.png)
-
 Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, laimime dar siek tiek laiko
 
 | Studentu skaicius | Duomenu skirstymo trukme |
@@ -107,8 +96,6 @@ Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, 
 | 100000            | 0.040915                 |
 | 1000000           | 0.449494                 |
 | 10000000          | -                        |
-
-![The image of the analysis](https://i.imgur.com/EvWR1zD.png)
 
 Tada bandome naudoti remove_copy_if funkcija, skirstymo laikas pailgeja
 
@@ -120,8 +107,6 @@ Tada bandome naudoti remove_copy_if funkcija, skirstymo laikas pailgeja
 | 1000000           | 0.634299                 |
 | 10000000          | -                        |
 
-![The image of the analysis](https://i.imgur.com/U5KVLnV.png)
-
 Dar bandome naudoti copy_if ir remove_if derini, skirstymo laikas islieka labai panasus i pries tai buvusi
 
 | Studentu skaicius | Duomenu skirstymo trukme |
@@ -132,8 +117,6 @@ Dar bandome naudoti copy_if ir remove_if derini, skirstymo laikas islieka labai 
 | 1000000           | 0.636348                 |
 | 10000000          | -                        |
 
-![The image of the analysis](https://i.imgur.com/DK3WcdM.png)
-
 Paskutinis isbandomas algoritmas yra stable_partition, taciau naudojant ji, skirstymo laikas gan zenkliai pailgeja
 
 | Studentu skaicius | Duomenu skirstymo trukme |
@@ -143,8 +126,6 @@ Paskutinis isbandomas algoritmas yra stable_partition, taciau naudojant ji, skir
 | 100000            | 0.140118                 |
 | 1000000           | 1.40111                  |
 | 10000000          | -                        |
-
-![The image of the analysis](https://i.ibb.co/SPTkfS6/17.png)
 
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
@@ -158,8 +139,6 @@ Paskutinis isbandomas algoritmas yra stable_partition, taciau naudojant ji, skir
 
 Neapsakomai greiciau, nei naudojant 2 strategija su vektoriais
 
-![The image of the analysis](https://i.imgur.com/5CvISOP.png)
-
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
 Pirmiausia naudojame funkcija remove_if, skirstymo laikas siek tiek padideja
@@ -172,8 +151,6 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas siek tiek padideja
 | 1000000           | 1.16523                  |
 | 10000000          | -                        |
 
-![The image of the analysis](https://i.imgur.com/08NiY67.png)
-
 Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau pailgeja
 
 | Studentu skaicius | Duomenu skirstymo trukme |
@@ -183,8 +160,6 @@ Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau p
 | 100000            | 0.225845                 |
 | 1000000           | 1.85678                  |
 | 10000000          | -                        |
-
-![The image of the analysis](https://i.imgur.com/8MmKBc4.png)
 
 ## Deque esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
@@ -198,8 +173,6 @@ Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau p
 
 Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
 
-![The image of the analysis](https://i.imgur.com/h5HIybF.png)
-
 ## Deque esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
 Pirmiausia naudojame funkcija remove_if, skirstymo laikas tukstancius kartu sumazeja
@@ -212,8 +185,6 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas tukstancius kartu suma
 | 1000000           | 0.714979                 |
 | 10000000          | -                        |
 
-![The image of the analysis](https://i.imgur.com/Y15Vwfe.png)
-
 Veliau meginame naudoti funkcija partition, skirstymo laikas dar labiau sutrumpeja
 
 | Studentu skaicius | Duomenu skirstymo trukme |
@@ -223,5 +194,3 @@ Veliau meginame naudoti funkcija partition, skirstymo laikas dar labiau sutrumpe
 | 100000            | 0.063205                 |
 | 1000000           | 0.626736                 |
 | 10000000          | -                        |
-
-![The image of the analysis](https://i.imgur.com/PXGDCZ6.png)

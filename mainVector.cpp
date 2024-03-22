@@ -9,7 +9,7 @@ int main()
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
     bool teisingasIvedimas;
-    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile = 0, rikiavimas, studKiekis = 1000, pazKiekis, failuKiekis;
+    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile = 0, rikiavimas, studKiekis = 1000, pazKiekis, failuKiekis = 1;
     char testiPrograma;
     ifstream input;
 
