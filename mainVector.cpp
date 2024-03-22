@@ -5,11 +5,12 @@ int main()
 {
     vector<studentas> stud; // Studentu strukturu vektorius
     vector<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
+    vector<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yra lygus arba didesnis uz 5
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
     bool teisingasIvedimas;
-    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile = 0, rikiavimas, studKiekis = 1000, pazKiekis, failuKiekis = 1;
+    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile = 0, rikiavimas, studKiekis = 1000, pazKiekis, failuKiekis = 1, strategija;
     char testiPrograma;
     ifstream input;
 
@@ -152,6 +153,33 @@ int main()
                 if (!teisingasIvedimas)
                 {
                     throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 5 imtinai.");
+                }
+            }
+            catch(const exception& e)
+            {
+                cerr << "Klaida: " << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+        } while (!teisingasIvedimas);
+
+        do // Klausiame vartotojo, kuria rusiavimo strategija jis nori naudoti
+        {
+            try
+            {
+                cout << "Kuria strategija norite naudoti studentu rusiavimui i dvi grupes? (Iveskite skaiciu nuo 1 iki 3 imtinai): ";
+
+                if (!(cin >> strategija) && (strategija < 1 || strategija > 3 || cin.peek() != '\n'))
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 3 imtinai.");
+                }
+
+                teisingasIvedimas = ((strategija > 0 && strategija < 4) && cin.peek() == '\n');
+
+                if (!teisingasIvedimas)
+                {
+                    throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 3 imtinai.");
                 }
             }
             catch(const exception& e)
@@ -612,56 +640,59 @@ int main()
             
             if (parinktis == 5)
             {
-                auto start = high_resolution_clock::now();
-                // vector<studentas>::iterator it = stud.begin();
-                // while (it != stud.end())
-                // {
-                //     if (it->galutinis < 5)
-                //     {
-                //         vargsiukai.push_back(*it);
-                //         it = stud.erase(it);
-                //     }
-                //     else
-                //     {
-                //         ++it;
-                //     }
-                // }
+                if (strategija == 1)
+                {
+                    auto start = high_resolution_clock::now();
 
-                // auto it = remove_if(stud.begin(), stud.end(), [](const auto& s) { return s.galutinis >= 5; });
-                // vargsiukai.insert(vargsiukai.end(), stud.begin(), it);
-                // stud.erase(stud.begin(), it);
+                    for (auto &i : stud)
+                    {
+                        if (i.galutinis < 5)
+                        {
+                            vargsiukai.push_back(i);
+                        }
+                        else
+                        {
+                            galvociai.push_back(i);
+                        }
+                    }
 
-                // auto partition_point = partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
-                // vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
-                // stud.erase(stud.begin(), partition_point);
+                    auto end = high_resolution_clock::now();
+                    skirstymas = end - start;
+                }
+                else if (strategija == 2)
+                {
+                    auto start = high_resolution_clock::now();
 
-                // remove_copy_if(stud.begin(), stud.end(), back_inserter(vargsiukai), [](const studentas& s)
-                // {
-                //     return s.galutinis >= 5;
-                // });
-                // stud.erase(remove_if(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; }), stud.end());
+                    vector<studentas>::iterator it = stud.begin();
+                    while (it != stud.end())
+                    {
+                        if (it->galutinis < 5)
+                        {
+                            vargsiukai.push_back(*it);
+                            it = stud.erase(it);
+                        }
+                        else
+                        {
+                            ++it;
+                        }
+                    }
 
-                // copy_if(stud.begin(), stud.end(), back_inserter(vargsiukai),
-                //     [](const studentas& s)
-                //     {
-                //         return s.galutinis < 5;
-                //     });
-                // stud.erase(remove_if(stud.begin(), stud.end(),
-                //                         [](const studentas& s)
-                //                         {
-                //                             return s.galutinis < 5;
-                //                         }),
-                //         stud.end());
+                    auto end = high_resolution_clock::now();
+                    skirstymas = end - start;
+                }
+                else
+                {
+                    auto start = high_resolution_clock::now();
 
-                auto partition_point = stable_partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
-                vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
-                stud.erase(stud.begin(), partition_point);
+                    auto partition_point = stable_partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
+                    vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
+                    stud.erase(stud.begin(), partition_point);
 
-                auto end = high_resolution_clock::now();
-
-                skirstymas = end - start;
+                    auto end = high_resolution_clock::now();
+                    skirstymas = end - start;
+                }
             }
-
+            
             // Priklausomai nuo to, kaip studentus isrikiuoti norejo vartotojas, iskvieciame tam skirtas funkcijas
             if (rikiavimas == 1)
             {
@@ -824,6 +855,11 @@ int main()
             cout << "3 testu laiku vidurkis su " << studKiekis << " studentu failu: " << visuTestuTrukme.count() / 3.0 << endl;
             cout << endl;
         }
+        else
+        {
+            break;
+        }
+
         studKiekis *= 10;
     }
 

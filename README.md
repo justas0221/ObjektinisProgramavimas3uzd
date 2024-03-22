@@ -27,149 +27,97 @@ Pamoka, kaip atsisiųsti "Make" Windows naudotojams: [Make](https://www.youtube.
 4. Įvykdykite komandą: make "konteineris" (vietoj "konteineris" įrašykite, su kokio tipo konteineriu norite testuoti programą: Vector, List ar Deque).
 5. Tuomet terminale įrašykite ./mainVector, ./mainList arba ./mainDeque, kad paleistumėte norimą programą Linux sistemoje arba mainVector.exe, mainList.exe ar mainDeque.exe Windows sistemoje.
 
-## Darbo su vektoriais rezultatai
-
-| Studentu skaicius | Failo generavimo trukme | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Duomenu isvedimo i failus trukme | Viso testo trukme |
-| ----------------- | ----------------------- | ------------------------- | ------------------------ | ------------------------ | -------------------------------- | ----------------- |
-| 1000              | 0.015606                | 0.022077                  | 0                        | 0.0096                   | 0.014761                         | 0.046438          |
-| 10000             | 0.066734                | 0.098023                  | 0.037079                 | 0.017541                 | 0.094765                         | 0.247408          |
-| 100000            | 0.579735                | 0.953051                  | 0.738203                 | 0.126286                 | 0.721543                         | 2.53988           |
-| 1000000           | 5.70716                 | 8.93732                   | 8.12317                  | 1.08218                  | 7.37217                          | 25.5148           |
-| 10000000          | 56.1039                 | -                         | -                        | -                        | -                                | -                 |
-
-## Darbo su list'ais rezultatai
-
-| Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
-| ----------------- | ------------------------- | ------------------------ | ------------------------ | ----------------- |
-| 1000              | 0.011375                  | 0                        | 0.002009                 | 0.028298          |
-| 10000             | 0.114092                  | 0.005                    | 0.009831                 | 0.190499          |
-| 100000            | 0.938607                  | 0.071131                 | 0.200386                 | 1.89285           |
-| 1000000           | 9.51845                   | 1.03467                  | 2.0869                   | 19.7203           |
-| 10000000          | -                         | -                        | -                        | -                 |
-
-## Darbo su deque'ais rezultatai
-
-| Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
-| ----------------- | ------------------------- | ------------------------ | ------------------------ | ----------------- |
-| 1000              | 0.015745                  | 0.002521                 | 0.000896                 | 0.035939          |
-| 10000             | 0.081108                  | 0.032829                 | 0.007117                 | 0.199751          |
-| 100000            | 0.770116                  | 0.423263                 | 0.063259                 | 1.95423           |
-| 1000000           | 8.69274                   | 2.62574                  | 0.709939                 | 19.3006           |
-| 10000000          | -                         | -                        | -                        | -                 |
-
 ## Testavimo parametrai
 
 CPU: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
 RAM: 16GB
 SSD: Micron NVMe 512GB
 
+## Darbo su vektoriais rezultatai, naudojant 1 rūšiavimo strategiją
+
+| Studentu skaicius | Failo generavimo trukme | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Duomenu isvedimo i failus trukme | Viso testo trukme |
+| ----------------- | ----------------------- | ------------------------- | ------------------------ | ------------------------ | -------------------------------- | ----------------- |
+| 1000              | 0.015606                | 0.003097                  | 0.000917                 | 0.000369                 | 0.006659                         | 0.011042          |
+| 10000             | 0.066734                | 0.021904                  | 0.007164                 | 0.003322                 | 0.047934                         | 0.080324          |
+| 100000            | 0.579735                | 0.194111                  | 0.096998                 | 0.020499                 | 0.384902                         | 0.69651           |
+| 1000000           | 5.70716                 | 1.79173                   | 1.33658                  | 0.207118                 | 3.42451                          | 6.75994           |
+| 10000000          | 56.1039                 | 17.711                    | 16.2768                  | 1.79619                  | 34.9862                           | 70.7702           |
+
+## Darbo su list'ais rezultatai, naudojant 1 rūšiavimo strategiją
+
+| Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
+| ----------------- | ------------------------- | ------------------------ | ------------------------ | ----------------- |
+| 1000              | 0.012964                  | 0.000793                 | 0.003106                 | 0.031365          |
+| 10000             | 0.079438                  | 0.003847                 | 0.011004                 | 0.145519          |
+| 100000            | 0.284524                  | 0.056278                 | 0.10717                  | 0.837474          |
+| 1000000           | 3.03823                   | 0.999937                 | 1.05213                  | 9.01883           |
+| 10000000          | 29.4128                   | 15.8629                  | 14.6962                  | 101.946           |
+
+## Darbo su deque'ais rezultatai, naudojant 1 rūšiavimo strategiją
+
+| Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
+| ----------------- | ------------------------- | ------------------------ | ------------------------ | ----------------- |
+| 1000              | 0.004163                  | 0.002462                 | 0.000821                 | 0.017254          |
+| 10000             | 0.024412                  | 0.021921                 | 0.006072                 | 0.090725          |
+| 100000            | 0.173054                  | 0.348351                 | 0.067596                 | 1.04723           |
+| 1000000           | 1.91702                   | 4.24411                  | 0.651649                 | 11.0898           |
+| 10000000          | 16.7831                   | 54.2263                  | 15.4799                  | 124.884           |
+
 ## Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
-| 1000              | 0.023451                 |
-| 10000             | 3.07504                  |
-| 100000            | 367.063                  |
+| 1000              | 0.009835                 |
+| 10000             | 0.876002                 |
+| 100000            | 91.3894                  |
 | 1000000           | 1000+                    |
-| 10000000          | -                        |
+| 10000000          | 10000+                   |
 
 Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
 
 ## Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
-Pirmiausia naudojame funkcija remove_if, skirstymo laikas sumazeja simtus kartu, lyginant su 2 strategija
-
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
-| 1000              | 0                        |
-| 10000             | 0.007194                 |
-| 100000            | 0.050748                 |
-| 1000000           | 0.505167                 |
-| 10000000          | -                        |
-
-Taip pat meginame dar paspartinti skirstymo laika naudodami partition funkcija, laimime dar siek tiek laiko
-
-| Studentu skaicius | Duomenu skirstymo trukme |
-| ----------------- | ------------------------ |
-| 1000              | 0.002508                 |
-| 10000             | 0.00501                  |
-| 100000            | 0.040915                 |
-| 1000000           | 0.449494                 |
-| 10000000          | -                        |
-
-Tada bandome naudoti remove_copy_if funkcija, skirstymo laikas pailgeja
-
-| Studentu skaicius | Duomenu skirstymo trukme |
-| ----------------- | ------------------------ |
-| 1000              | 0                        |
-| 10000             | 0.020752                 |
-| 100000            | 0.076956                 |
-| 1000000           | 0.634299                 |
-| 10000000          | -                        |
-
-Dar bandome naudoti copy_if ir remove_if derini, skirstymo laikas islieka labai panasus i pries tai buvusi
-
-| Studentu skaicius | Duomenu skirstymo trukme |
-| ----------------- | ------------------------ |
-| 1000              | 0.001016                 |
-| 10000             | 0.007766                 |
-| 100000            | 0.063005                 |
-| 1000000           | 0.636348                 |
-| 10000000          | -                        |
-
-Paskutinis isbandomas algoritmas yra stable_partition, taciau naudojant ji, skirstymo laikas gan zenkliai pailgeja
-
-| Studentu skaicius | Duomenu skirstymo trukme |
-| ----------------- | ------------------------ |
-| 1000              | 0                        |
-| 10000             | 0.012925                 |
-| 100000            | 0.140118                 |
-| 1000000           | 1.40111                  |
-| 10000000          | -                        |
+| 1000              | 0.000356                 |
+| 10000             | 0.003718                 |
+| 100000            | 0.02288                  |
+| 1000000           | 0.236657                 |
+| 10000000          | 2.38154                  |
 
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
-| 1000              | 0.002334                 |
-| 10000             | 0.013007                 |
-| 100000            | 0.10355                  |
-| 1000000           | 1.10066                  |
-| 10000000          | -                        |
+| 1000              | 0.000423                 |
+| 10000             | 0.007395                 |
+| 100000            | 0.046986                 |
+| 1000000           | 0.483659                 |
+| 10000000          | 4.88548                  |
 
-Neapsakomai greiciau, nei naudojant 2 strategija su vektoriais
+Neapsakomai greičiau, nei naudojant 2 strategiją su vektoriais
 
 ## List'e esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
-Pirmiausia naudojame funkcija remove_if, skirstymo laikas siek tiek padideja
-
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
-| 1000              | 0                        |
-| 10000             | 0.008008                 |
-| 100000            | 0.08891                  |
-| 1000000           | 1.16523                  |
-| 10000000          | -                        |
+| 1000              | 0.00587                  |
+| 10000             | 0.008309                 |
+| 100000            | 0.079064                 |
+| 1000000           | 0.826309                 |
+| 10000000          | 8.46289                  |
 
-Veliau meginame naudoti funkcija partition, taciau skirstymo laikas dar labiau pailgeja
-
-| Studentu skaicius | Duomenu skirstymo trukme |
-| ----------------- | ------------------------ |
-| 1000              | 0                        |
-| 10000             | 0.007995                 |
-| 100000            | 0.225845                 |
-| 1000000           | 1.85678                  |
-| 10000000          | -                        |
+Programa vykdoma lėčiau, nei naudojant 2 strategiją
 
 ## Deque esanciu studentu rikiavimo rezultatai naudojant 2 strategija
 
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
-| 1000              | 0.023038                 |
-| 10000             | 2.26224                  |
-| 100000            | 195.859                  |
+| 1000              | 0.006382                 |
+| 10000             | 0.562682                 |
+| 100000            | 57.5754                  |
 | 1000000           | 1000+                    |
-| 10000000          | -                        |
+| 10000000          | 10000+                   |
 
 Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog neverta laukti pabaigos
 
@@ -179,18 +127,10 @@ Pirmiausia naudojame funkcija remove_if, skirstymo laikas tukstancius kartu suma
 
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
-| 1000              | 0                        |
-| 10000             | 0.01221                  |
-| 100000            | 0.046883                 |
-| 1000000           | 0.714979                 |
-| 10000000          | -                        |
+| 1000              | 0.001138                 |
+| 10000             | 0.010341                 |
+| 100000            | 0.099007                 |
+| 1000000           | 1.18494                  |
+| 10000000          | 30.9919                  |
 
-Veliau meginame naudoti funkcija partition, skirstymo laikas dar labiau sutrumpeja
-
-| Studentu skaicius | Duomenu skirstymo trukme |
-| ----------------- | ------------------------ |
-| 1000              | 0                        |
-| 10000             | 0.003999                 |
-| 100000            | 0.063205                 |
-| 1000000           | 0.626736                 |
-| 10000000          | -                        |
+Vykdymo laikas ženkliai sutrumpėja, lyginant su 2 strategija
