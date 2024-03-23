@@ -28,3 +28,15 @@ string generuotiPavarde(int);
 bool palygintiMazejant(const studentas&, const studentas&);
 bool palygintiDidejant(const studentas&, const studentas&);
 void generuotiFaila(int, int, string);
+template <typename Cont>
+void failoSkaitymas(ifstream&, Cont&);
+template <typename Cont>
+void strategija1(Cont&, Cont&, Cont&);
+template <typename Cont>
+void strategija2(Cont&, Cont&);
+template <typename Cont>
+void strategija3(Cont&, Cont&);
+template <typename Cont>
+void rikiuotiDidejant(Cont&);
+template <typename Cont>
+void rikiuotiMazejant(Cont&);

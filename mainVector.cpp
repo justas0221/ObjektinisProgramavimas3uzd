@@ -114,12 +114,12 @@ int main()
         {
             cout << "Jei norite studentus isrikiuoti pagal galutini bala didejimo tvarka, iveskite \"1\", jei mazejimo, iveskite \"0\": ";
 
-            if (!(cin >> rikiavimas) && (rikiavimas != 1 || rikiavimas != 0 || cin.peek() != '\n'))
+            if (!(cin >> rikiavimas) || ((rikiavimas != 1 && rikiavimas != 0) || cin.peek() != '\n'))
             {
                 throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
             }
 
-            teisingasIvedimas = ((rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n');
+            teisingasIvedimas = (rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n';
 
             if (!teisingasIvedimas)
             {
@@ -578,33 +578,9 @@ int main()
                 else if (parinktis == 5)
                 {
                     auto start = high_resolution_clock::now();
-
-                    getline(input, eilute); // Praleidziame pirmaja failo eilute
-
-                    int pazymys;
-
-                    while (getline(input, eilute)) // Skaitome duomenis is failo kol ju yra
-                    {
-                        istringstream iss(eilute); // Padaliname juos i atskirus string'us, atskirtus tarpais
-                        studentas student;
-
-                        iss >> student.vardas >> student.pavarde;
-
-                        while(iss >> pazymys)
-                        {
-                            student.nd.push_back(pazymys);
-                        }
-
-                        student.egz = student.nd.back();
-                        student.nd.pop_back();
-
-                        stud.push_back(student);
-                    }
+                    failoSkaitymas(input, stud);
                     auto end = high_resolution_clock::now();
                     nuskaitymas = end - start;
-                }
-                if (parinktis == 5) // Jei vartotojas rinkosi nuskaityti duomenis is failo, cia nuskaitymas ir baigiasi, nes prideti studentu neimanoma
-                {
                     break;
                 }
             }
@@ -644,17 +620,7 @@ int main()
                 {
                     auto start = high_resolution_clock::now();
 
-                    for (auto &i : stud)
-                    {
-                        if (i.galutinis < 5)
-                        {
-                            vargsiukai.push_back(i);
-                        }
-                        else
-                        {
-                            galvociai.push_back(i);
-                        }
-                    }
+                    strategija1(stud, vargsiukai, galvociai);
 
                     auto end = high_resolution_clock::now();
                     skirstymas = end - start;
@@ -663,19 +629,7 @@ int main()
                 {
                     auto start = high_resolution_clock::now();
 
-                    vector<studentas>::iterator it = stud.begin();
-                    while (it != stud.end())
-                    {
-                        if (it->galutinis < 5)
-                        {
-                            vargsiukai.push_back(*it);
-                            it = stud.erase(it);
-                        }
-                        else
-                        {
-                            ++it;
-                        }
-                    }
+                    strategija2(stud, vargsiukai);
 
                     auto end = high_resolution_clock::now();
                     skirstymas = end - start;
@@ -684,9 +638,7 @@ int main()
                 {
                     auto start = high_resolution_clock::now();
 
-                    auto partition_point = stable_partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis < 5; });
-                    vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
-                    stud.erase(stud.begin(), partition_point);
+                    strategija3(stud, vargsiukai);
 
                     auto end = high_resolution_clock::now();
                     skirstymas = end - start;
@@ -698,11 +650,16 @@ int main()
             {
                 auto start = high_resolution_clock::now();
 
-                sort(stud.begin(), stud.end(), palygintiDidejant);
+                rikiuotiDidejant(stud);
                 
-                if (parinktis == 5)
+                if (parinktis == 5 && strategija != 1)
                 {
-                    sort(vargsiukai.begin(), vargsiukai.end(), palygintiDidejant);
+                    rikiuotiDidejant(vargsiukai);
+                }
+                else if (parinktis == 5 && strategija == 1)
+                {
+                    rikiuotiDidejant(vargsiukai);
+                    rikiuotiDidejant(galvociai);
                 }
 
                 auto end = high_resolution_clock::now();
@@ -712,11 +669,16 @@ int main()
             {
                 auto start = high_resolution_clock::now();
 
-                sort(stud.begin(), stud.end(), palygintiMazejant);
+                rikiuotiMazejant(stud);
                 
-                if (parinktis == 5)
+                if (parinktis == 5 && strategija != 1)
                 {
-                    sort(vargsiukai.begin(), vargsiukai.end(), palygintiMazejant);
+                    rikiuotiMazejant(vargsiukai);
+                }
+                else if (parinktis == 5 && strategija == 1)
+                {
+                    rikiuotiMazejant(vargsiukai);
+                    rikiuotiMazejant(galvociai);
                 }
 
                 auto end = high_resolution_clock::now();
@@ -790,27 +752,57 @@ int main()
                 galvoti << setfill(' ');
 
                 if (skaiciavimoBudas == "V")
-                {    
-                    for(auto &i : vargsiukai)
-                    {
-                        vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
-                    }
+                {   
+                    if (strategija == 1)
+                    { 
+                        for(auto &i : vargsiukai)
+                        {
+                            vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                        }
 
-                    for(auto &i : stud)
+                        for(auto &i : galvociai)
+                        {
+                            galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                        }
+                    }
+                    else
                     {
-                        galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                        for(auto &i : vargsiukai)
+                        {
+                            vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                        }
+
+                        for(auto &i : stud)
+                        {
+                            galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                        }
                     }
                 }
                 else
                 {
-                    for(auto &i : vargsiukai)
+                    if (strategija == 1)
                     {
-                        vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
-                    }
+                        for(auto &i : vargsiukai)
+                        {
+                            vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                        }
 
-                    for(auto &i : stud)
+                        for(auto &i : galvociai)
+                        {
+                            galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                        }
+                    }
+                    else
                     {
-                        galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                        for(auto &i : vargsiukai)
+                        {
+                            vargsai << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                        }
+
+                        for(auto &i : stud)
+                        {
+                            galvoti << left << setw(20) << i.vardas << setw(20) << i.pavarde << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                        }
                     }
                 }
 
@@ -832,17 +824,40 @@ int main()
                     cout << studKiekis << " irasu testo trukme sekundemis: " << bendraTrukme.count() << endl;
                 }
 
-                for (auto &i : stud)
+                if (strategija != 1)
                 {
-                    i.nd.clear();
-                }
-                stud.clear();
+                    for (auto &i : stud)
+                    {
+                        i.nd.clear();
+                    }
+                    stud.clear();
 
-                for (auto &i : vargsiukai)
-                {
-                    i.nd.clear();
+                    for (auto &i : vargsiukai)
+                    {
+                        i.nd.clear();
+                    }
+                    vargsiukai.clear();
                 }
-                vargsiukai.clear();
+                else
+                {
+                    for (auto &i : stud)
+                    {
+                        i.nd.clear();
+                    }
+                    stud.clear();
+
+                    for (auto &i : vargsiukai)
+                    {
+                        i.nd.clear();
+                    }
+                    vargsiukai.clear();
+
+                    for (auto &i : galvociai)
+                    {
+                        i.nd.clear();
+                    }
+                    galvociai.clear();
+                }
             }
             else
             {
