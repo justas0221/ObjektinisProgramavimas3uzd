@@ -9,7 +9,7 @@ int main()
     string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
-    bool teisingasIvedimas;
+    bool teisingasIvedimas = false;
     int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile = 0, rikiavimas, studKiekis = 1000, pazKiekis, failuKiekis = 1, strategija;
     char testiPrograma;
     ifstream input;
@@ -21,17 +21,17 @@ int main()
         try
         {
             cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n"; 
-            
+
             if (!(cin >> parinktis))
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 6 imtinai.");
+                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
             }
 
-            teisingasIvedimas = (parinktis >= 1 && parinktis <= 6 && cin.peek() == '\n');
+            teisingasIvedimas = (parinktis >= 1 && parinktis <= 5 && cin.peek() == '\n');
 
             if (!teisingasIvedimas)
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 6 imtinai.");
+                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
             }
         }
         catch (const exception& e)
@@ -55,8 +55,9 @@ int main()
             try // Jei vartotojas iveda ne skaiciu arba skaiciu, nepatenkanti i reikiama intervala, pranesame apie klaida
             {
                 cout << "Iveskite studentu kieki (nuo 1 iki 10 imtinai): ";
+                teisingasIvedimas = false;
 
-                if (!(cin >> studentuKiekis))
+                if (!(cin >> studentuKiekis) && (studentuKiekis < 1 || studentuKiekis > 10 || cin.peek() == '\n'))
                 {
                     throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
                 }
@@ -84,6 +85,7 @@ int main()
         try
         {
             cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \'V\' arba \'M\') "; // Vartotojo prasome ivesti vidurkio skaiciavimo buda tol, kol jis ives reikiama simboli
+            teisingasIvedimas = false;
 
             if (!(cin >> skaiciavimoBudas))
             {
@@ -113,6 +115,7 @@ int main()
         try
         {
             cout << "Jei norite studentus isrikiuoti pagal galutini bala didejimo tvarka, iveskite \"1\", jei mazejimo, iveskite \"0\": ";
+            teisingasIvedimas = false;
 
             if (!(cin >> rikiavimas) || ((rikiavimas != 1 && rikiavimas != 0) || cin.peek() != '\n'))
             {
@@ -142,6 +145,7 @@ int main()
             try
             {
                 cout << "Kiek failu norite skaityti? (Iveskite skaiciu nuo 1 iki 5 imtinai): ";
+                teisingasIvedimas = false;
 
                 if (!(cin >> failuKiekis) && (failuKiekis < 1 || failuKiekis > 5 || cin.peek() != '\n'))
                 {
@@ -169,6 +173,7 @@ int main()
             try
             {
                 cout << "Kuria strategija norite naudoti studentu rusiavimui i dvi grupes? (Iveskite skaiciu nuo 1 iki 3 imtinai): ";
+                teisingasIvedimas = false;
 
                 if (!(cin >> strategija) && (strategija < 1 || strategija > 3 || cin.peek() != '\n'))
                 {
@@ -225,6 +230,7 @@ int main()
                     try
                     {
                         cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": ";
+                        teisingasIvedimas = false;
 
                         if (!(cin >> isvedimasFaile) && (isvedimasFaile != 1 || isvedimasFaile != 0 || cin.peek() != '\n'))
                         {
@@ -270,7 +276,8 @@ int main()
                                 try
                                 {
                                     cout << "Iveskite studento varda: "; // Prasome vartotojo ivesti kiekvieno studento varda tol, kol tas vardas yra vienas zodis, sudarytas tik is raidziu
-                                    
+                                    teisingasIvedimas = false;
+
                                     if (!(cin >> naujasStudentas.vardas))
                                     {
                                         throw runtime_error("Klaidingi duomenys. Vardas turi buti vienas zodis, sudarytas tik is raidziu (jei studentas turi du vardus, iveskite tik viena is ju).");
@@ -298,7 +305,8 @@ int main()
                                 try
                                 {
                                     cout << "Iveskite studento pavarde: "; // Prasome vartotojo ivesti kiekvieno studento pavarde tol, kol ta pavarde yra vienas zodis, sudarytas tik is raidziu
-                                    
+                                    teisingasIvedimas = false;
+
                                     if (!(cin >> naujasStudentas.pavarde))
                                     {
                                         throw runtime_error("Klaidingi duomenys. Pavarde turi buti vienas zodis, sudarytas tik is raidziu.");
@@ -334,6 +342,7 @@ int main()
                                 try // Klausiame vartotojo, kiek pazymiu jis nori ivesti dabartiniam studentui
                                 {
                                     cout << "Kiek pazymiu norite ivesti siam studentui? (Irasykite skaiciu nuo 1 iki 10 imtinai): ";
+                                    teisingasIvedimas = false;
 
                                     if (!(cin >> pazymiuKiekis))
                                     {
@@ -372,7 +381,8 @@ int main()
                                         try
                                         {
                                             cout << "Iveskite " << i + 1 << "-o studento " << j + 1 << "-aji pazymi: ";
-                    
+                                            teisingasIvedimas = false;
+
                                             if (!(cin >> ivedimas))
                                             {
                                                 throw runtime_error("Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10.");
@@ -415,7 +425,8 @@ int main()
                                     try
                                     {
                                         cout << "Jei norite daugiau pazymiu, iveskite papildomu pazymiu kieki (Irasykite skaiciu nuo 1 iki 10 imtinai), jei ne, iveskite \"0\" (nuli) ir spauskite \"Enter\": "; // Klausiame, ar vartotojas nori prideti daugiau pazymiu i vektoriu
-                                        
+                                        teisingasIvedimas = false;
+
                                         if (!(cin >> papildymas))
                                         {
                                             throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
@@ -456,7 +467,8 @@ int main()
                                 try // Prasome vartotojo ivesti studento pazymius viena po kito
                                 {
                                     cout << "Iveskite " << i + 1 << "-o studento egzamino pazymi: ";
-                                    
+                                    teisingasIvedimas = false;
+
                                     if (!(cin >> ivedimas))
                                     {
                                         throw runtime_error("Klaidingi duomenys. Prasome ivesti viena sveikaji skaiciu nuo 1 iki 10.");
@@ -542,7 +554,8 @@ int main()
                         try
                         {
                             cout << "Jei norite daugiau studentu, iveskite papildomu studentu kieki (Irasykite skaiciu nuo 1 iki 10 imtinai), jei ne, iveskite \"0\" (nuli) ir spauskite \"Enter\": "; // Klausiame, ar vartotojas nori prideti daugiau pazymiu i vektoriu
-                                        
+                            teisingasIvedimas = false;
+
                             if (!(cin >> papildymas))
                             {
                                 throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");

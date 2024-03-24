@@ -123,8 +123,6 @@ Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog 
 
 ## Deque esanciu studentu rikiavimo rezultatai naudojant 3 strategija
 
-Pirmiausia naudojame funkcija remove_if, skirstymo laikas tukstancius kartu sumazeja
-
 | Studentu skaicius | Duomenu skirstymo trukme |
 | ----------------- | ------------------------ |
 | 1000              | 0.001138                 |
