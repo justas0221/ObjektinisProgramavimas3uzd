@@ -32,7 +32,7 @@ class studentas
         studentas(istream& is);
         inline string vardas() const { return vardas_; }    // get'eriai, inline
         inline string pavarde() const { return pavarde_; }  // get'eriai, inline
-        double getGalutinis() const { return galutinis_; }
+        double galutinis() const { return galutinis_; }
         int getEgz() const { return egz_; }
         const vector<int>& getNd() const { return nd_; }
         void clearNd() { nd_.clear(); }
@@ -44,14 +44,14 @@ class studentas
         void generuotiVarda(int);
         void generuotiPavarde(int);
         void vardoSkaitymas();
-        void pazymiuSkaitymas(int, int, int, int);
+        void pazymiuSkaitymas(int&, int&, int&, int&);
         void baloSkaiciavimas(studentas&,string);
         friend bool palygintiMazejant(const studentas&, const studentas&);
         friend bool palygintiDidejant(const studentas&, const studentas&);
 };
 
 int generuotiPazymi();
-string didziosios(string);
+string didziosios(string&);
 bool tikRaides(string);
 int tarpuSkaicius(string);
 void generuotiFaila(int, int, string);

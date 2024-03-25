@@ -232,7 +232,7 @@ void studentas::vardoSkaitymas()
     return;
 }
 
-void studentas::pazymiuSkaitymas(int pazymiuKiekis, int papildymas, int k, int it)
+void studentas::pazymiuSkaitymas(int &pazymiuKiekis, int &papildymas, int &k, int &it)
 {
     bool teisingasIvedimas;
 
@@ -443,7 +443,7 @@ void strategija1(Cont &stud, Cont &vargsiukai, Cont &galvociai)
 {
     for (auto &i : stud)
     {
-        if (i.getGalutinis() < 5)
+        if (i.galutinis() < 5)
         {
             vargsiukai.push_back(i);
         }
@@ -463,7 +463,7 @@ void strategija2(Cont &stud, Cont &vargsiukai)
     typename Cont::iterator it = stud.begin();
     while (it != stud.end())
     {
-        if (it->getGalutinis() < 5)
+        if (it->galutinis() < 5)
         {
             vargsiukai.push_back(*it);
             it = stud.erase(it);
@@ -481,7 +481,7 @@ template void strategija2<deque<studentas>>(deque<studentas> &stud, deque<studen
 template <typename Cont>
 void strategija3(Cont &stud, Cont &vargsiukai)
 {
-    auto partition_point = stable_partition(stud.begin(), stud.end(), [](const studentas& s) { return s.getGalutinis() < 5; });
+    auto partition_point = stable_partition(stud.begin(), stud.end(), [](const studentas& s) { return s.galutinis() < 5; });
     vargsiukai.insert(vargsiukai.end(), stud.begin(), partition_point);
     stud.erase(stud.begin(), partition_point);
 }
