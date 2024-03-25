@@ -132,3 +132,19 @@ Testuojant faila su 1 000 000 studentu skirstymo laikas toks ilgas, jog tiesiog 
 | 10000000          | 30.9919                  |
 
 Vykdymo laikas ženkliai sutrumpėja, lyginant su 2 strategija
+
+## Programos veikimo laikų palyginimas naudojant Class ir Struct
+
+### Struct
+
+| Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
+| ----------------- | ------------------------- | ------------------------ | ------------------------ | ----------------- |
+| 100000            | 0.184327                  | 0.067112                 | 0.023777                 | 0.624784          |
+| 1000000           | 1.74853                   | 0.918207                 | 0.24031                  | 5.9056            |
+
+### Class
+
+| Studentu skaicius | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Viso testo trukme |
+| ----------------- | ------------------------- | ------------------------ | ------------------------ | ----------------- |
+| 100000            | 0.201868                  | 0.119731                 | 0.036706                 | 0.601262          |
+| 1000000           | 1.84009                   | 1.63147                  | 0.372546                 | 6.44111           |

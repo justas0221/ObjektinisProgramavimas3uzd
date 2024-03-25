@@ -310,7 +310,7 @@ int main()
                             k = 0;
                             papildymas = 0;
                             
-                            naujasStudentas.pazymiuSkaitymas( pazymiuKiekis, papildymas, k, i);
+                            naujasStudentas.pazymiuSkaitymas(pazymiuKiekis, papildymas, k, i);
 
                         }
 
@@ -501,14 +501,14 @@ int main()
                 {    
                     for(auto &i : stud)
                     {
-                        output << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                        output << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                     }
                 }
                 else
                 {
                     for(auto &i : stud)
                     {
-                        output << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                        output << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                     }
                 }
 
@@ -525,14 +525,14 @@ int main()
                 {    
                     for(auto &i : stud)
                     {
-                        cout << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                        cout << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                     }
                 }
                 else
                 {
                     for(auto &i : stud)
                     {
-                        cout << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                        cout << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                     }
                 }
             }
@@ -560,24 +560,24 @@ int main()
                     { 
                         for(auto &i : vargsiukai)
                         {
-                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl;
                         }
 
                         for(auto &i : galvociai)
                         {
-                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl;
                         }
                     }
                     else
                     {
                         for(auto &i : vargsiukai)
                         {
-                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl;
                         }
 
                         for(auto &i : stud)
                         {
-                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis << setw(20) << "-.--" << endl;
+                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl;
                         }
                     }
                 }
@@ -587,24 +587,24 @@ int main()
                     {
                         for(auto &i : vargsiukai)
                         {
-                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl;
                         }
 
                         for(auto &i : galvociai)
                         {
-                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl;
                         }
                     }
                     else
                     {
                         for(auto &i : vargsiukai)
                         {
-                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl;
                         }
 
                         for(auto &i : stud)
                         {
-                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis << endl;
+                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl;
                         }
                     }
                 }
@@ -631,13 +631,13 @@ int main()
                 {
                     for (auto &i : stud)
                     {
-                        i.nd.clear();
+                        i.clearNd();
                     }
                     stud.clear();
 
                     for (auto &i : vargsiukai)
                     {
-                        i.nd.clear();
+                        i.clearNd();
                     }
                     vargsiukai.clear();
                 }
@@ -645,19 +645,19 @@ int main()
                 {
                     for (auto &i : stud)
                     {
-                        i.nd.clear();
+                        i.clearNd();
                     }
                     stud.clear();
 
                     for (auto &i : vargsiukai)
                     {
-                        i.nd.clear();
+                        i.clearNd();
                     }
                     vargsiukai.clear();
 
                     for (auto &i : galvociai)
                     {
-                        i.nd.clear();
+                        i.clearNd();
                     }
                     galvociai.clear();
                 }
