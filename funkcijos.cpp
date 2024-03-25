@@ -29,6 +29,16 @@ void studentas::didziosiosPavarde()
     }
 }
 
+// Funkcija, pakeicianti visas gauto teksto raides i didziasias
+string didziosios(string &tekstas)
+{
+    for(char &c : tekstas) // Keliaujame per kiekviena ivesto teksto raide ir paverciame ji i didziaja raide
+    {
+        c = toupper(c);
+    }
+    return tekstas;
+}
+
 // Funkcija, apskaiciuojanti tarpu skaiciu eiluteje
 int tarpuSkaicius(string ivedimas)
 {
@@ -53,8 +63,35 @@ studentas::studentas(istream& is)
     nd_.pop_back();
 }
 
+void studentas::generuotiNdPazymi()
+{
+    int skaicius = generuotiPazymi();
+
+    nd_.push_back(skaicius);
+}
+
+void studentas::generuotiEgzPazymi()
+{
+    int skaicius = generuotiPazymi();
+
+    egz_ = (skaicius);
+}
+
+int studentas::gautiPaskutiniPazymi()
+{
+    if (!nd_.empty())
+    {
+        return nd_.back();
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+
 // Funkcija, sugeneruojanti atsitiktini skaiciu nuo 1 iki 10 imtinai
-studentas::generuotiPazymi()
+int generuotiPazymi()
 {
     int skaicius = rand() % 10 + 1;
 

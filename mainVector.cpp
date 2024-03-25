@@ -316,42 +316,48 @@ int main()
 
                         if (parinktis == 2) // Jeigu parinktis yra 2, tuomet generuojame pazymius
                         {
-                                for (int j = 0; j < randomPazymiuKiekis; j++)
-                                {
-                                    naujasStudentas.nd_.push_back(generuotiPazymi());
-                                        
-                                    cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-aji pazymys: " << pazymys << endl;
-                                }
+                            int pazymys;
 
-                                naujasStudentas.egz_ = generuotiPazymi();
+                            for (int j = 0; j < randomPazymiuKiekis; j++)
+                            {
+                                naujasStudentas.generuotiNdPazymi();
+                                pazymys = naujasStudentas.gautiPaskutiniPazymi();
+                                    
+                                cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-aji pazymys: " << pazymys << endl;
+                            }
 
-                                cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
+                            naujasStudentas.generuotiEgzPazymi();
+                            pazymys = naujasStudentas.getEgz();
+
+                            cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
                         }
 
                         if (parinktis == 3) // Jei parinktis yra 3 tuomet generuojame vardus, pavardes ir pazymius
                         {
-                                naujasStudentas.generuotiVarda(i); // Sugeneruota varda priskiriame naujam studentui
-                                naujasStudentas.generuotiPavarde(i); // Sugeneruota pavarde priskiriame naujam studentui
+                            int pazymys;
 
-                                cout << "Sugeneruoti " << i + 1 << "-o studento vardas ir pavarde: " << naujasStudentas.vardas() << " " << naujasStudentas.pavarde() << endl;
-                                for (int j = 0; j < randomPazymiuKiekis; j++)
-                                {
-                                    int pazymys = generuotiPazymi();
-                                    
-                                    naujasStudentas.nd.push_back(pazymys); // Sugeneruota pazymi pridedame i vektoriu
+                            naujasStudentas.generuotiVarda(i); // Sugeneruota varda priskiriame naujam studentui
+                            naujasStudentas.generuotiPavarde(i); // Sugeneruota pavarde priskiriame naujam studentui
 
-                                    cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-asis pazymys: " << pazymys << endl;
-                                }
-                                
-                                int pazymys = generuotiPazymi();
+                            cout << "Sugeneruoti " << i + 1 << "-o studento vardas ir pavarde: " << naujasStudentas.vardas() << " " << naujasStudentas.pavarde() << endl;
+                            for (int j = 0; j < randomPazymiuKiekis; j++)
+                            {
+                                naujasStudentas.generuotiNdPazymi(); // Sugeneruota pazymi pridedame i vektoriu
 
-                                naujasStudentas.egz = pazymys;
+                                pazymys = naujasStudentas.gautiPaskutiniPazymi();
 
-                                cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
+                                cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-asis pazymys: " << pazymys << endl;
+                            }
+                            
+                            naujasStudentas.generuotiEgzPazymi();
+
+                            pazymys = naujasStudentas.getEgz();
+
+                            cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
                         }
 
                         stud.push_back(naujasStudentas); // Uzpildzius studento duomenis pridedame ji i studentu vektoriaus gala
-                        naujasStudentas.nd.clear(); // Isvalome dabartinio studento pazymiu vektorius
+                        naujasStudentas.clearNd(); // Isvalome dabartinio studento pazymiu vektorius
                         l = i + 1;
                     }
             
