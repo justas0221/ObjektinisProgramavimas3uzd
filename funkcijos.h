@@ -18,15 +18,36 @@
 using namespace std;
 using namespace chrono;
 
-struct studentas;
+// Studento duomenis sauganti struktura
+class studentas
+{
+    private:
+        string vardas_, pavarde_;
+        vector<int> nd_;
+        int egz_;
+        double vidurkis_, mediana_, galutinis_;
+    public:
+        studentas() : egz_(0) {}  // default konstruktorius
+        ~studentas() {}
+        studentas(istream& is);
+        inline string vardas() const { return vardas_; }    // get'eriai, inline
+        inline string pavarde() const { return pavarde_; }  // get'eriai, inline
+        double getGalutinis() const { return galutinis_; }
+        const vector<int>& getNd() const { return nd_; }
+        void didziosiosVardas();
+        void didziosiosPavarde();
+        int generuotiPazymi();
+        void generuotiVarda(int);
+        void generuotiPavarde(int);
+        void vardoSkaitymas();
+        void pazymiuSkaitymas(int, int, int, int);
+        void baloSkaiciavimas(studentas&,string);
+        friend bool palygintiMazejant(const studentas&, const studentas&);
+        friend bool palygintiDidejant(const studentas&, const studentas&);
+};
+
 bool tikRaides(string);
-string didziosios(string &);
 int tarpuSkaicius(string);
-int generuotiPazymi();
-string generuotiVarda(int);
-string generuotiPavarde(int);
-bool palygintiMazejant(const studentas&, const studentas&);
-bool palygintiDidejant(const studentas&, const studentas&);
 void generuotiFaila(int, int, string);
 template <typename Cont>
 void failoSkaitymas(ifstream&, Cont&);
