@@ -1,5 +1,7 @@
 #include "funkcijos.h"
 
+string skaiciavimoBudas;
+
 // Funkcija, tikrinanti, ar vardas bei pavarde yra sudaryti tik is raidziu
 bool tikRaides(string ivedimas)
 {
@@ -520,3 +522,26 @@ void rikiuotiMazejant(Cont &container)
 template void rikiuotiMazejant<vector<studentas>>(vector<studentas> &container);
 template void rikiuotiMazejant<list<studentas>>(list<studentas> &container);
 template void rikiuotiMazejant<deque<studentas>>(deque<studentas> &container);
+
+void printHeader(ostream& out)
+{
+    out << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
+    out << left << setw(80) << setfill('-') << "-" << endl;
+    out << setfill(' ');
+}
+
+ostream& operator<<(ostream& out, const studentas& a)
+{
+    out << left << setw(20) << a.vardas() << setw(20) << a.pavarde();
+    
+    if (skaiciavimoBudas == "V")
+    {
+        out << setw(20) << fixed << setprecision(2) << a.galutinis() << setw(20) << "-.--";
+    }
+    else
+    {
+        out << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << a.galutinis();
+    }
+    
+    return out;
+}

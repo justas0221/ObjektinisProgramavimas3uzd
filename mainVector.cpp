@@ -5,7 +5,7 @@ int main()
     vector<studentas> stud; // Studentu strukturu vektorius
     vector<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
     vector<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yra lygus arba didesnis uz 5
-    string skaiciavimoBudas, eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
+    string eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
     bool teisingasIvedimas = false;
@@ -493,23 +493,11 @@ int main()
                 ofstream output;
                 output.open("output.txt");
 
-                output << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
-                output << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
-                output << setfill(' ');
-                
-                if (skaiciavimoBudas == "V")
-                {    
-                    for(auto &i : stud)
-                    {
-                        output << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
-                    }
-                }
-                else
+                printHeader(output);
+                  
+                for(auto &i : stud)
                 {
-                    for(auto &i : stud)
-                    {
-                        output << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
-                    }
+                    output << i << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                 }
 
                 output.close();
@@ -517,23 +505,11 @@ int main()
             else if (parinktis != 5)
             {
                 cout << endl;
-                cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
-                cout << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
-                cout << setfill(' ');
-
-                if (skaiciavimoBudas == "V")
-                {    
-                    for(auto &i : stud)
-                    {
-                        cout << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
-                    }
-                }
-                else
+                printHeader(cout);
+  
+                for(auto &i : stud)
                 {
-                    for(auto &i : stud)
-                    {
-                        cout << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
-                    }
+                    cout << i << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                 }
             }
             if (parinktis == 5)
@@ -546,66 +522,32 @@ int main()
                 ofstream vargsai(failoVardas1);
                 ofstream galvoti(failoVardas2);
 
-                vargsai << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
-                vargsai << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
-                vargsai << setfill(' ');
+                printHeader(vargsai);
 
-                galvoti << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl; // Tvarkingai isvedame antrastine eilute
-                galvoti << left << setw(80) << setfill('-') << "-" << endl; // Antrastinei eilutei atskirti naudojame is punktyrines linijos sudaryta antraja eilute
-                galvoti << setfill(' ');
-
-                if (skaiciavimoBudas == "V")
-                {   
-                    if (strategija == 1)
-                    { 
-                        for(auto &i : vargsiukai)
-                        {
-                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl;
-                        }
-
-                        for(auto &i : galvociai)
-                        {
-                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl;
-                        }
-                    }
-                    else
+                printHeader(galvoti);
+ 
+                if (strategija == 1)
+                { 
+                    for(auto &i : vargsiukai)
                     {
-                        for(auto &i : vargsiukai)
-                        {
-                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl;
-                        }
+                        vargsai << i << endl;
+                    }
 
-                        for(auto &i : stud)
-                        {
-                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << fixed << setprecision(2) << i.galutinis() << setw(20) << "-.--" << endl;
-                        }
+                    for(auto &i : galvociai)
+                    {
+                        galvoti << i << endl;
                     }
                 }
                 else
                 {
-                    if (strategija == 1)
+                    for(auto &i : vargsiukai)
                     {
-                        for(auto &i : vargsiukai)
-                        {
-                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl;
-                        }
-
-                        for(auto &i : galvociai)
-                        {
-                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl;
-                        }
+                        vargsai << i << endl;
                     }
-                    else
-                    {
-                        for(auto &i : vargsiukai)
-                        {
-                            vargsai << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl;
-                        }
 
-                        for(auto &i : stud)
-                        {
-                            galvoti << left << setw(20) << i.vardas() << setw(20) << i.pavarde() << setw(20) << "-.--" << setw(20) << fixed << setprecision(2) << i.galutinis() << endl;
-                        }
+                    for(auto &i : stud)
+                    {
+                        galvoti << i << endl;
                     }
                 }
 
