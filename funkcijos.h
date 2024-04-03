@@ -47,6 +47,18 @@ class studentas
             vidurkis_(move(other.vidurkis_)), 
             mediana_(move(other.mediana_)), 
             galutinis_(move(other.galutinis_)) {} // Move konstruktorius
+        studentas& operator=(const studentas& other) { return *this = studentas(other); } // Copy assignment operatorius
+        studentas& operator=(studentas&& other) noexcept
+        {
+            swap(vardas_, other.vardas_);
+            swap(pavarde_, other.pavarde_);
+            swap(nd_, other.nd_);
+            swap(egz_, other.egz_);
+            swap(vidurkis_, other.vidurkis_);
+            swap(mediana_, other.mediana_);
+            swap(galutinis_, other.galutinis_);
+            return *this;
+        }
         inline string vardas() const { return vardas_; }    // get'eriai, inline
         inline string pavarde() const { return pavarde_; }  // get'eriai, inline
         double galutinis() const { return galutinis_; }
