@@ -20,6 +20,7 @@ using namespace std;
 using namespace chrono;
 
 extern string skaiciavimoBudas;
+extern int pazymiuKiekis, parinktis, papildymas, k, i, randomPazymiuKiekis;
 
 // Studento duomenis sauganti struktura
 class studentas
@@ -60,7 +61,7 @@ class studentas
             swap(mediana_, other.mediana_);
             swap(galutinis_, other.galutinis_);
             return *this;
-        } Move assignment operatorius
+        } //Move assignment operatorius
         inline string vardas() const { return vardas_; }    // get'eriai, inline
         inline string pavarde() const { return pavarde_; }  // get'eriai, inline
         double galutinis() const { return galutinis_; }
@@ -74,12 +75,11 @@ class studentas
         void generuotiNdPazymi();
         void generuotiVarda(int);
         void generuotiPavarde(int);
-        void vardoSkaitymas();
-        void pazymiuSkaitymas(int&, int&, int&, int&);
         void baloSkaiciavimas(studentas&,string);
         friend bool palygintiMazejant(const studentas&, const studentas&);
         friend bool palygintiDidejant(const studentas&, const studentas&);
         friend ostream& operator<<(ostream&, const studentas&);
+        friend istream& operator>>(istream&, studentas&);
 };
 
 int generuotiPazymi();

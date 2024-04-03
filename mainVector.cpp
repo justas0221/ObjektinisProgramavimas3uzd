@@ -9,7 +9,7 @@ int main()
     duration<double> failoGeneravimas, nuskaitymas, skirstymas, rusiavimas, isvedimas, bendraTrukme, visuTestuTrukme(0);
     int tarpai;
     bool teisingasIvedimas = false;
-    int i = 0, j, parinktis, studentuKiekis, k, l, papildymas, isvedimasFaile = 0, rikiavimas, studKiekis = 1000, pazKiekis, failuKiekis = 1, strategija;
+    int j, studentuKiekis, l, isvedimasFaile = 0, rikiavimas, studKiekis = 1000, pazKiekis, failuKiekis = 1, strategija;
     char testiPrograma;
     ifstream input;
 
@@ -265,18 +265,9 @@ int main()
                 {
                     for (int i = l; i < studentuKiekis; i++)
                     {
-                        int randomPazymiuKiekis = rand() % 10 + 1;
-                        int pazymiuKiekis = 0;
+                        randomPazymiuKiekis = rand() % 10 + 1;
+                        pazymiuKiekis = 0;
                         
-                        if (parinktis == 1 || parinktis == 2)
-                        {
-                            naujasStudentas.vardoSkaitymas();
-
-                            naujasStudentas.didziosiosVardas(); // Kiekviena vardo raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
-                                    
-                            naujasStudentas.didziosiosPavarde(); // Kiekviena pavardes raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
-                        }
-
                         if (parinktis == 1)
                         {
                             do
@@ -310,29 +301,17 @@ int main()
                             k = 0;
                             papildymas = 0;
                             
-                            naujasStudentas.pazymiuSkaitymas(pazymiuKiekis, papildymas, k, i);
-
+                            cin >> naujasStudentas;
+                            naujasStudentas.didziosiosVardas();
+                            naujasStudentas.didziosiosPavarde();
                         }
-
-                        if (parinktis == 2) // Jeigu parinktis yra 2, tuomet generuojame pazymius
+                        else if (parinktis == 2) // Jeigu parinktis yra 2, tuomet generuojame pazymius
                         {
-                            int pazymys;
-
-                            for (int j = 0; j < randomPazymiuKiekis; j++)
-                            {
-                                naujasStudentas.generuotiNdPazymi();
-                                pazymys = naujasStudentas.gautiPaskutiniPazymi();
-                                    
-                                cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-aji pazymys: " << pazymys << endl;
-                            }
-
-                            naujasStudentas.generuotiEgzPazymi();
-                            pazymys = naujasStudentas.getEgz();
-
-                            cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
+                            cin >> naujasStudentas;
+                            naujasStudentas.didziosiosVardas(); // Kiekviena vardo raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
+                            naujasStudentas.didziosiosPavarde(); // Kiekviena pavardes raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
                         }
-
-                        if (parinktis == 3) // Jei parinktis yra 3 tuomet generuojame vardus, pavardes ir pazymius
+                        else if (parinktis == 3) // Jei parinktis yra 3 tuomet generuojame vardus, pavardes ir pazymius
                         {
                             int pazymys;
 
