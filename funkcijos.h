@@ -14,6 +14,7 @@
 #include <chrono>
 #include <list>
 #include <deque>
+#include <utility>
 
 using namespace std;
 using namespace chrono;
@@ -28,8 +29,24 @@ class studentas
         double vidurkis_, mediana_, galutinis_;
     public:
         studentas() : egz_(0) {}  // default konstruktorius
-        ~studentas() {}
+        ~studentas() { clearNd(); } // destruktorius
         studentas(istream& is);
+        studentas(const studentas& other) :
+            vardas_(other.vardas_),
+            pavarde_(other.pavarde_),
+            nd_(other.nd_),
+            egz_(other.egz_),
+            vidurkis_(other.vidurkis_),
+            mediana_(other.mediana_),
+            galutinis_(other.galutinis_) {} // Copy konstruktorius
+        studentas(studentas&& other) noexcept :
+            vardas_(move(other.vardas_)), 
+            pavarde_(move(other.pavarde_)), 
+            nd_(move(other.nd_)), 
+            egz_(move(other.egz_)), 
+            vidurkis_(move(other.vidurkis_)), 
+            mediana_(move(other.mediana_)), 
+            galutinis_(move(other.galutinis_)) {} // Move konstruktorius
         inline string vardas() const { return vardas_; }    // get'eriai, inline
         inline string pavarde() const { return pavarde_; }  // get'eriai, inline
         double galutinis() const { return galutinis_; }
