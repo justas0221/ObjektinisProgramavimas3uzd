@@ -172,3 +172,29 @@ Vykdymo laikas ženkliai sutrumpėja, lyginant su 2 strategija
 | Class -O1   | 1.34906                   | 0.709025                 | 0.235499                 | 4.71324           |
 | Class -O2   | 1.31023                   | 0.698598                 | 0.224778                 | 4.59237           |
 | Class -O3   | 1.35358                   | 0.711891                 | 0.241283                 | 4.60437           |
+
+## Rule Of Five Pritaikymas
+
+### Testavimo funkcijos rezultatai
+
+![Results Image](https://i.ibb.co/WgSd42V/1.png)
+
+### Pridėtų dalykų aprašas
+
+1. Copy konstruktorius - naujo "studentas" objekto kūrimo metu mes nukopijuojame visus duomenis į naują objektą iš kažkurio seno objekto.
+2. Copy Assignment operatorius - naudodami lygybės ženklą mes galime nukopijuoti visus vieno objekto duomenis kitam objektui.
+3. Move konstruktorius - naujo "studentas" objekto kūrimo metu mes perkeliame visus duomenis iš senesnio objekto į naujai kuriamą (senasis objektas lieka galioti, bet jo būsena nėra tiksliai žinoma).
+4. Move Assignment operatorius - naudodami lygybės ženklą ir "move" raktažodį, mes galime jau sukurtam objektui perkelti visus duomenis iš seno objekto (senasis objektas lieka galioti, bet jo būsena nėra tiksliai žinoma).
+
+### Perdengtų metodų aprašas
+
+#### Įvestis
+
+1. Rankinis būdas: programoje parašius, tarkim, cin >> studentas, vartotojas turės galimybę ranka įvesti visus objekto duomenis, jei parinktis (gauta programos pradžioje, bus lygi 1).
+2. Automatinis būdas: jei parinktis bus lygi 2 arba 3, tuomet vartotojas galės įvesti tik vardą ir pavardę arba apskritai visi duomenys bus generuojami. (Programoje šios įvesties užrašymas taip pat atrodo cin >> studentas).
+3. Nuskaitymas iš failo: liko nepakitęs.
+
+#### Išvestis
+
+1. Į ekraną: panaudojant operatorių <<, tarkim cout << studentas, visi "studentas" klasės duomenys bus išvesti į ekraną.
+2. Į failą: panaudojant operatorių <<, tarkim vargsiukai << studentas, visi "studentas" klasės duomenys bus išvesti į failą "vargsiukai".
