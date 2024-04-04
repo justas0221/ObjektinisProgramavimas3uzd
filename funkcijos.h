@@ -87,6 +87,7 @@ string didziosios(string&);
 bool tikRaides(string);
 int tarpuSkaicius(string);
 void printHeader(ostream&);
+void testas(studentas&);
 void generuotiFaila(int, int, string);
 template <typename Cont>
 void failoSkaitymas(ifstream&, Cont&);

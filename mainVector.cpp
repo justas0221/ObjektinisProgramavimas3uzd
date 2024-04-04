@@ -19,14 +19,14 @@ int main()
     {
         try
         {
-            cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n"; 
+            cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n6 - Testuoti klases metodus\n"; 
 
             if (!(cin >> parinktis))
             {
                 throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
             }
 
-            teisingasIvedimas = (parinktis >= 1 && parinktis <= 5 && cin.peek() == '\n');
+            teisingasIvedimas = (parinktis >= 1 && parinktis <= 6 && cin.peek() == '\n');
 
             if (!teisingasIvedimas)
             {
@@ -45,6 +45,12 @@ int main()
     if (parinktis == 4)
     {
         exit(0);
+    }
+
+    if (parinktis == 6)
+    {
+        studentas s;
+        testas(s);
     }
 
     if (parinktis != 5) // Prasome ivesti pradini studentu kieki

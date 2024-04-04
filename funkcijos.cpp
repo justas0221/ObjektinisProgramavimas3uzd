@@ -1,7 +1,7 @@
 #include "funkcijos.h"
 
 string skaiciavimoBudas;
-int pazymiuKiekis, parinktis, papildymas, k, i, randomPazymiuKiekis;
+int pazymiuKiekis = 3, parinktis, papildymas, k, i, randomPazymiuKiekis;
 
 // Funkcija, tikrinanti, ar vardas bei pavarde yra sudaryti tik is raidziu
 bool tikRaides(string ivedimas)
@@ -345,7 +345,7 @@ ostream& operator<<(ostream& out, const studentas& a)
 
 istream& operator>>(istream& in, studentas& s)
 {
-    if (parinktis == 1)
+    if (parinktis == 1 || parinktis == 6)
     {
         bool teisingasIvedimas;
         int tarpai;
@@ -645,4 +645,58 @@ istream& operator>>(istream& in, studentas& s)
         cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
     }
     return in;
+}
+
+void testas(studentas& s)
+{
+    cout << "Default konstruktoriaus ir << operatoriaus testavimas:" << endl;
+    cout << endl;
+    cout << s << endl;
+    cout << endl;
+
+    cout << ">> operatoriaus testavimas:" << endl;
+    cout << endl;
+    cin.ignore();
+    cin >> s;
+    s.baloSkaiciavimas(s, skaiciavimoBudas);
+    cout << s << endl;
+    cout << endl;
+
+    cout << "Copy konstruktoriaus testavimas:" << endl;
+    studentas z(s);
+    cout << endl;
+    cout << s << endl;
+    cout << z << endl;
+    cout << endl;
+
+    cout << "Copy-assignment operatoriaus testavimas:" << endl;
+    cout << endl;
+    studentas x;
+    x = s;
+    cout << s << endl;
+    cout << x << endl;
+    cout << endl;
+
+    cout << "Move konstruktoriaus testavimas:" << endl;
+    studentas y = move(s);
+    cout << endl;
+    cout << s << endl;
+    cout << y << endl;
+    cout << endl;
+
+    cout << "Move-assignment operatoriaus testavimas:" << endl;
+    studentas* w = new studentas;
+    *w = move(y);
+    cout << endl;
+    cout << y << endl;
+    cout << z << endl;
+    cout << endl;
+
+    cout << "Destruktoriaus testavimas:" << endl;
+    delete w;
+    cout << endl;
+    cout << *w << endl;
+    cout << endl;
+
+    exit(0);
 }
