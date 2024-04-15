@@ -14,24 +14,6 @@ bool tikRaides(string ivedimas)
     return true;
 }
 
-// Funkcija, pakeicianti visas gauto vardo raides i didziasias
-void studentas::didziosiosVardas()
-{
-    for(char &c : vardas_) // Keliaujame per kiekviena ivesto teksto raide ir paverciame ji i didziaja raide
-    {
-        c = toupper(c);
-    }
-}
-
-// Funkcija, pakeicianti visas gautos pavardes raides i didziasias
-void studentas::didziosiosPavarde()
-{
-    for(char &c : pavarde_) // Keliaujame per kiekviena ivesto teksto raide ir paverciame ji i didziaja raide
-    {
-        c = toupper(c);
-    }
-}
-
 // Funkcija, pakeicianti visas gauto teksto raides i didziasias
 string didziosios(string &tekstas)
 {
@@ -102,6 +84,16 @@ int generuotiPazymi()
 }
 
 // Funkcija, sugeneruojanti studento varda
+void zmogus::generuotiVarda(int i)
+{
+    string vardas;
+    
+    vardas = "Vardas" + to_string(i + 1);
+
+    vardas_ = vardas;
+}
+
+// Funkcija, sugeneruojanti studento varda
 void studentas::generuotiVarda(int i)
 {
     string vardas;
@@ -109,6 +101,16 @@ void studentas::generuotiVarda(int i)
     vardas = "Vardas" + to_string(i + 1);
 
     vardas_ = vardas;
+}
+
+// Funkcija, sugeneruojanti studento pavarde
+void zmogus::generuotiPavarde(int i)
+{
+    string pavarde;
+    
+    pavarde = "Pavarde" + to_string(i + 1);
+
+    pavarde_ = pavarde;
 }
 
 // Funkcija, sugeneruojanti studento pavarde
