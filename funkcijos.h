@@ -34,6 +34,18 @@ class zmogus
         inline string pavarde() const { return pavarde_; }  // get'eriai, inline
         virtual void didziosiosVardas() { for(char &c : vardas_) c = toupper(c); } // Keliaujame per kiekviena ivesto teksto raide ir paverciame ja i didziaja raide
         virtual void didziosiosPavarde() { for(char &c : pavarde_) c = toupper(c); } // Keliaujame per kiekviena ivesto teksto raide ir paverciame ja i didziaja raide
+        virtual void generuotiVarda(int i)
+        {
+            string vardas;
+            vardas = "Vardas" + to_string(i + 1);
+            vardas_ = vardas;
+        }
+        virtual void generuotiPavarde(int i)
+        {
+            string pavarde;
+            pavarde = "Pavarde" + to_string(i + 1);
+            pavarde_ = pavarde;
+        }
 };
 
 // Studento duomenis sauganti struktura
@@ -83,8 +95,8 @@ class studentas : public zmogus
         void baloSkaiciavimas(string);
         void didziosiosVardas();
         void didziosiosPavarde();
-        void generuotiVarda(int);
-        void generuotiPavarde(int);
+        void generuotiVarda(int i);
+        void generuotiPavarde(int i);
         friend bool palygintiMazejant(const studentas&, const studentas&);
         friend bool palygintiDidejant(const studentas&, const studentas&);
         friend ostream& operator<<(ostream&, const studentas&);

@@ -83,46 +83,6 @@ int generuotiPazymi()
     return skaicius;
 }
 
-// Funkcija, sugeneruojanti studento varda
-void zmogus::generuotiVarda(int i)
-{
-    string vardas;
-    
-    vardas = "Vardas" + to_string(i + 1);
-
-    vardas_ = vardas;
-}
-
-// Funkcija, sugeneruojanti studento varda
-void studentas::generuotiVarda(int i)
-{
-    string vardas;
-    
-    vardas = "Vardas" + to_string(i + 1);
-
-    vardas_ = vardas;
-}
-
-// Funkcija, sugeneruojanti studento pavarde
-void zmogus::generuotiPavarde(int i)
-{
-    string pavarde;
-    
-    pavarde = "Pavarde" + to_string(i + 1);
-
-    pavarde_ = pavarde;
-}
-
-// Funkcija, sugeneruojanti studento pavarde
-void studentas::generuotiPavarde(int i)
-{
-    string pavarde;
-    
-    pavarde = "Pavarde" + to_string(i + 1);
-
-    pavarde_ = pavarde;
-}
-
 bool palygintiMazejant(const studentas& a, const studentas& b)
 {
     return a.galutinis_ > b.galutinis_;
