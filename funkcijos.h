@@ -75,7 +75,7 @@ class studentas
         void generuotiNdPazymi();
         void generuotiVarda(int);
         void generuotiPavarde(int);
-        void baloSkaiciavimas(studentas&,string);
+        void baloSkaiciavimas(string);
         friend bool palygintiMazejant(const studentas&, const studentas&);
         friend bool palygintiDidejant(const studentas&, const studentas&);
         friend ostream& operator<<(ostream&, const studentas&);

@@ -171,30 +171,30 @@ void generuotiFaila(int studKiekis, int pazKiekis, string failoVardas)
     naujas.close();
 }
 
-void studentas::baloSkaiciavimas(studentas &i, string skaiciavimoBudas)
+void studentas::baloSkaiciavimas(string skaiciavimoBudas)
 {
     if (skaiciavimoBudas == "V")
     {
-        i.vidurkis_ = accumulate(i.nd_.begin(), i.nd_.end(), 0.0) / i.nd_.size();
-        i.galutinis_ = 0.4 * i.vidurkis_ + 0.6 * i.egz_; // Suskaiciuojame studento galutini bala, naudodami pazymiu vidurki
+        vidurkis_ = accumulate(nd_.begin(), nd_.end(), 0.0) / nd_.size();
+        galutinis_ = 0.4 * vidurkis_ + 0.6 * egz_; // Suskaiciuojame studento galutini bala, naudodami pazymiu vidurki
     }
     else
     {
-        auto it = i.nd_.begin();
-        advance(it, i.nd_.size() / 2); // advance the iterator to the middle of the list
+        auto it = nd_.begin();
+        advance(it, nd_.size() / 2); // advance the iterator to the middle of the list
 
-        if (i.nd_.size() % 2 == 0)
+        if (nd_.size() % 2 == 0)
         {
             int a = *it;
             --it;
             int b = *it;
-            i.mediana_ = (a + b) / 2.0;
+            mediana_ = (a + b) / 2.0;
         }
         else
         {
-            i.mediana_ = *it;
+            mediana_ = *it;
         }
-        i.galutinis_ = 0.4 * i.mediana_ + 0.6 * i.egz_; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
+        galutinis_ = 0.4 * mediana_ + 0.6 * egz_; // Suskaiciuojame studento galutini bala, naudodami pazymiu mediana
     }
 }
 
@@ -658,7 +658,7 @@ void testas(studentas& s)
     cout << endl;
     cin.ignore();
     cin >> s;
-    s.baloSkaiciavimas(s, skaiciavimoBudas);
+    s.baloSkaiciavimas(skaiciavimoBudas);
     cout << s << endl;
     cout << endl;
 
@@ -680,16 +680,18 @@ void testas(studentas& s)
     cout << "Move konstruktoriaus testavimas:" << endl;
     studentas y = move(s);
     cout << endl;
-    cout << s << endl;
+    cout << &y << endl;
     cout << y << endl;
     cout << endl;
 
     cout << "Move-assignment operatoriaus testavimas:" << endl;
     studentas* w = new studentas;
+    cout << &y << endl;
     *w = move(y);
     cout << endl;
+    cout << w << endl;
     cout << y << endl;
-    cout << z << endl;
+    cout << *w << endl;
     cout << endl;
 
     cout << "Destruktoriaus testavimas:" << endl;

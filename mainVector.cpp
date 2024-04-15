@@ -399,7 +399,7 @@ int main()
             
             for(auto &it : stud) // Skaiciuojame kiekvieno studento vidurki, mediana, o paskui ir galutinius balus 
             {
-                it.baloSkaiciavimas(it, skaiciavimoBudas);
+                it.baloSkaiciavimas(skaiciavimoBudas);
             }
             
             if (parinktis == 5)
