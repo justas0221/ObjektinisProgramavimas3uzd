@@ -198,3 +198,10 @@ Vykdymo laikas ženkliai sutrumpėja, lyginant su 2 strategija
 
 1. Į ekraną: panaudojant operatorių <<, tarkim cout << studentas, visi "studentas" klasės duomenys bus išvesti į ekraną.
 2. Į failą: panaudojant operatorių <<, tarkim vargsiukai << studentas, visi "studentas" klasės duomenys bus išvesti į failą "vargsiukai".
+
+## Paveldėjimo pritaikymas
+
+### Pridėtų dalykų aprašas
+
+1. Nauja klasė "zmogus", iš kurios išvedame mūsų senąją klasę "studentas".
+2. Į naująją klasę "zmogus" iš klasės "studentas" mes perkėlėme kintamuosius "vardas" ir "pavarde", taip pat naujoji klasė turi konstruktorių, destruktorių, get'erius bei keturias virtualias funkcijas.
