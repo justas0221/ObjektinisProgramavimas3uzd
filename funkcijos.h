@@ -22,29 +22,37 @@ using namespace chrono;
 extern string skaiciavimoBudas;
 extern int pazymiuKiekis, parinktis, papildymas, k, i, randomPazymiuKiekis;
 
+class zmogus
+{
+    protected:
+        string vardas_, pavarde_;
+    protected:
+        zmogus(string vardas = "", string pavarde = "") : vardas_(vardas), pavarde_(pavarde) {}
+    public:
+        inline string vardas() const { return vardas_; }    // get'eriai, inline
+        inline string pavarde() const { return pavarde_; }  // get'eriai, inline
+};
+
 // Studento duomenis sauganti struktura
-class studentas
+class studentas : public zmogus
 {
     private:
-        string vardas_, pavarde_;
         vector<int> nd_;
         int egz_;
         double vidurkis_, mediana_, galutinis_;
     public:
-        studentas() : egz_(0) {}  // default konstruktorius
+        studentas() : zmogus(), egz_(0) {}  // default konstruktorius
         ~studentas() { clearNd(); } // destruktorius
         studentas(istream& is);
         studentas(const studentas& other) :
-            vardas_(other.vardas_),
-            pavarde_(other.pavarde_),
+            zmogus(other.vardas_, other.pavarde_),
             nd_(other.nd_),
             egz_(other.egz_),
             vidurkis_(other.vidurkis_),
             mediana_(other.mediana_),
             galutinis_(other.galutinis_) {} // Copy konstruktorius
         studentas(studentas&& other) noexcept :
-            vardas_(move(other.vardas_)), 
-            pavarde_(move(other.pavarde_)), 
+            zmogus(move(other.vardas_), move(other.pavarde_)),
             nd_(move(other.nd_)), 
             egz_(move(other.egz_)), 
             vidurkis_(move(other.vidurkis_)), 
@@ -62,20 +70,18 @@ class studentas
             swap(galutinis_, other.galutinis_);
             return *this;
         } //Move assignment operatorius
-        inline string vardas() const { return vardas_; }    // get'eriai, inline
-        inline string pavarde() const { return pavarde_; }  // get'eriai, inline
         double galutinis() const { return galutinis_; }
         int getEgz() const { return egz_; }
         const vector<int>& getNd() const { return nd_; }
         void clearNd() { nd_.clear(); }
-        void didziosiosVardas();
-        void didziosiosPavarde();
         int gautiPaskutiniPazymi();
         void generuotiEgzPazymi();
         void generuotiNdPazymi();
+        void baloSkaiciavimas(string);
+        void didziosiosVardas();
+        void didziosiosPavarde();
         void generuotiVarda(int);
         void generuotiPavarde(int);
-        void baloSkaiciavimas(string);
         friend bool palygintiMazejant(const studentas&, const studentas&);
         friend bool palygintiDidejant(const studentas&, const studentas&);
         friend ostream& operator<<(ostream&, const studentas&);
