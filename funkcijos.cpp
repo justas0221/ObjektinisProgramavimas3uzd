@@ -642,24 +642,20 @@ void testas(studentas& s)
     cout << "Move konstruktoriaus testavimas:" << endl;
     studentas y = move(s);
     cout << endl;
-    cout << &y << endl;
+    cout << s << endl;
     cout << y << endl;
     cout << endl;
 
     cout << "Move-assignment operatoriaus testavimas:" << endl;
     studentas* w = new studentas;
-    cout << &y << endl;
     *w = move(y);
     cout << endl;
-    cout << w << endl;
     cout << y << endl;
     cout << *w << endl;
     cout << endl;
 
     cout << "Destruktoriaus testavimas:" << endl;
     delete w;
-    cout << endl;
-    cout << *w << endl;
     cout << endl;
 
     exit(0);
