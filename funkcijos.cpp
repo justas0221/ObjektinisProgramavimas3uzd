@@ -647,15 +647,15 @@ void testas(studentas& s)
     cout << endl;
 
     cout << "Move-assignment operatoriaus testavimas:" << endl;
-    studentas* w = new studentas;
-    *w = move(y);
+    studentas w;
+    w = move(y);
     cout << endl;
     cout << y << endl;
-    cout << *w << endl;
+    cout << w << endl;
     cout << endl;
 
     cout << "Destruktoriaus testavimas:" << endl;
-    delete w;
+    w.~studentas();
     cout << endl;
 
     exit(0);

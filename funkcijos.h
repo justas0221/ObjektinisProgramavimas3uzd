@@ -28,12 +28,11 @@ class zmogus
         string vardas_, pavarde_;
     protected:
         zmogus(string vardas = "", string pavarde = "") : vardas_(vardas), pavarde_(pavarde) {}
-        ~zmogus() { cout << "zmogus destructor called" << endl; vardas_.clear(), pavarde_.clear(); }
+        ~zmogus() { vardas_.clear(), pavarde_.clear(); }
     public:
         inline string vardas() const { return vardas_; }    // get'eriai, inline
         inline string pavarde() const { return pavarde_; }  // get'eriai, inline
-        virtual void didziosiosVardas() { for(char &c : vardas_) c = toupper(c); } // Keliaujame per kiekviena ivesto teksto raide ir paverciame ja i didziaja raide
-        virtual void didziosiosPavarde() { for(char &c : pavarde_) c = toupper(c); } // Keliaujame per kiekviena ivesto teksto raide ir paverciame ja i didziaja raide
+        virtual void didziosiosVardas() = 0;
         virtual void generuotiVarda(int i)
         {
             string vardas;
@@ -57,7 +56,7 @@ class studentas : public zmogus
         double vidurkis_, mediana_, galutinis_;
     public:
         studentas() : zmogus(), egz_(0) {}  // default konstruktorius
-        ~studentas() { cout << "studentas destructor called" << endl; clearNd(); } // destruktorius
+        ~studentas() { clearNd(); } // destruktorius
         studentas(istream& is);
         studentas(const studentas& other) :
             zmogus(other.vardas_, other.pavarde_),
@@ -93,8 +92,8 @@ class studentas : public zmogus
         void generuotiEgzPazymi();
         void generuotiNdPazymi();
         void baloSkaiciavimas(string);
-        void didziosiosVardas() override { zmogus::didziosiosVardas(); }
-        void didziosiosPavarde() override { zmogus::didziosiosPavarde(); }
+        void didziosiosVardas() { for(char &c : vardas_) c = toupper(c); }
+        void didziosiosPavarde() { for(char &c : pavarde_) c = toupper(c); }
         void generuotiVarda(int i) override { zmogus::generuotiVarda(i); }
         void generuotiPavarde(int i) override { zmogus::generuotiPavarde(i); }
         friend bool palygintiMazejant(const studentas&, const studentas&);
