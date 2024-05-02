@@ -22,24 +22,25 @@ using namespace chrono;
 extern string skaiciavimoBudas;
 extern int pazymiuKiekis, parinktis, papildymas, k, i, randomPazymiuKiekis;
 
+// Zmogaus duomenis sauganti klase
 class zmogus
 {
     protected:
-        string vardas_, pavarde_;
+        string vardas_, pavarde_; // Klases kintamieji: zmogaus vardas ir pavarde
     protected:
-        zmogus(string vardas = "", string pavarde = "") : vardas_(vardas), pavarde_(pavarde) {}
-        ~zmogus() { vardas_.clear(), pavarde_.clear(); }
+        zmogus(string vardas = "", string pavarde = "") : vardas_(vardas), pavarde_(pavarde) {} // Default konstruktorius
+        ~zmogus() { vardas_.clear(), pavarde_.clear(); } // Destruktorius
     public:
         inline string vardas() const { return vardas_; }    // get'eriai, inline
         inline string pavarde() const { return pavarde_; }  // get'eriai, inline
-        virtual void didziosiosVardas() = 0;
-        virtual void generuotiVarda(int i)
+        virtual void didziosiosVardas() = 0; // Visiskai virtuali funkcija
+        virtual void generuotiVarda(int i) // Funkcija, skirta generuoti zmogaus vardui
         {
             string vardas;
             vardas = "Vardas" + to_string(i + 1);
             vardas_ = vardas;
         }
-        virtual void generuotiPavarde(int i)
+        virtual void generuotiPavarde(int i) // Funkcija, skirta generuoti zmogaus pavardei
         {
             string pavarde;
             pavarde = "Pavarde" + to_string(i + 1);
@@ -47,33 +48,33 @@ class zmogus
         }
 };
 
-// Studento duomenis sauganti struktura
+// Studento duomenis sauganti klase
 class studentas : public zmogus
 {
     private:
-        vector<int> nd_;
-        int egz_;
-        double vidurkis_, mediana_, galutinis_;
+        vector<int> nd_; // Studento namu darbu pazymiu vektorius
+        int egz_; // Studento egzamino pazymys
+        double vidurkis_, mediana_, galutinis_; // Studento pazymiu vidurkis, mediana ir galutinis balas
     public:
         studentas() : zmogus(), egz_(0) {}  // default konstruktorius
         ~studentas() { clearNd(); } // destruktorius
-        studentas(istream& is);
-        studentas(const studentas& other) :
+        studentas(istream& is); // Konstruktorius su nuoroda i istream objekta, kaip parametru
+        studentas(const studentas& other) : // Copy konstruktorius
             zmogus(other.vardas_, other.pavarde_),
             nd_(other.nd_),
             egz_(other.egz_),
             vidurkis_(other.vidurkis_),
             mediana_(other.mediana_),
-            galutinis_(other.galutinis_) {} // Copy konstruktorius
-        studentas(studentas&& other) noexcept :
+            galutinis_(other.galutinis_) {}
+        studentas(studentas&& other) noexcept : // Move konstruktorius
             zmogus(move(other.vardas_), move(other.pavarde_)),
             nd_(move(other.nd_)), 
             egz_(move(other.egz_)), 
             vidurkis_(move(other.vidurkis_)), 
             mediana_(move(other.mediana_)), 
-            galutinis_(move(other.galutinis_)) {} // Move konstruktorius
+            galutinis_(move(other.galutinis_)) {}
         studentas& operator=(const studentas& other) { return *this = studentas(other); } // Copy assignment operatorius
-        studentas& operator=(studentas&& other) noexcept
+        studentas& operator=(studentas&& other) noexcept // Move assignment operatorius
         {
             swap(vardas_, other.vardas_);
             swap(pavarde_, other.pavarde_);
@@ -83,19 +84,19 @@ class studentas : public zmogus
             swap(mediana_, other.mediana_);
             swap(galutinis_, other.galutinis_);
             return *this;
-        } //Move assignment operatorius
-        double galutinis() const { return galutinis_; }
-        int getEgz() const { return egz_; }
-        const vector<int>& getNd() const { return nd_; }
-        void clearNd() { nd_.clear(); }
+        }
+        double galutinis() const { return galutinis_; } // Galutinio balo get'eris
+        int getEgz() const { return egz_; } // Egzamino pazymio get'eris
+        const vector<int>& getNd() const { return nd_; } // Namu darbu pazymiu vektoriaus get'eris
+        void clearNd() { nd_.clear(); } // Funkcija, isvalanti namu darbu pazymiu vektoriu
         int gautiPaskutiniPazymi();
         void generuotiEgzPazymi();
         void generuotiNdPazymi();
         void baloSkaiciavimas(string);
-        void didziosiosVardas() { for(char &c : vardas_) c = toupper(c); }
-        void didziosiosPavarde() { for(char &c : pavarde_) c = toupper(c); }
-        void generuotiVarda(int i) override { zmogus::generuotiVarda(i); }
-        void generuotiPavarde(int i) override { zmogus::generuotiPavarde(i); }
+        void didziosiosVardas() { for(char &c : vardas_) c = toupper(c); } // Funkcija, skirta visas vardo raides paversti i didziasias
+        void didziosiosPavarde() { for(char &c : pavarde_) c = toupper(c); } // Funkcija, skirta visas pavardes raides paversti i didziasias
+        void generuotiVarda(int i) override { zmogus::generuotiVarda(i); } // Funkcija, skirta generuoti varda
+        void generuotiPavarde(int i) override { zmogus::generuotiPavarde(i); } // Funkcija, skirta generuoti pavarde
         friend bool palygintiMazejant(const studentas&, const studentas&);
         friend bool palygintiDidejant(const studentas&, const studentas&);
         friend ostream& operator<<(ostream&, const studentas&);
@@ -111,10 +112,6 @@ void testas(studentas&);
 void generuotiFaila(int, int, string);
 template <typename Cont>
 void failoSkaitymas(ifstream&, Cont&);
-template <typename Cont>
-void strategija1(Cont&, Cont&, Cont&);
-template <typename Cont>
-void strategija2(Cont&, Cont&);
 template <typename Cont>
 void strategija3(Cont&, Cont&);
 template <typename Cont>

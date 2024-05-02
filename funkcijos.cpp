@@ -36,6 +36,7 @@ int tarpuSkaicius(string ivedimas)
     return kiekis;
 }
 
+// Konstruktorius su nuoroda i istream objekta, kaip parametru
 studentas::studentas(istream& is)
 {
     is >> vardas_ >> pavarde_;
@@ -48,6 +49,7 @@ studentas::studentas(istream& is)
     nd_.pop_back();
 }
 
+// Studento klases funkcija, skirta generuoti vienam namu darbu pazymiui ir ji ikelti i vektoriu
 void studentas::generuotiNdPazymi()
 {
     int skaicius = generuotiPazymi();
@@ -55,6 +57,7 @@ void studentas::generuotiNdPazymi()
     nd_.push_back(skaicius);
 }
 
+// Studento klases funcija, skirta generuoti egzamino pazymi
 void studentas::generuotiEgzPazymi()
 {
     int skaicius = generuotiPazymi();
@@ -62,6 +65,7 @@ void studentas::generuotiEgzPazymi()
     egz_ = (skaicius);
 }
 
+// Studento klases funkcija, skirta gauti paskutini namu darbu pazymi
 int studentas::gautiPaskutiniPazymi()
 {
     if (!nd_.empty())
@@ -83,17 +87,19 @@ int generuotiPazymi()
     return skaicius;
 }
 
+// Funkcija, skirta lyginti du studentus pagal galutini pazymi ir rikiuoti juos mazejimo tvarka
 bool palygintiMazejant(const studentas& a, const studentas& b)
 {
     return a.galutinis_ > b.galutinis_;
 }
 
-
+// Funkcija, skirta lyginti du studentus pagal galutini pazymi ir rikiuoti juos didejimo tvarka
 bool palygintiDidejant(const studentas& a, const studentas& b)
 {
     return a.galutinis_ < b.galutinis_;
 }
 
+// Funkcija, skirta generuoti duomenu faila, kuri sudaro studentu duomenys: vardas, pavarde, namu darbu pazymiai ir egzamino pazymys
 void generuotiFaila(int studKiekis, int pazKiekis, string failoVardas)
 {
     ofstream naujas(failoVardas);
@@ -133,6 +139,7 @@ void generuotiFaila(int studKiekis, int pazKiekis, string failoVardas)
     naujas.close();
 }
 
+// Funkcija, skirta studento galutiniam balui skaiciuoti
 void studentas::baloSkaiciavimas(string skaiciavimoBudas)
 {
     if (skaiciavimoBudas == "V")
@@ -160,6 +167,7 @@ void studentas::baloSkaiciavimas(string skaiciavimoBudas)
     }
 }
 
+// Funkcijos, skirtos nuskaityti duomenu faila, sablonas
 template <typename Cont>
 void failoSkaitymas(ifstream &input, Cont &stud)
 {
@@ -199,46 +207,7 @@ template void failoSkaitymas<vector<studentas>>(ifstream&, vector<studentas>&);
 template void failoSkaitymas<list<studentas>>(ifstream&, list<studentas>&);
 template void failoSkaitymas<deque<studentas>>(ifstream&, deque<studentas>&);
 
-template <typename Cont>
-void strategija1(Cont &stud, Cont &vargsiukai, Cont &galvociai)
-{
-    for (auto &i : stud)
-    {
-        if (i.galutinis() < 5)
-        {
-            vargsiukai.push_back(i);
-        }
-        else
-        {
-            galvociai.push_back(i);
-        }
-    }
-}
-template void strategija1<vector<studentas>>(vector<studentas> &stud, vector<studentas> &vargsiukai, vector<studentas> &galvociai);
-template void strategija1<list<studentas>>(list<studentas> &stud, list<studentas> &vargsiukai, list<studentas> &galvociai);
-template void strategija1<deque<studentas>>(deque<studentas> &stud, deque<studentas> &vargsiukai, deque<studentas> &galvociai);
-
-template <typename Cont>
-void strategija2(Cont &stud, Cont &vargsiukai)
-{
-    typename Cont::iterator it = stud.begin();
-    while (it != stud.end())
-    {
-        if (it->galutinis() < 5)
-        {
-            vargsiukai.push_back(*it);
-            it = stud.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
-}
-template void strategija2<vector<studentas>>(vector<studentas> &stud, vector<studentas> &vargsiukai);
-template void strategija2<list<studentas>>(list<studentas> &stud, list<studentas> &vargsiukai);
-template void strategija2<deque<studentas>>(deque<studentas> &stud, deque<studentas> &vargsiukai);
-
+// Funkcijos, skirtos surusiuoti studentus i du atskirus konteinerius, sablonas
 template <typename Cont>
 void strategija3(Cont &stud, Cont &vargsiukai)
 {
@@ -250,6 +219,7 @@ template void strategija3<vector<studentas>>(vector<studentas> &stud, vector<stu
 template void strategija3<list<studentas>>(list<studentas> &stud, list<studentas> &vargsiukai);
 template void strategija3<deque<studentas>>(deque<studentas> &stud, deque<studentas> &vargsiukai);
 
+// Funkcijos, skirtos studentus isrikiuoti didejimo tvarka pagal galutini bala, sablonas
 template <typename Cont>
 void rikiuotiDidejant(Cont &container)
 {
@@ -266,6 +236,7 @@ template void rikiuotiDidejant<vector<studentas>>(vector<studentas> &container);
 template void rikiuotiDidejant<list<studentas>>(list<studentas> &container);
 template void rikiuotiDidejant<deque<studentas>>(deque<studentas> &container);
 
+// Funkcijos, skirtos studentus isrikiuoti mazejimo tvarka pagal galutini bala, sablonas
 template <typename Cont>
 void rikiuotiMazejant(Cont &container)
 {
@@ -282,6 +253,7 @@ template void rikiuotiMazejant<vector<studentas>>(vector<studentas> &container);
 template void rikiuotiMazejant<list<studentas>>(list<studentas> &container);
 template void rikiuotiMazejant<deque<studentas>>(deque<studentas> &container);
 
+// Funkcija, atspausdinanti antraste i duomenu isvedimo faila
 void printHeader(ostream& out)
 {
     out << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
@@ -289,6 +261,7 @@ void printHeader(ostream& out)
     out << setfill(' ');
 }
 
+// Operatoriaus "<<" perkrovimas
 ostream& operator<<(ostream& out, const studentas& a)
 {
     out << left << setw(20) << a.vardas() << setw(20) << a.pavarde();
@@ -305,6 +278,7 @@ ostream& operator<<(ostream& out, const studentas& a)
     return out;
 }
 
+// Operatoriaus ">>" perkrovimas
 istream& operator>>(istream& in, studentas& s)
 {
     if (parinktis == 1 || parinktis == 6)
@@ -609,14 +583,15 @@ istream& operator>>(istream& in, studentas& s)
     return in;
 }
 
+// Funkcija, skirta testuoti Rule of Five metodus
 void testas(studentas& s)
 {
-    cout << "Default konstruktoriaus ir << operatoriaus testavimas:" << endl;
+    cout << "Default konstruktoriaus ir << operatoriaus testavimas:" << endl; // Testuojamas default konstruktorius ir << operatorius
     cout << endl;
     cout << s << endl;
     cout << endl;
 
-    cout << ">> operatoriaus testavimas:" << endl;
+    cout << ">> operatoriaus testavimas:" << endl; // Testuojamas ir >> operatorius
     cout << endl;
     cin.ignore();
     cin >> s;
@@ -624,14 +599,14 @@ void testas(studentas& s)
     cout << s << endl;
     cout << endl;
 
-    cout << "Copy konstruktoriaus testavimas:" << endl;
+    cout << "Copy konstruktoriaus testavimas:" << endl; // Testuojamas Copy konstruktorius
     studentas z(s);
     cout << endl;
     cout << s << endl;
     cout << z << endl;
     cout << endl;
 
-    cout << "Copy-assignment operatoriaus testavimas:" << endl;
+    cout << "Copy-assignment operatoriaus testavimas:" << endl; // Testuojamas Copy-assignment operatorius
     cout << endl;
     studentas x;
     x = s;
@@ -639,14 +614,14 @@ void testas(studentas& s)
     cout << x << endl;
     cout << endl;
 
-    cout << "Move konstruktoriaus testavimas:" << endl;
+    cout << "Move konstruktoriaus testavimas:" << endl; // Testuojamas Move konstruktorius
     studentas y = move(s);
     cout << endl;
     cout << s << endl;
     cout << y << endl;
     cout << endl;
 
-    cout << "Move-assignment operatoriaus testavimas:" << endl;
+    cout << "Move-assignment operatoriaus testavimas:" << endl; // Testuojamas Move-assignment operatorius
     studentas w;
     w = move(y);
     cout << endl;
@@ -654,7 +629,7 @@ void testas(studentas& s)
     cout << w << endl;
     cout << endl;
 
-    cout << "Destruktoriaus testavimas:" << endl;
+    cout << "Destruktoriaus testavimas:" << endl; // Testuojamas destruktorius
     w.~studentas();
     cout << endl;
 
