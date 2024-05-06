@@ -1,5 +1,7 @@
 # ObjektinisProgramavimas
 
+Programa apskaičiuojanti studentų galutinius balus iš pateiktų duomenų. Projekto [dokumentacija](https://github.com/justas0221/ObjektinisProgramavimas2uzd/blob/v2.0/latex/LaTeX.pdf).
+
 ## Release'ai
 
 1. V.pradinė: Sukurtas programos karkasas. Naudotojas gali įvesti studentų kiekį, jų duomenis (vardą, pavardę, pažymius) ir ekrane matyti atspausdintus studento duomenis su apskaičiuotu galutiniu balu.
