@@ -46,3 +46,12 @@ TEST_CASE("Move Assignment Operator", "[Move Assignment Operator]")
     REQUIRE(studentas2 == studentas("Vardenis", "Pavardenis", {1, 2, 3}, 7));
     REQUIRE_FALSE(studentas2 == studentas1);
 }
+
+TEST_CASE("Getters", "[Getters]")
+{
+    studentas studentas1("Vardenis", "Pavardenis2", {1, 2, 3}, 7);
+
+    REQUIRE(studentas1.getVardas() == "Vardenis");
+    REQUIRE_FALSE(studentas1.getPavarde() == "Pavardenis");
+    REQUIRE(studentas1.getEgz() == 7);
+}

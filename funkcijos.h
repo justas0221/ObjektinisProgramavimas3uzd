@@ -126,6 +126,7 @@ class studentas : public zmogus
         friend ostream& operator<<(ostream&, const studentas&);
         friend istream& operator>>(istream&, studentas&);
         friend bool operator==(const studentas&, const studentas&);
+        friend bool operator==(const string&, const string&);
 };
 
 int generuotiPazymi();

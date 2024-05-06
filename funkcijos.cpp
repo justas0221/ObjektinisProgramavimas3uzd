@@ -589,6 +589,11 @@ bool operator==(const studentas& a, const studentas& b)
     return a.getVardas() == b.getVardas() && a.getPavarde() == b.getPavarde() && a.getNd() == b.getNd() && a.getEgz() == b.getEgz();
 }
 
+bool operator==(const string& a, const string& b)
+{
+    return a == b;
+}
+
 // Funkcija, skirta testuoti Rule of Five metodus
 void testas(studentas& s)
 {
