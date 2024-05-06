@@ -583,6 +583,12 @@ istream& operator>>(istream& in, studentas& s)
     return in;
 }
 
+// Operatoriaus == perkrovimas
+bool operator==(const studentas& a, const studentas& b)
+{
+    return a.getVardas() == b.getVardas() && a.getPavarde() == b.getPavarde() && a.getNd() == b.getNd() && a.getEgz() == b.getEgz();
+}
+
 // Funkcija, skirta testuoti Rule of Five metodus
 void testas(studentas& s)
 {

@@ -56,7 +56,7 @@ class studentas : public zmogus
         int egz_; // Studento egzamino pazymys
         double vidurkis_, mediana_, galutinis_; // Studento pazymiu vidurkis, mediana ir galutinis balas
     public:
-        studentas() : zmogus(), egz_(0) {}  // default konstruktorius
+        studentas(string vardas = "", string pavarde = "", vector<int> nd = {}, int egz = 0) : zmogus(vardas, pavarde), nd_(nd), egz_(egz) {} // Default konstruktorius
         ~studentas() { clearNd(); } // destruktorius
         studentas(istream& is); // Konstruktorius su nuoroda i istream objekta, kaip parametru
         studentas(const studentas& other) : // Copy konstruktorius
@@ -66,26 +66,50 @@ class studentas : public zmogus
             vidurkis_(other.vidurkis_),
             mediana_(other.mediana_),
             galutinis_(other.galutinis_) {}
-        studentas(studentas&& other) noexcept : // Move konstruktorius
-            zmogus(move(other.vardas_), move(other.pavarde_)),
+        studentas(studentas&& other) : // Move konstruktorius
+            zmogus(other.vardas_, other.pavarde_),
             nd_(move(other.nd_)), 
-            egz_(move(other.egz_)), 
-            vidurkis_(move(other.vidurkis_)), 
-            mediana_(move(other.mediana_)), 
-            galutinis_(move(other.galutinis_)) {}
-        studentas& operator=(const studentas& other) { return *this = studentas(other); } // Copy assignment operatorius
-        studentas& operator=(studentas&& other) noexcept // Move assignment operatorius
+            egz_(other.egz_), 
+            vidurkis_(other.vidurkis_), 
+            mediana_(other.mediana_),
+            galutinis_(other.galutinis_)
+            {
+                other.vardas_ = "";
+                other.pavarde_ = "";
+                other.nd_ = {};
+                other.egz_ = 0;
+            }
+        studentas& operator=(const studentas& other) // Copy assignment operatorius
         {
-            swap(vardas_, other.vardas_);
-            swap(pavarde_, other.pavarde_);
-            swap(nd_, other.nd_);
-            swap(egz_, other.egz_);
-            swap(vidurkis_, other.vidurkis_);
-            swap(mediana_, other.mediana_);
-            swap(galutinis_, other.galutinis_);
+            if (&other == this) return *this;
+            vardas_ = other.vardas_;
+            pavarde_ = other.pavarde_;
+            nd_ = other.nd_;
+            egz_ = other.egz_;
+            vidurkis_ = other.vidurkis_;
+            mediana_ = other.mediana_;
+            galutinis_ = other.galutinis_;
+            return *this;
+        }
+        studentas& operator=(studentas&& other) // Move assignment operatorius
+        {
+            if (&other == this) return *this;
+            vardas_ = other.vardas_;
+            pavarde_ = other.pavarde_;
+            nd_ = move(other.nd_);
+            egz_ = other.egz_;
+            vidurkis_ = other.vidurkis_;
+            mediana_ = other.mediana_;
+            galutinis_ = other.galutinis_;
+            vardas_ = "";
+            pavarde_ = "";
+            nd_ = {};
+            egz_ = 0;
             return *this;
         }
         double galutinis() const { return galutinis_; } // Galutinio balo get'eris
+        string getVardas() const { return vardas_; } // Vardo get'eris
+        string getPavarde() const { return pavarde_; } // Pavardes get'eris
         int getEgz() const { return egz_; } // Egzamino pazymio get'eris
         const vector<int>& getNd() const { return nd_; } // Namu darbu pazymiu vektoriaus get'eris
         void clearNd() { nd_.clear(); } // Funkcija, isvalanti namu darbu pazymiu vektoriu
@@ -101,6 +125,7 @@ class studentas : public zmogus
         friend bool palygintiDidejant(const studentas&, const studentas&);
         friend ostream& operator<<(ostream&, const studentas&);
         friend istream& operator>>(istream&, studentas&);
+        friend bool operator==(const studentas&, const studentas&);
 };
 
 int generuotiPazymi();
