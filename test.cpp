@@ -27,3 +27,22 @@ TEST_CASE("Move Constructor", "[Move Constructor]")
     REQUIRE(studentas2 == studentas("Vardenis", "Pavardenis", {}, 0));
     REQUIRE_FALSE(studentas1 == studentas2);
 }
+
+TEST_CASE("Copy Assignment Operator", "[Copy Assignment Operator]")
+{
+    studentas studentas1("Vardenis", "Pavardenis", {1, 2, 3}, 7);
+    studentas studentas2;
+    studentas2 = studentas1;
+
+    REQUIRE(studentas2 == studentas1);
+}
+
+TEST_CASE("Move Assignment Operator", "[Move Assignment Operator]")
+{
+    studentas studentas1("Vardenis", "Pavardenis", {1, 2, 3}, 7);
+    studentas studentas2;
+    studentas2 = move(studentas1);
+
+    REQUIRE(studentas2 == studentas("Vardenis", "Pavardenis", {1, 2, 3}, 7));
+    REQUIRE_FALSE(studentas2 == studentas1);
+}

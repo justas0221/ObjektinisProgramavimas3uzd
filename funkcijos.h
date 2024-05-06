@@ -101,10 +101,10 @@ class studentas : public zmogus
             vidurkis_ = other.vidurkis_;
             mediana_ = other.mediana_;
             galutinis_ = other.galutinis_;
-            vardas_ = "";
-            pavarde_ = "";
-            nd_ = {};
-            egz_ = 0;
+            other.vardas_ = "";
+            other.pavarde_ = "";
+            other.nd_ = {};
+            other.egz_ = 0;
             return *this;
         }
         double galutinis() const { return galutinis_; } // Galutinio balo get'eris
