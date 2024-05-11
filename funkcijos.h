@@ -1,3 +1,6 @@
+#ifndef FUNKCIJOS_H
+#define FUNKCIJOS_H
+
 #include <iostream>
 #include <numeric>
 #include <functional>
@@ -144,3 +147,5 @@ template <typename Cont>
 void rikiuotiDidejant(Cont&);
 template <typename Cont>
 void rikiuotiMazejant(Cont&);
+
+#endif

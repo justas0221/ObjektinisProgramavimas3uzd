@@ -1,29 +1,21 @@
 #include "vector.h"
 
-// Konstruktoriai   
-Vector::Vector()
-{ 
-    sz = 0; 
-    elem = new double[sz];
-}
+// Konstruktoriai
+template<typename T>
+Vector<T>::Vector() : size(0), capacity(5), elem(new T[capacity]) {}
 
-Vector::Vector(int s)
-{
-    sz = s; 
-    elem = new double[s]; 
-}
+template<typename T>
+Vector<T>::Vector(int s) : size(s), capacity(s * 2), elem(new T[capacity]) {}
 
-Vector::Vector(int s, double val)
+template<typename T>
+Vector<T>::Vector(int s, T value) : size(s), capacity(s * 2), elem(new T[capacity])
 {
-    sz = s; 
-    elem = new double[s];
-    fill_n(elem, s, val);  
+    fill_n(elem, s, value); 
 }
 
 // Destruktorius: atlaisvina vektoriaus klasės objekto resursus
-Vector::~Vector()
-{ 
-    delete[] elem; 
-    cout << "Object destroyed" << endl; 
+template<typename T>
+Vector<T>::~Vector()
+{
+    delete[] elem;
 }
-
