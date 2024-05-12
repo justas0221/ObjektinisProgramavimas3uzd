@@ -5,12 +5,22 @@ template<typename T>
 Vector<T>::Vector() : sz(0), cap(5), elem(new T[cap]) {}
 
 template<typename T>
-Vector<T>::Vector(int s) : sz(s), cap(s * 2), elem(new T[cap]) {}
+Vector<T>::Vector(int s) : sz(s), cap(s + 5), elem(new T[cap]) {}
 
 template<typename T>
-Vector<T>::Vector(int s, T value) : sz(s), cap(s * 2), elem(new T[cap])
+Vector<T>::Vector(int s, T value) : sz(s), cap(s + 5), elem(new T[cap])
 {
     fill_n(elem, s, value); 
+}
+
+// Copy konstruktorius
+template <typename T>
+Vector<T>::Vector(const Vector &other) : sz(other.sz), cap(other.cap), elem(new T[capacity])
+{
+    for (int i = 0; i < other.size(); i++)
+    {
+        elem[i] = other.elem[i];
+    }
 }
 
 // Destruktorius: atlaisvina vektoriaus klasės objekto resursus
@@ -49,6 +59,7 @@ int Vector<T>::capacity() const
     return cap;
 }
 
+// Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai lygus
 template <typename T>
 bool Vector<T>::operator==(const Vector &other) const
 {
@@ -66,4 +77,11 @@ bool Vector<T>::operator==(const Vector &other) const
     }
 
     return true;
+}
+
+// Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai nelygus
+template <typename T>
+bool Vector<T>::operator!=(const Vector &other) const
+{
+    return !(*this == other);
 }
