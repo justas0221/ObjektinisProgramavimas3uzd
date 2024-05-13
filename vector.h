@@ -10,29 +10,32 @@ template<class T>
 class Vector
 {
     private:
-        int sz;                         // Vektoriaus elementu skaicius
-        int cap;                        // Vektoriaus talpa  
-        T* elem;                        // Rodykle i vektoriaus elementus
+        int sz;                                     // Vektoriaus elementu skaicius
+        int cap;                                    // Vektoriaus talpa  
+        T* elem;                                    // Rodykle i vektoriaus elementus
     public:
         // Konstruktoriai
         Vector();
         Vector(int s);
         Vector(int s, T value);
         Vector(const initializer_list<T>& list);
-        Vector(const Vector& other);          // Copy kontruktorius
-        ~Vector();                            // Destruktorius: atlaisvina vektoriaus klasės objekto resursus
+        Vector(const Vector& other);                // Copy kontruktorius
+        ~Vector();                                  // Destruktorius: atlaisvina vektoriaus klasės objekto resursus
 
-        void push_back(T value);              // Elemento pridejimo i vektoriaus gala funkcija
-        void pop_back();                      // Elemento isemimo is vektoriaus galo funkcija
-        bool empty() const;                   // Funkcija, grazinanti true arba false, priklausomai nuo to, ar vektorius tuscias ar ne
-        int size() const;                     // Funkcija, grazinanti vektoriaus dydi
-        int capacity() const;                 // Funkcija, grazinanti vektoriaus talpa
+        void push_back(T value);                    // Elemento pridejimo i vektoriaus gala funkcija
+        void pop_back();                            // Elemento isemimo is vektoriaus galo funkcija
+        bool empty() const;                         // Funkcija, grazinanti true arba false, priklausomai nuo to, ar vektorius tuscias ar ne
+        int size() const;                           // Funkcija, grazinanti vektoriaus dydi
+        int capacity() const;                       // Funkcija, grazinanti vektoriaus talpa
 
         bool operator==(const Vector& other) const; // Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai lygus
         bool operator!=(const Vector& other) const; // Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai nelygus
         Vector& operator=(const Vector& other);     // Operatorius, priskiriantis desineje lygybes puseje esancio vektoriaus reiksmes kaireje puseje esanciam vektoriui
         T& operator[](int index);                   // Operatorius, leidziantis pasiekti konkretu vektoriaus elementa
-        
+        T& at(int index);                           // Funkcija, grazinanti vektoriaus elementa, esanti i funkcija perduoto indekso vietoje
+        T& front();                                 // Funkcija, grazinanti pirmaji vektoriaus elementa
+        T& back();                                  // Funkcija, grazinanti paskutini vektoriaus elementa
+    
         template<typename U>
         friend ostream& operator<<(ostream& output, const Vector<U>& other); // Perkraunamas, vektoriaus isvedimo operatorius
 };

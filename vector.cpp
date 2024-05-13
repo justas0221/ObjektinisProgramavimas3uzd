@@ -150,6 +150,32 @@ T &Vector<T>::operator[](int index)
     return elem[index];
 }
 
+// Funkcija, grazinanti vektoriaus elementa, esanti i funkcija perduoto indekso vietoje
+template <class T>
+T &Vector<T>::at(int index)
+{
+    if (index < 0 || index >= sz)
+    {
+        throw runtime_error("Index out of range.");
+    }
+    
+    return elem[index];
+}
+
+// Funkcija, grazinanti pirmaji vektoriaus elementa
+template <class T>
+T &Vector<T>::front()
+{
+    return elem[0];
+}
+
+// Funkcija, grazinanti paskutini vektoriaus elementa
+template <class T>
+T &Vector<T>::back()
+{
+    return elem[sz - 1];
+}
+
 // Perkraunamas, vektoriaus isvedimo operatorius
 template<class U>
 ostream &operator<<(ostream &output, const Vector<U> &other)
