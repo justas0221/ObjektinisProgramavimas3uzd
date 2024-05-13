@@ -1,10 +1,12 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include "funkcijos.h"
+#include <iostream>
+
+using namespace std;
 
 // std::vector funkcionaluma atkartojanti klase
-template<typename T>
+template<class T>
 class Vector
 {
     private:
@@ -16,6 +18,7 @@ class Vector
         Vector();
         Vector(int s);
         Vector(int s, T value);
+        Vector(const initializer_list<T>& list);
         Vector(const Vector& other);          // Copy kontruktorius
         ~Vector();                            // Destruktorius: atlaisvina vektoriaus klasės objekto resursus
 
@@ -26,8 +29,11 @@ class Vector
 
         bool operator==(const Vector& other) const; // Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai lygus
         bool operator!=(const Vector& other) const; // Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai nelygus
-
-
+        
+        template<typename U>
+        friend ostream& operator<<(ostream& output, const Vector<U>& other); // Perkraunamas, vektoriaus isvedimo operatorius
 };
+
+#include "vector.cpp"
 
 #endif
