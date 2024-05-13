@@ -30,6 +30,8 @@ class Vector
 
         bool operator==(const Vector& other) const; // Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai lygus
         bool operator!=(const Vector& other) const; // Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai nelygus
+        Vector& operator=(const Vector& other);     // Operatorius, priskiriantis desineje lygybes puseje esancio vektoriaus reiksmes kaireje puseje esanciam vektoriui
+        T& operator[](int index);                   // Operatorius, leidziantis pasiekti konkretu vektoriaus elementa
         
         template<typename U>
         friend ostream& operator<<(ostream& output, const Vector<U>& other); // Perkraunamas, vektoriaus isvedimo operatorius

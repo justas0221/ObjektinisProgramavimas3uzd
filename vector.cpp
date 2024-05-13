@@ -122,6 +122,34 @@ bool Vector<T>::operator!=(const Vector &other) const
     return !(*this == other);
 }
 
+// Operatorius, priskiriantis desineje lygybes puseje esancio vektoriaus reiksmes kaireje puseje esanciam vektoriui
+template <class T>
+Vector<T> &Vector<T>::operator=(const Vector &other)
+{
+    if (other.sz > sz)
+    {
+        delete[] elem;
+        cap = other.sz + 5;
+        elem = new T[cap];
+    }
+
+    for (int i = 0; i < other.size(); i++)
+    {
+        elem[i] = other.elem[i];
+    }
+
+    sz = other.sz;
+
+    return *this;
+}
+
+// Operatorius, leidziantis pasiekti konkretu vektoriaus elementa
+template <class T>
+T &Vector<T>::operator[](int index)
+{
+    return elem[index];
+}
+
 // Perkraunamas, vektoriaus isvedimo operatorius
 template<class U>
 ostream &operator<<(ostream &output, const Vector<U> &other)
