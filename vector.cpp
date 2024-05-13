@@ -43,8 +43,35 @@ Vector<T>::~Vector()
 template<class T>
 void Vector<T>::push_back(T value)
 {
-    elem[sz] = value;
-    ++sz;
+    if (sz < cap)
+    {
+        elem[sz] = value;
+        ++sz;
+    }
+    else
+    {
+        cap *= 2;
+        T* newelem = new T[cap];
+        for (int i = 0; i < sz; i++)
+        {
+            newelem[i] = elem[i];
+        }
+        newelem[sz] = value;
+        ++sz;
+        delete[] elem;
+        elem = newelem;
+    }
+}
+
+// Elemento isemimo is vektoriaus galo funkcija
+template <class T>
+void Vector<T>::pop_back()
+{
+    if (sz == 0)
+    {
+        throw runtime_error("Vector is empty.");
+    }
+    --sz;
 }
 
 // Funkcija, grazinanti true arba false, priklausomai nuo to, ar vektorius tuscias ar ne
