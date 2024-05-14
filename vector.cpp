@@ -74,6 +74,12 @@ void Vector<T>::pop_back()
     --sz;
 }
 
+template <class T>
+void Vector<T>::clear()
+{
+    sz = 0;
+}
+
 // Funkcija, grazinanti true arba false, priklausomai nuo to, ar vektorius tuscias ar ne
 template<class T>
 bool Vector<T>::empty() const
@@ -147,6 +153,10 @@ Vector<T> &Vector<T>::operator=(const Vector &other)
 template <class T>
 T &Vector<T>::operator[](int index)
 {
+    if (index < 0 || index >= sz)
+    {
+        throw runtime_error("Index out of range.");
+    }
     return elem[index];
 }
 

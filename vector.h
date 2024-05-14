@@ -14,6 +14,7 @@ class Vector
         int cap;                                    // Vektoriaus talpa  
         T* elem;                                    // Rodykle i vektoriaus elementus
     public:
+        using iterator = T*;
         // Konstruktoriai
         Vector();
         Vector(int s);
@@ -24,6 +25,7 @@ class Vector
 
         void push_back(T value);                    // Elemento pridejimo i vektoriaus gala funkcija
         void pop_back();                            // Elemento isemimo is vektoriaus galo funkcija
+        void clear();                               // Funkcija, isvalanti vektoriu
         bool empty() const;                         // Funkcija, grazinanti true arba false, priklausomai nuo to, ar vektorius tuscias ar ne
         int size() const;                           // Funkcija, grazinanti vektoriaus dydi
         int capacity() const;                       // Funkcija, grazinanti vektoriaus talpa
