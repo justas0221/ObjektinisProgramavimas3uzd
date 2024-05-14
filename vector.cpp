@@ -2,19 +2,19 @@
 
 // Konstruktoriai
 template<class T>
-Vector<T>::Vector() : sz(0), cap(5), elem(new T[cap]) {}
+Vector<T>::Vector() : sz(0), cap(5), elem(new value_type[cap]) {}
 
 template<class T>
-Vector<T>::Vector(int s) : sz(s), cap(s + 5), elem(new T[cap]) {}
+Vector<T>::Vector(int s) : sz(s), cap(s + 5), elem(new value_type[cap]) {}
 
 template<class T>
-Vector<T>::Vector(int s, T value) : sz(s), cap(s + 5), elem(new T[cap])
+Vector<T>::Vector(int s, value_type value) : sz(s), cap(s + 5), elem(new value_type[cap])
 {
     fill_n(elem, s, value); 
 }
 
 template <class T>
-Vector<T>::Vector(const initializer_list<T> &list) : sz(0), cap(list.size() + 5), elem(new T[cap])
+Vector<T>::Vector(const initializer_list<value_type> &list) : sz(0), cap(list.size() + 5), elem(new value_type[cap])
 {
     for (int i : list)
     {
@@ -24,7 +24,7 @@ Vector<T>::Vector(const initializer_list<T> &list) : sz(0), cap(list.size() + 5)
 
 // Copy konstruktorius
 template<class T>
-Vector<T>::Vector(const Vector &other) : sz(other.sz), cap(other.cap), elem(new T[cap])
+Vector<T>::Vector(const Vector &other) : sz(other.sz), cap(other.cap), elem(new value_type[cap])
 {
     for (int i = 0; i < other.size(); i++)
     {
@@ -41,7 +41,7 @@ Vector<T>::~Vector()
 
 // Elemento pridejimo i vektoriaus gala funkcija
 template<class T>
-void Vector<T>::push_back(T value)
+void Vector<T>::push_back(value_type value)
 {
     if (sz < cap)
     {
@@ -51,7 +51,7 @@ void Vector<T>::push_back(T value)
     else
     {
         cap *= 2;
-        T* newelem = new T[cap];
+        T* newelem = new value_type[cap];
         for (int i = 0; i < sz; i++)
         {
             newelem[i] = elem[i];
@@ -92,7 +92,7 @@ void Vector<T>::erase(int index)
 }
 
 template <class T>
-void Vector<T>::insert(int index, T value)
+void Vector<T>::insert(int index, value_type value)
 {
     if (index < 0 || index >= sz)
     {
@@ -112,7 +112,7 @@ void Vector<T>::insert(int index, T value)
     else
     {
         cap *= 2;
-        int* newelem = new T[cap];
+        int* newelem = new value_type[cap];
 
         for (int i = 0; i < sz; i++)
         {
@@ -188,7 +188,7 @@ Vector<T> &Vector<T>::operator=(const Vector &other)
     {
         delete[] elem;
         cap = other.sz + 5;
-        elem = new T[cap];
+        elem = new value_type[cap];
     }
 
     for (int i = 0; i < other.size(); i++)
