@@ -14,7 +14,19 @@ class Vector
         int cap;                                    // Vektoriaus talpa  
         T* elem;                                    // Rodykle i vektoriaus elementus
     public:
-        using iterator = T*;
+        using value_type             = T;
+        using allocator_type         = Allocator;
+        using pointer                = typename allocator_traits<Allocator>::pointer;
+        using const_pointer          = typename allocator_traits<Allocator>::const_pointer;
+        using reference              = value_type&;
+        using const_reference        = const value_type&;
+        using size_type              = size_t;;
+        using difference_type        = ptrdiff_t;
+        using iterator               = T*;
+        using const_iterator         = const T*;
+        using reverse_iterator       = std::reverse_iterator<iterator>;
+        using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
         // Konstruktoriai
         Vector();
         Vector(int s);
