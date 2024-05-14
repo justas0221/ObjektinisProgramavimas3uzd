@@ -25,6 +25,7 @@ class Vector
 
         void push_back(T value);                    // Elemento pridejimo i vektoriaus gala funkcija
         void pop_back();                            // Elemento isemimo is vektoriaus galo funkcija
+        void erase(int index);                      // Funkcija, pasalinanti elementa, esanti nurodyto indekso vietoje
         void clear();                               // Funkcija, isvalanti vektoriu
         bool empty() const;                         // Funkcija, grazinanti true arba false, priklausomai nuo to, ar vektorius tuscias ar ne
         int size() const;                           // Funkcija, grazinanti vektoriaus dydi

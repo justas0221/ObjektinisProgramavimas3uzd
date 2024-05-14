@@ -74,6 +74,24 @@ void Vector<T>::pop_back()
     --sz;
 }
 
+// Funkcija, pasalinanti elementa, esanti nurodyto indekso vietoje
+template <class T>
+void Vector<T>::erase(int index)
+{
+    if (index < 0 || index >= sz)
+    {
+        throw runtime_error("Index out of range.");
+    }
+
+    for (int i = index; i < sz - 1; i++)
+    {
+        elem[i] = elem[i + 1];
+    }
+
+    sz--;
+}
+
+// Funkcija, isvalanti vektoriu
 template <class T>
 void Vector<T>::clear()
 {
