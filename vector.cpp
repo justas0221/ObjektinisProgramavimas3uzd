@@ -91,6 +91,40 @@ void Vector<T>::erase(int index)
     sz--;
 }
 
+template <class T>
+void Vector<T>::insert(int index, T value)
+{
+    if (index < 0 || index >= sz)
+    {
+        throw runtime_error("Index out of range.");
+    }
+
+    if (sz != cap)
+    {
+        for (int i = sz - 1; i >= index; i--)
+        {
+            elem[i + 1] = elem[i];
+        }
+        
+        elem[index] = value;
+        sz++;
+    }
+    else
+    {
+        cap *= 2;
+        int* newelem = new T[cap];
+
+        for (int i = 0; i < sz; i++)
+        {
+            newelem[i] = elem[i];
+        }
+
+        delete[] elem;
+        elem = newelem;
+        insert(index, value);
+    }
+}
+
 // Funkcija, isvalanti vektoriu
 template <class T>
 void Vector<T>::clear()
