@@ -47,12 +47,6 @@ public:
         resize(n, value);
     };
 
-    // Initializer list'as
-    Vector(initializer_list<T> il, const Allocator& = Allocator()) : elem(nullptr), sz(0), cap(0), alloc(Allocator())
-    {
-        insert(begin(), il);
-    }
-
     // Destruktorius
     ~Vector()
     {
@@ -172,6 +166,13 @@ public:
         return true;
     }
 
+
+    // Initializer list'as
+    Vector(initializer_list<T> il, const Allocator& = Allocator()) : elem(nullptr), sz(0), cap(0), alloc(Allocator())
+    {
+        insert(begin(), il);
+    }
+
     // Priskyrimo operatorius su initializer list'u
     Vector& operator=(initializer_list<T> il) {
         clear();
@@ -180,6 +181,67 @@ public:
             emplace_back(elem);
         }
         return *this;
+    }
+
+    // Iteratoriai
+    iterator begin() noexcept
+    {
+        return elem;
+    }
+
+    const_iterator begin() const noexcept
+    {
+        return elem;
+    }
+
+    iterator end() noexcept
+    {
+        return elem + sz;
+    }
+
+    const_iterator end() const noexcept
+    {
+        return elem + sz;
+    }
+
+    reverse_iterator rbegin() noexcept
+    {
+        return reverse_iterator(end());
+    }
+
+    const_reverse_iterator rbegin() const noexcept
+    {
+        return const_reverse_iterator(end());
+    }
+
+    reverse_iterator rend() noexcept
+    {
+        return reverse_iterator(begin());
+    }
+
+    const_reverse_iterator rend() const noexcept
+    {
+        return const_reverse_iterator(begin());
+    }
+
+    const_iterator cbegin() const noexcept
+    {
+        return elem;
+    }
+
+    const_iterator cend() const noexcept
+    {
+        return elem + sz;
+    }
+
+    const_reverse_iterator crbegin() const noexcept
+    {
+        return const_reverse_iterator(end());
+    }
+
+    const_reverse_iterator crend() const noexcept
+    {
+        return const_reverse_iterator(begin());
     }
 
     // Funkcija, nustatanti vektoriaus dydi i nuli
@@ -194,11 +256,94 @@ public:
         return sz;
     }
 
+    // Funkcija, grazinanti maksimalu galima vektoriaus elementu kieki
+    size_type max_size() const noexcept
+    {
+        return alloc.max_size();
+    }
+
     // Funkcija, grazinanti vektoriaus talpa
     size_type capacity() const noexcept
     {
         return cap;
     }
+
+    // Funkcija, pakeicianti vektoriaus dydi
+    void resize(size_type sz)
+    {
+        if (sz > cap)
+        {
+            reserve(sz);
+        }
+        if (sz > sz)
+        {
+            for (size_type i = sz; i < sz; ++i)
+            {
+                alloc.construct(&elem[i]);
+            }
+        }
+        else
+        {
+            for (size_type i = sz; i < sz; ++i)
+            {
+                alloc.destroy(&elem[i]);
+            }
+        }
+        sz = sz;
+    }
+
+    // Funkcija, pakeicianti vektoriaus dydi ir priskirianti naujiems elementams tam tikra reiksme
+    void resize(size_type newsz, const T& c)
+    {
+        if (newsz > cap)
+        {
+            reserve(sz);
+        }
+        if (newsz > sz)
+        {
+            for (size_type i = sz; i < newsz; ++i)
+            {
+                alloc.construct(&elem[i], c);
+            }
+        }
+        else
+        {
+            for (size_type i = newsz; i < sz; ++i)
+            {
+                alloc.destroy(&elem[i]);
+            }
+        }
+        sz = newsz;
+    }
+
+    // Funkcija, keicianti vektoriaus talpa
+    void reserve(size_type n)
+    {
+        if (n > cap)
+        {
+            pointer new_data = alloc.allocate(n);
+            for (size_type i = 0; i < sz; ++i)
+            {
+                alloc.construct(&new_data[i], std::move(elem[i]));
+                alloc.destroy(&elem[i]);
+            }
+            if (elem)
+            {
+                alloc.deallocate(elem, cap);
+            }
+            elem = new_data;
+            cap = n;
+        }
+    }
+
+    // Funkcija, pakeicianti vektoriaus talpos reiksme i lygia vektoriaus dydziui
+    void shrink_to_fit()
+    {
+        if (sz < cap)
+        {
+            resize(sz);
+        }
+    };
 
     // Operatoriai elementu pasiekimui
     reference operator[](size_type n)
@@ -242,13 +387,24 @@ public:
         return elem[sz-1];
     }
 
-    T* elem() noexcept
+    T* data() noexcept
     {
         return elem;
     }
-    const T* elem() const noexcept
+    const T* data() const noexcept
     {
         return elem;
+    }
+
+    // Funkcija, vektoriaus gale sukonstruojanti viena ar daugiau nauju elementu
+    template<class... Args> reference emplace_back(Args&&... args)
+    {
+        if (sz == cap)
+        {
+            reserve(cap * 2);
+        }
+        alloc.construct(&elem[sz], std::forward<Args>(args)...);
+        return elem[sz++];
     }
 
     // Funkcija, ikopijuojanti elementa i vektoriaus gala
@@ -276,10 +432,87 @@ public:
         }
     }
 
+    // Funkcija, sukonstruojanti nauja elementa vartotojo parinktoje vektoriaus vietoje
+    template<class... Args> iterator emplace(const_iterator position, Args&&... args)
+    {
+        size_type pos_index = position - cbegin();
+        if (sz == cap)
+        {
+            reserve(2 *cap);
+        }
+        if (pos_index < sz)
+        {
+            for (size_type i = sz; i > pos_index; --i)
+            {
+                alloc.construct(&elem[i], std::move(elem[i - 1]));
+                alloc.destroy(&elem[i - 1]);
+            }
+        }
+        alloc.construct(&elem[pos_index], std::forward<Args>(args)...);
+        ++sz;
+        return begin() + pos_index;
+    }
+
     // Funkcija, ikopijuojanti nauja elementa i vektoriaus tam tikra vieta
     iterator insert(const_iterator position, const T& x)
     {
         return emplace(position, x);
+    }
+
+    // Funkcija, perkelianti nauja elementa i vektoriaus tam tikra vieta
+    iterator insert(const_iterator position, T&& x)
+    {
+        return emplace(position, std::move(x));
+    }
+
+    // Funkcija, ikopijuojanti n elementu su reiksme x i pasirinkta vektoriaus vieta
+    iterator insert(const_iterator position, size_type n, const value_type& x)
+    {
+        size_type pos_index = position - cbegin();
+        if (sz + n > cap)
+        {
+            reserve(sz + n);
+        }
+        for (size_type i = sz; i > pos_index; --i)
+        {
+            alloc.construct(&elem[i + n - 1], std::move(elem[i - 1]));
+            alloc.destroy(&elem[i - 1]);
+        }
+        for (size_type i = 0; i < n; ++i)
+        {
+            alloc.construct(&elem[pos_index + i], x);
+        }
+        sz += n;
+        return begin() + pos_index;
+    }
+
+    // Funkcija, iterpianti intervala elementu i nurodyta vektoriaus vieta
+    template<class InputIt, typename = std::_RequireInputIter<InputIt>>
+    iterator insert(const_iterator position, InputIt first, InputIt last)
+    {
+        size_type pos_index = position - cbegin();
+        size_type n = std::distance(first, last);
+        if (sz + n > cap)
+        {
+            reserve(sz + n);
+        }
+        for (size_type i = sz; i > pos_index; --i)
+        {
+            alloc.construct(&elem[i + n - 1], std::move(elem[i - 1]));
+            alloc.destroy(&elem[i - 1]);
+        }
+        for (size_type i = 0; first != last; ++i, ++first)
+        {
+            alloc.construct(&elem[pos_index + i], *first);
+        }
+        sz += n;
+        return begin() + pos_index;
+    }
+
+    // Funkcija, iterpianti duota elementu sarasa i paskirta vektoriaus vieta
+    iterator insert(const_iterator position, initializer_list<T> il)
+    {
+        return insert(position, il.begin(), il.end());
     }
 
     // Funkcija, istrinanti elementa is nurodytos vektoriaus pozicijos
