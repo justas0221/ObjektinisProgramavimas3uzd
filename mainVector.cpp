@@ -3,10 +3,10 @@
 
 int main()
 {
-    vector<studentas> stud; // Studentu strukturu vektorius
-    vector<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
-    vector<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yra lygus arba didesnis uz 5
-    string eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
+    std::Vector<studentas> stud; // Studentu strukturu vektorius
+    std::Vector<studentas> vargsiukai; // Vektorius studentu, kuriu galutinis balas yra zemesnis negu 5
+    std::Vector<studentas> galvociai; // Vektorius studentu, kuriu galutinis balas yra lygus arba didesnis uz 5
+    std::string eilute; // Kintamasis, kuriame saugomas vartotojo pasirinkimas, kaip skaiciuoti galutini bala, naudojant vidurki ar mediana
     duration<double> failoGeneravimas, // Failu generavimo trukme
                      nuskaitymas, // Failu nuskaitymo trukme
                      skirstymas, // Studentu skirstymo i dvi dalis trukme
@@ -22,7 +22,7 @@ int main()
         rikiavimas, // Kintamasis, skirtas uzfiksuoti, kaip studentu nori rikiuoti vartotojas
         studKiekis = 1000, // Kintamasis, skirtas sekti studentu kieki, nuskaitinejant duomenis is failo
         failuKiekis = 1; // Kintamasis, saugantis vartotojo norima testuoti failu kieki
-    ifstream input; // Ifstream objektas, naudojamas duomenu nuskaitymui is failo 
+    std::ifstream input; // Ifstream objektas, naudojamas duomenu nuskaitymui is failo 
 
     srand(time(0)); // Random seed'o priskyrimas laikui
 
@@ -31,25 +31,25 @@ int main()
     {
         try
         {
-            cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n6 - Testuoti klases metodus\n"; 
+            std::cout << "Pasirinkite, kaip norite vykdyti programa\n1 - Viska vesti ranka\n2 - Generuoti pazymius atsitiktinai\n3 - Generuoti pazymius ir studentu vardus, pavardes atsitiktinai\n4 - Baigti darba\n5 - Skaityti duomenis is failo\n6 - Testuoti klases metodus\n"; 
 
-            if (!(cin >> parinktis)) // Jei ivedamas ne skaicius, isvedamas klaidos pranesimas ir prasoma vesti is naujo
+            if (!(std::cin >> parinktis)) // Jei ivedamas ne skaicius, isvedamas klaidos pranesimas ir prasoma vesti is naujo
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
+                throw std::runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
             }
 
-            teisingasIvedimas = (parinktis >= 1 && parinktis <= 6 && cin.peek() == '\n');
+            teisingasIvedimas = (parinktis >= 1 && parinktis <= 6 && std::cin.peek() == '\n');
 
             if (!teisingasIvedimas) // Jei ivedimas neteisingas, isvedamas klaidos pranesimas ir prasoma vesti is naujo
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
+                throw std::runtime_error("Klaidingi duomenys. Iveskite kazkuri is skaiciu nuo 1 iki 5 imtinai.");
             }
         }
-        catch (const exception& e)
+        catch (const std::exception& e)
         {
-            cerr << "Klaida: " << e.what() << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            std::cerr << "Klaida: " << e.what() << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
     } while (!teisingasIvedimas);
@@ -74,26 +74,26 @@ int main()
         {
             try
             {
-                cout << "Iveskite studentu kieki (nuo 1 iki 10 imtinai): ";
+                std::cout << "Iveskite studentu kieki (nuo 1 iki 10 imtinai): ";
                 teisingasIvedimas = false;
 
-                if (!(cin >> studentuKiekis) && (studentuKiekis < 1 || studentuKiekis > 10 || cin.peek() == '\n')) // Jei vartotojas iveda ne skaiciu arba skaiciu, nepatenkanti i reikiama intervala, pranesame apie klaida
+                if (!(std::cin >> studentuKiekis) && (studentuKiekis < 1 || studentuKiekis > 10 || std::cin.peek() == '\n')) // Jei vartotojas iveda ne skaiciu arba skaiciu, nepatenkanti i reikiama intervala, pranesame apie klaida
                 {
-                    throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
+                    throw std::runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
                 }
 
-                teisingasIvedimas = (studentuKiekis >= 1 && studentuKiekis <= 10 && cin.peek() == '\n');
+                teisingasIvedimas = (studentuKiekis >= 1 && studentuKiekis <= 10 && std::cin.peek() == '\n');
 
                 if (!teisingasIvedimas) // Jei ivedimas neteisingas, isvedamas klaidos pranesimas ir prasoma vesti is naujo
                 {
-                    throw runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
+                    throw std::runtime_error("Klaidingi duomenys. Iveskite sveikaji skaiciu nuo 1 iki 10 imtinai.");
                 }
             }
-            catch (const exception& e)
+            catch (const std::exception& e)
             {
-                cerr << "Klaida: " << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                std::cerr << "Klaida: " << e.what() << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 continue;
             }
         } while (!teisingasIvedimas);
@@ -105,28 +105,28 @@ int main()
     {
         try
         {
-            cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \'V\' arba \'M\') ";
+            std::cout << "Ka norite naudoti galutinio balo skaiciavimui, pazymiu vidurki ar mediana? (Irasykite \'V\' arba \'M\') ";
             teisingasIvedimas = false;
 
-            if (!(cin >> skaiciavimoBudas)) // Jei ivedama ne raide, pranesame apie klaida ir prasome vesti is naujo
+            if (!(std::cin >> skaiciavimoBudas)) // Jei ivedama ne raide, pranesame apie klaida ir prasome vesti is naujo
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite V arba M.");
+                throw std::runtime_error("Klaidingi duomenys. Iveskite V arba M.");
             }
 
             skaiciavimoBudas = didziosios(skaiciavimoBudas); // Ivestos raides pakeiciamos i didziasias, kad reiktu maziau tikrinti
 
-            teisingasIvedimas = ((skaiciavimoBudas == "V" || skaiciavimoBudas == "M") && cin.peek() == '\n');
+            teisingasIvedimas = ((skaiciavimoBudas == "V" || skaiciavimoBudas == "M") && std::cin.peek() == '\n');
 
             if (!teisingasIvedimas) // Tikriname, ar vartotojas ivede viena is dvieju galimu ivesti raidziu be jokiu papildomu simboliu, jei ne, tuomet pranesame vartotojui apie klaida ir prasome vesti is naujo
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite V arba M.");
+                throw std::runtime_error("Klaidingi duomenys. Iveskite V arba M.");
             }
         }
-        catch(const exception& e)
+        catch(const std::exception& e)
         {
-            cerr << "Klaida: " << e.what() << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            std::cerr << "Klaida: " << e.what() << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
     } while (!teisingasIvedimas);
@@ -136,26 +136,26 @@ int main()
     {
         try
         {
-            cout << "Jei norite studentus isrikiuoti pagal galutini bala didejimo tvarka, iveskite \"1\", jei mazejimo, iveskite \"0\": ";
+            std::cout << "Jei norite studentus isrikiuoti pagal galutini bala didejimo tvarka, iveskite \"1\", jei mazejimo, iveskite \"0\": ";
             teisingasIvedimas = false;
 
-            if (!(cin >> rikiavimas) || ((rikiavimas != 1 && rikiavimas != 0) || cin.peek() != '\n')) // Jei ivedamas ne skaicius, arba skaicius nelygus nei 1, nei 0, pranesame apie klaida ir prasome vesti is naujo
+            if (!(std::cin >> rikiavimas) || ((rikiavimas != 1 && rikiavimas != 0) || std::cin.peek() != '\n')) // Jei ivedamas ne skaicius, arba skaicius nelygus nei 1, nei 0, pranesame apie klaida ir prasome vesti is naujo
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                throw std::runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
             }
 
-            teisingasIvedimas = (rikiavimas == 1 || rikiavimas == 0) && cin.peek() == '\n';
+            teisingasIvedimas = (rikiavimas == 1 || rikiavimas == 0) && std::cin.peek() == '\n';
 
             if (!teisingasIvedimas) // Jei ivedimas neteisingas, isvedamas klaidos pranesimas ir prasoma vesti is naujo
             {
-                throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                throw std::runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
             }
         }
-        catch(const exception& e)
+        catch(const std::exception& e)
         {
-            cerr << "Klaida: " << e.what() << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            std::cerr << "Klaida: " << e.what() << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
     } while (!teisingasIvedimas);
@@ -167,26 +167,26 @@ int main()
         {
             try
             {
-                cout << "Kiek failu norite skaityti? (Iveskite skaiciu nuo 1 iki 5 imtinai): ";
+                std::cout << "Kiek failu norite skaityti? (Iveskite skaiciu nuo 1 iki 5 imtinai): ";
                 teisingasIvedimas = false;
 
-                if (!(cin >> failuKiekis) && (failuKiekis < 1 || failuKiekis > 5 || cin.peek() != '\n')) // Jei ivedamas ne skaicius, arba skaicius mazesnis uz 1, arba didesnis uz 5, pranesame apie klaida ir prasome vesti is naujo
+                if (!(std::cin >> failuKiekis) && (failuKiekis < 1 || failuKiekis > 5 || std::cin.peek() != '\n')) // Jei ivedamas ne skaicius, arba skaicius mazesnis uz 1, arba didesnis uz 5, pranesame apie klaida ir prasome vesti is naujo
                 {
-                    throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 5 imtinai.");
+                    throw std::runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 5 imtinai.");
                 }
 
-                teisingasIvedimas = ((failuKiekis > 0 && failuKiekis < 6) && cin.peek() == '\n');
+                teisingasIvedimas = ((failuKiekis > 0 && failuKiekis < 6) && std::cin.peek() == '\n');
 
                 if (!teisingasIvedimas) // Jei ivedimas neteisingas, isvedamas klaidos pranesimas ir prasoma vesti is naujo
                 {
-                    throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 5 imtinai.");
+                    throw std::runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 5 imtinai.");
                 }
             }
-            catch(const exception& e)
+            catch(const std::exception& e)
             {
-                cerr << "Klaida: " << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                std::cerr << "Klaida: " << e.what() << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 continue;
             }
         } while (!teisingasIvedimas);
@@ -195,14 +195,14 @@ int main()
     // Ciklas, vykdomas tiek kartu, kiek failu vartotojas nori testuoti, jei vartotojas nenori dirbti su failas, ciklas vykdomas viena karta
     for (int q = 0; q < failuKiekis; q++)
     {
-        visuTestuTrukme = chrono::seconds(0);
+        visuTestuTrukme = std::chrono::seconds(0);
 
         // Ciklas, vykdomas tris kartus, jei vartotojas dirba su failas, nes kiekvienas failas yra testuojamas tris kartus, priesingu atveju ciklas vykdomas viena karta ir pirmo vykdymo gale yra nutraukiamas
         for (int z = 0; z < 3; z++)
         {
             if (parinktis == 5) // Jei vartotojas nori nuskaityti duomenis is sugeneruoto failo, atidarome duomenu faila
             {
-                string failoVardas = "sugeneruoti" + to_string(studKiekis) + ".txt"; // Failo vardas keiciamas, priklausomai nuo studentu kiekio jame
+                std::string failoVardas = "sugeneruoti" + std::to_string(studKiekis) + ".txt"; // Failo vardas keiciamas, priklausomai nuo studentu kiekio jame
                         
                 input.open(failoVardas);
 
@@ -211,12 +211,12 @@ int main()
                 {
                     if (!input)
                     {
-                        throw runtime_error("Failas neegzistuoja.");
+                        throw std::runtime_error("Failas neegzistuoja.");
                     }
                 }
-                catch(const exception& e)
+                catch(const std::exception& e)
                 {
-                    cerr << "Klaida: " << e.what() << endl;
+                    std::cerr << "Klaida: " << e.what() << std::endl;
                     exit(1);
                 }
             }
@@ -228,26 +228,26 @@ int main()
                 {
                     try
                     {
-                        cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": ";
+                        std::cout << "Jei norite rezultatus irasyti i faila, iveskite \"1\", jei norite isvesti juos i ekrana, iveskite \"0\": ";
                         teisingasIvedimas = false;
 
-                        if (!(cin >> isvedimasFaile) && (isvedimasFaile != 1 || isvedimasFaile != 0 || cin.peek() != '\n')) // Jei ivedamas ne skaicius, arba skaicius, nelygus nei 1, nei 0, pranesame apie klaida ir prasome vesti is naujo
+                        if (!(std::cin >> isvedimasFaile) && (isvedimasFaile != 1 || isvedimasFaile != 0 || std::cin.peek() != '\n')) // Jei ivedamas ne skaicius, arba skaicius, nelygus nei 1, nei 0, pranesame apie klaida ir prasome vesti is naujo
                         {
-                            throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                            throw std::runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
                         }
 
-                        teisingasIvedimas = ((isvedimasFaile == 1 || isvedimasFaile == 0) && cin.peek() == '\n');
+                        teisingasIvedimas = ((isvedimasFaile == 1 || isvedimasFaile == 0) && std::cin.peek() == '\n');
 
                         if (!teisingasIvedimas) // Jei ivedimas nera teisingas, prasome vesti is naujo
                         {
-                            throw runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
+                            throw std::runtime_error("Klaidingi duomenys. Iveskite \"1\" arba \"0\".");
                         }
                     }
-                    catch(const exception& e)
+                    catch(const std::exception& e)
                     {
-                        cerr << "Klaida: " << e.what() << endl;
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        std::cerr << "Klaida: " << e.what() << std::endl;
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         continue;
                     }
                 } while (!teisingasIvedimas);
@@ -277,26 +277,26 @@ int main()
                             {
                                 try
                                 {
-                                    cout << "Kiek pazymiu norite ivesti siam studentui? (Irasykite skaiciu nuo 1 iki 10 imtinai): ";
+                                    std::cout << "Kiek pazymiu norite ivesti siam studentui? (Irasykite skaiciu nuo 1 iki 10 imtinai): ";
                                     teisingasIvedimas = false;
 
-                                    if (!(cin >> pazymiuKiekis)) // Jei ivedamas ne skaicius, pranesame apie klaida ir prasome ivesti is naujo
+                                    if (!(std::cin >> pazymiuKiekis)) // Jei ivedamas ne skaicius, pranesame apie klaida ir prasome ivesti is naujo
                                     {
-                                        throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
+                                        throw std::runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
                                     }
 
-                                    teisingasIvedimas = (pazymiuKiekis >= 1 && pazymiuKiekis <= 10 && cin.peek() == '\n');
+                                    teisingasIvedimas = (pazymiuKiekis >= 1 && pazymiuKiekis <= 10 && std::cin.peek() == '\n');
 
                                     if (!teisingasIvedimas) // Jei ivedamas skaicius mazesnis uz 1 arba didesnis uz 10, pranesame apie klaida ir prasome ivesti is naujo
                                     {
-                                        throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
+                                        throw std::runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
                                     }
                                 }
-                                catch(const exception& e)
+                                catch(const std::exception& e)
                                 {
-                                    cerr << "Klaida: " << e.what() << endl;
-                                    cin.clear();
-                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                    std::cerr << "Klaida: " << e.what() << std::endl;
+                                    std::cin.clear();
+                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                                     continue;
                                 }
                             } while (!teisingasIvedimas);
@@ -304,13 +304,13 @@ int main()
                             k = 0;
                             papildymas = 0;
                             
-                            cin >> naujasStudentas; // Leidziame vartotojui pradeti naujo studento duomenu ivedima ranka
+                            std::cin >> naujasStudentas; // Leidziame vartotojui pradeti naujo studento duomenu ivedima ranka
                             naujasStudentas.didziosiosVardas(); // Kiekviena vardo raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
                             naujasStudentas.didziosiosPavarde(); // Kiekviena pavardes raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
                         }
                         else if (parinktis == 2) // Jeigu parinktis yra 2, tuomet generuojame pazymius atsitiktinai
                         {
-                            cin >> naujasStudentas;
+                            std::cin >> naujasStudentas;
                             naujasStudentas.didziosiosVardas(); // Kiekviena vardo raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
                             naujasStudentas.didziosiosPavarde(); // Kiekviena pavardes raide paverciama didziaja, kad atrodytu tvarkingiau isvedant duomenis
                         }
@@ -321,23 +321,23 @@ int main()
                             naujasStudentas.generuotiVarda(i); // Sugeneruota varda priskiriame naujam studentui
                             naujasStudentas.generuotiPavarde(i); // Sugeneruota pavarde priskiriame naujam studentui
 
-                            cout << "Sugeneruoti " << i + 1 << "-o studento vardas ir pavarde: " << naujasStudentas.vardas() << " " << naujasStudentas.pavarde() << endl;
+                            std::cout << "Sugeneruoti " << i + 1 << "-o studento vardas ir pavarde: " << naujasStudentas.vardas() << " " << naujasStudentas.pavarde() << std::endl;
 
                             // Cikla vykdome tiek kartu, kiek pazymiu bus sugeneruota naujam studentui
                             for (int j = 0; j < randomPazymiuKiekis; j++)
                             {
                                 naujasStudentas.generuotiNdPazymi(); // Sugeneruota pazymi pridedame i vektoriu
-
+                                
                                 pazymys = naujasStudentas.gautiPaskutiniPazymi(); // Pasiemame paskutini sugeneruota pazymi, kad galetume vartotojui parodyti, koks pazymys buvo sugeneruotas
-
-                                cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-asis pazymys: " << pazymys << endl;
+                                
+                                std::cout << "Sugeneruotas " << i + 1 << "-o studento " << j + 1 << "-asis pazymys: " << pazymys << std::endl;
                             }
                             
                             naujasStudentas.generuotiEgzPazymi(); // Generuojame egzamino pazymi
 
                             pazymys = naujasStudentas.getEgz(); // Pasiemame sugeneruota egzamino pazymi, kad galetume vartotojui parodyti, koks pazymys buvo sugeneruotas
 
-                            cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << endl;
+                            std::cout << "Sugeneruotas " << i + 1 << "-o studento egzamino pazymys: " << pazymys << std::endl;
                         }
 
                         stud.push_back(naujasStudentas); // Uzpildzius studento duomenis pridedame ji i studentu vektoriaus gala
@@ -350,32 +350,32 @@ int main()
                     {
                         try
                         {
-                            cout << "Jei norite daugiau studentu, iveskite papildomu studentu kieki (Irasykite skaiciu nuo 1 iki 10 imtinai), jei ne, iveskite \"0\" (nuli) ir spauskite \"Enter\": "; // Klausiame, ar vartotojas nori prideti daugiau pazymiu i vektoriu
+                            std::cout << "Jei norite daugiau studentu, iveskite papildomu studentu kieki (Irasykite skaiciu nuo 1 iki 10 imtinai), jei ne, iveskite \"0\" (nuli) ir spauskite \"Enter\": "; // Klausiame, ar vartotojas nori prideti daugiau pazymiu i vektoriu
                             teisingasIvedimas = false;
 
-                            if (!(cin >> papildymas)) // Jei ivedamas ne skaicius, pranesame apie klaida ir prasome vesti is naujo
+                            if (!(std::cin >> papildymas)) // Jei ivedamas ne skaicius, pranesame apie klaida ir prasome vesti is naujo
                             {
-                                throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
+                                throw std::runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
                             }
 
-                            teisingasIvedimas = (papildymas >= 0 && papildymas <= 10 && cin.peek() == '\n');
+                            teisingasIvedimas = (papildymas >= 0 && papildymas <= 10 && std::cin.peek() == '\n');
 
                             if (papildymas == 0) // Jei ivestas skaicius yra mazesnis uz 0 arba didesnis uz 10, pranesame apie klaida ir prasome vesti is naujo
                             {
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                std::cin.clear();
+                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                                 break;
                             }
                             else if (!teisingasIvedimas)
                             {
-                                throw runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
+                                throw std::runtime_error("Klaidingi duomenys. Iveskite skaiciu nuo 1 iki 10 imtinai.");
                             }
                         }
-                        catch(const exception& e)
+                        catch(const std::exception& e)
                         {
-                            cerr << "Klaida: " << e.what() << endl;
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            std::cerr << "Klaida: " << e.what() << std::endl;
+                            std::cin.clear();
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             continue;
                         }
                     } while (!teisingasIvedimas);
@@ -402,13 +402,13 @@ int main()
             {
                 it.baloSkaiciavimas(skaiciavimoBudas);
             }
-            
+
             if (parinktis == 5) // Jei vartotojas pasirinko duomenis nuskaityti is failo, rusiuojame juos i atskirus konteinerius naudodami tam sukurta funkcija
             {
                 auto start = high_resolution_clock::now();
 
                 strategija3(stud, vargsiukai);
-
+                
                 auto end = high_resolution_clock::now();
                 skirstymas = end - start;
             }
@@ -446,37 +446,37 @@ int main()
             // Jei vartotojas pasirinko duomenis isvesti i nauja faila, vykdome si kodo bloka
             if (isvedimasFaile == 1)
             {
-                ofstream output;
+                std::ofstream output;
                 output.open("output.txt");
 
                 printHeader(output); // Vykdome antrastes spausdinimo funkcija
                   
                 for(auto &i : stud)
                 {
-                    output << i << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                    output << i << std::endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                 }
 
                 output.close();
             }
             else if (parinktis != 5) // Jei vartotojas nenorejo duomenu isvesti i nauja faila, vykdome si kodo bloka
             {
-                cout << endl;
-                printHeader(cout); // Vykdome antrastes spausdinimo funkcija
+                std::cout << std::endl;
+                printHeader(std::cout); // Vykdome antrastes spausdinimo funkcija
   
                 for(auto &i : stud)
                 {
-                    cout << i << endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
+                    std::cout << i << std::endl; // Isvedame kiekvieno studento varda, pavarde ir galutini bala, priklausomai nuo skaiciavimo budo, kuri pasirinko vartotojas programos pradzioje
                 }
             }
             if (parinktis == 5) // Jei vartotojas nori duomenis isvesti i faila, vykdome si koda
             {
                 auto start = high_resolution_clock::now();
 
-                string failoVardas1 = "vargsiukai" + to_string(studKiekis) + ".txt"; // Sukuriame failo varda pirmam output failui
-                string failoVardas2 = "galvociai" + to_string(studKiekis) + ".txt"; // Sukuriame failo varda pirmam output failui
+                std::string failoVardas1 = "vargsiukai" + std::to_string(studKiekis) + ".txt"; // Sukuriame failo varda pirmam output failui
+                std::string failoVardas2 = "galvociai" + std::to_string(studKiekis) + ".txt"; // Sukuriame failo varda pirmam output failui
 
-                ofstream vargsai(failoVardas1); // Sukuriame ofstream objekta duomenu isvedimui i faila pirmam konteineriui
-                ofstream galvoti(failoVardas2); // Sukuriame ofstream objekta duomenu isvedimui i faila antram konteineriui
+                std::ofstream vargsai(failoVardas1); // Sukuriame std::ofstream objekta duomenu isvedimui i faila pirmam konteineriui
+                std::ofstream galvoti(failoVardas2); // Sukuriame std::ofstream objekta duomenu isvedimui i faila antram konteineriui
 
                 printHeader(vargsai); // Vykdome antrastes spausdinimo funkcija
 
@@ -484,12 +484,12 @@ int main()
  
                 for(auto &i : vargsiukai)
                 {
-                    vargsai << i << endl; // I faila isvedame visus studentus is pirmojo konteinerio
+                    vargsai << i << std::endl; // I faila isvedame visus studentus is pirmojo konteinerio
                 }
 
                 for(auto &i : stud)
                 {
-                    galvoti << i << endl; // I faila isvedame visus studentus is antrojo konteinerio
+                    galvoti << i << std::endl; // I faila isvedame visus studentus is antrojo konteinerio
                 }
 
                 auto end = high_resolution_clock::now();
@@ -504,11 +504,11 @@ int main()
 
                 if (z == 0)
                 {
-                    cout << studKiekis << " irasu failo nuskaitymo trukme: " << nuskaitymas.count() << endl;
-                    cout << studKiekis << " irasu rikiavimo trukme: " << rusiavimas.count() << endl;
-                    cout << studKiekis << " irasu skirstymo i dvi grupes trukme: " << skirstymas.count() << endl;
-                    cout << studKiekis << " irasu duomenu isvedimo i faila trukme: " << isvedimas.count() << endl;
-                    cout << studKiekis << " irasu testo trukme sekundemis: " << bendraTrukme.count() << endl;
+                    std::cout << studKiekis << " irasu failo nuskaitymo trukme: " << nuskaitymas.count() << std::endl;
+                    std::cout << studKiekis << " irasu rikiavimo trukme: " << rusiavimas.count() << std::endl;
+                    std::cout << studKiekis << " irasu skirstymo i dvi grupes trukme: " << skirstymas.count() << std::endl;
+                    std::cout << studKiekis << " irasu duomenu isvedimo i faila trukme: " << isvedimas.count() << std::endl;
+                    std::cout << studKiekis << " irasu testo trukme sekundemis: " << bendraTrukme.count() << std::endl;
                 }
 
                 // Isvalome visu pirmojo konteinerio studentu namu darbu vektorius
@@ -524,17 +524,18 @@ int main()
                     i.clearNd();
                 }
                 vargsiukai.clear(); // Isvalome visa antraji studentu vektoriu
+
             }
             else
             {
                 break;
             }
         }
-
+        
         if (parinktis == 5)
         {
-            cout << "3 testu laiku vidurkis su " << studKiekis << " studentu failu: " << visuTestuTrukme.count() / 3.0 << endl;
-            cout << endl;
+            std::cout << "3 testu laiku vidurkis su " << studKiekis << " studentu failu: " << visuTestuTrukme.count() / 3.0 << std::endl;
+            std::cout << std::endl;
         }
         else
         {

@@ -7,7 +7,6 @@
 #include <iomanip>
 #include <string>
 #include <limits>
-#include <vector>
 #include <cmath>
 #include <random>
 #include <ctime>
@@ -18,35 +17,35 @@
 #include <list>
 #include <deque>
 #include <utility>
+#include "vector.h"
 
-using namespace std;
-using namespace chrono;
+using namespace std::chrono;
 
-extern string skaiciavimoBudas;
+extern std::string skaiciavimoBudas;
 extern int pazymiuKiekis, parinktis, papildymas, k, i, randomPazymiuKiekis;
 
 // Zmogaus duomenis sauganti klase
 class zmogus
 {
     protected:
-        string vardas_, pavarde_; // Klases kintamieji: zmogaus vardas ir pavarde
+        std::string vardas_, pavarde_; // Klases kintamieji: zmogaus vardas ir pavarde
     protected:
-        zmogus(string vardas = "", string pavarde = "") : vardas_(vardas), pavarde_(pavarde) {} // Default konstruktorius
+        zmogus(std::string vardas = "", std::string pavarde = "") : vardas_(vardas), pavarde_(pavarde) {} // Default konstruktorius
         ~zmogus() { vardas_.clear(), pavarde_.clear(); } // Destruktorius
     public:
-        inline string vardas() const { return vardas_; }    // get'eriai, inline
-        inline string pavarde() const { return pavarde_; }  // get'eriai, inline
+        inline std::string vardas() const { return vardas_; }    // get'eriai, inline
+        inline std::string pavarde() const { return pavarde_; }  // get'eriai, inline
         virtual void didziosiosVardas() = 0; // Visiskai virtuali funkcija
         virtual void generuotiVarda(int i) // Funkcija, skirta generuoti zmogaus vardui
         {
-            string vardas;
-            vardas = "Vardas" + to_string(i + 1);
+            std::string vardas;
+            vardas = "Vardas" + std::to_string(i + 1);
             vardas_ = vardas;
         }
         virtual void generuotiPavarde(int i) // Funkcija, skirta generuoti zmogaus pavardei
         {
-            string pavarde;
-            pavarde = "Pavarde" + to_string(i + 1);
+            std::string pavarde;
+            pavarde = "Pavarde" + std::to_string(i + 1);
             pavarde_ = pavarde;
         }
 };
@@ -55,13 +54,13 @@ class zmogus
 class studentas : public zmogus
 {
     private:
-        vector<int> nd_; // Studento namu darbu pazymiu vektorius
+        std::Vector<int> nd_; // Studento namu darbu pazymiu vektorius
         int egz_; // Studento egzamino pazymys
         double vidurkis_, mediana_, galutinis_; // Studento pazymiu vidurkis, mediana ir galutinis balas
     public:
-        studentas(string vardas = "", string pavarde = "", vector<int> nd = {}, int egz = 0) : zmogus(vardas, pavarde), nd_(nd), egz_(egz) {} // Default konstruktorius
+        studentas(std::string vardas = "", std::string pavarde = "", std::Vector<int> nd = {}, int egz = 0) : zmogus(vardas, pavarde), nd_(nd), egz_(egz) {} // Default konstruktorius
         ~studentas() { clearNd(); } // destruktorius
-        studentas(istream& is); // Konstruktorius su nuoroda i istream objekta, kaip parametru
+        studentas(std::istream& is); // Konstruktorius su nuoroda i istream objekta, kaip parametru
         studentas(const studentas& other) : // Copy konstruktorius
             zmogus(other.vardas_, other.pavarde_),
             nd_(other.nd_),
@@ -71,7 +70,7 @@ class studentas : public zmogus
             galutinis_(other.galutinis_) {}
         studentas(studentas&& other) : // Move konstruktorius
             zmogus(other.vardas_, other.pavarde_),
-            nd_(move(other.nd_)), 
+            nd_(std::move(other.nd_)), 
             egz_(other.egz_), 
             vidurkis_(other.vidurkis_), 
             mediana_(other.mediana_),
@@ -99,7 +98,7 @@ class studentas : public zmogus
             if (&other == this) return *this;
             vardas_ = other.vardas_;
             pavarde_ = other.pavarde_;
-            nd_ = move(other.nd_);
+            nd_ = std::move(other.nd_);
             egz_ = other.egz_;
             vidurkis_ = other.vidurkis_;
             mediana_ = other.mediana_;
@@ -111,41 +110,38 @@ class studentas : public zmogus
             return *this;
         }
         double galutinis() const { return galutinis_; } // Galutinio balo get'eris
-        string getVardas() const { return vardas_; } // Vardo get'eris
-        string getPavarde() const { return pavarde_; } // Pavardes get'eris
+        std::string getVardas() const { return vardas_; } // Vardo get'eris
+        std::string getPavarde() const { return pavarde_; } // Pavardes get'eris
         int getEgz() const { return egz_; } // Egzamino pazymio get'eris
-        const vector<int>& getNd() const { return nd_; } // Namu darbu pazymiu vektoriaus get'eris
+        const std::Vector<int>& getNd() const { return nd_; } // Namu darbu pazymiu vektoriaus get'eris
         void clearNd() { nd_.clear(); } // Funkcija, isvalanti namu darbu pazymiu vektoriu
         int gautiPaskutiniPazymi();
         void generuotiEgzPazymi();
         void generuotiNdPazymi();
-        void baloSkaiciavimas(string);
+        void baloSkaiciavimas(std::string);
         void didziosiosVardas() { for(char &c : vardas_) c = toupper(c); } // Funkcija, skirta visas vardo raides paversti i didziasias
         void didziosiosPavarde() { for(char &c : pavarde_) c = toupper(c); } // Funkcija, skirta visas pavardes raides paversti i didziasias
         void generuotiVarda(int i) override { zmogus::generuotiVarda(i); } // Funkcija, skirta generuoti varda
         void generuotiPavarde(int i) override { zmogus::generuotiPavarde(i); } // Funkcija, skirta generuoti pavarde
         friend bool palygintiMazejant(const studentas&, const studentas&);
         friend bool palygintiDidejant(const studentas&, const studentas&);
-        friend ostream& operator<<(ostream&, const studentas&);
-        friend istream& operator>>(istream&, studentas&);
+        friend std::ostream& operator<<(std::ostream&, const studentas&);
+        friend std::istream& operator>>(std::istream&, studentas&);
         friend bool operator==(const studentas&, const studentas&);
-        friend bool operator==(const string&, const string&);
+        friend bool operator==(const std::string&, const std::string&);
 };
 
 int generuotiPazymi();
-string didziosios(string&);
-bool tikRaides(string);
-int tarpuSkaicius(string);
-void printHeader(ostream&);
+std::string didziosios(std::string&);
+bool tikRaides(std::string);
+int tarpuSkaicius(std::string);
+void printHeader(std::ostream&);
 void testas(studentas&);
-void generuotiFaila(int, int, string);
-template <typename Cont>
-void failoSkaitymas(ifstream&, Cont&);
-template <typename Cont>
-void strategija3(Cont&, Cont&);
-template <typename Cont>
-void rikiuotiDidejant(Cont&);
-template <typename Cont>
-void rikiuotiMazejant(Cont&);
+void generuotiFaila(int, int, std::string);
+template <typename Container>
+void failoSkaitymas(std::ifstream&, Container&);
+void strategija3(std::Vector<studentas>&, std::Vector<studentas>&);
+void rikiuotiDidejant(std::Vector<studentas>&);
+void rikiuotiMazejant(std::Vector<studentas>&);
 
 #endif
