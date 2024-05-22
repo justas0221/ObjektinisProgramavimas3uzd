@@ -47,6 +47,12 @@ public:
         resize(n, value);
     };
 
+    // Initializer list'as
+    Vector(initializer_list<T> il, const Allocator& = Allocator()) : elem(nullptr), sz(0), cap(0), alloc(Allocator())
+    {
+        insert(begin(), il);
+    }
+
     // Destruktorius
     ~Vector()
     {
@@ -164,13 +170,6 @@ public:
             }
         }
         return true;
-    }
-
-
-    // Initializer list'as
-    Vector(initializer_list<T> il, const Allocator& = Allocator()) : elem(nullptr), sz(0), cap(0), alloc(Allocator())
-    {
-        insert(begin(), il);
     }
 
     // Priskyrimo operatorius su initializer list'u
