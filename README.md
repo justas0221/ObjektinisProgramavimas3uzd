@@ -207,3 +207,13 @@ Vykdymo laikas ženkliai sutrumpėja, lyginant su 2 strategija
 
 1. Nauja klasė "zmogus", iš kurios išvedame mūsų senąją klasę "studentas".
 2. Į naująją klasę "zmogus" iš klasės "studentas" mes perkėlėme kintamuosius "vardas" ir "pavarde", taip pat naujoji klasė turi konstruktorių, destruktorių, get'erius bei keturias virtualias funkcijas.
+
+## Savo Vector klasės implementacija
+
+### Penkių funkcijų aprašymai
+
+1. Operatorius == : Pirmiausia ši bool funkcija tikrina ar abejose lygybės pusėse esančių vektorių dydžiai ir talpos yra vienodi. Jei ne, tuomet funkcija iškart grąžina reikšmę false, reiškia vektoriai nėra lygūs. Priešingu atveju vyksta ciklas, kuris lygina abiejų vektorių elementus, esančius tose pačiose vietose, jei kažkurie du elementai nesutampa, funkcija grąžina reikšmę false. Jei ciklas sėkmingai užbaigiamas, grąžinama reikšmė true.
+2. push_back: Ši funkcija pirmiausia patikrina, ar vektoriaus dydis yra toks pat, kokia yra ir talpa, jei taip, tuomet talpa padvigubinama. Tuomet yra sukonstruojamas naujas pateiktoje vietoje, o tiksliau - vektoriaus gale.
+3. reserve: Ši funkcija atlieka savo darbą tik tuomet, jei perduotas argumentas n yra didesnis už dabartinę vektoriaus talpą. Jei taip ir yra, tuomet funkcija pirmiausia paskiria atminties, kuri gali sutalpinti n elementų. Paskui užvedamas ciklas, einantis per jau egzistuojančio vektoriaus dydį. Kiekvienas egzistuojančio vektoriaus elementas yra perkeliamas į naujai priskirtą atmintį ir ištrinamas iš pirminio vektoriaus. Tuomet yra atlaisvinama visa pirminio vektoriaus atmintis, bei atnaujinami vektoriaus dydžio ir talpos kintamieji.
+4. shrink_to_fit: Funkcija vykdoma tik jei vektoriaus dydis yra mažesnis nei jo talpa. Jei taip ir yra, tuomet vektoriaus talpai yra priskiriama vektoriaus dydžio reikšmė.
+5. pop_back: Funkcija vykdoma, jei vektoriaus dydis yra didesnis už nulį. Tuomet yra atlaisvinama paskutinio vektoriaus elemento vieta, ištrinant tą elementą iš atminties.
