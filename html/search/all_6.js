@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['e_20esanciu_20studentu_20rikiavimo_20rezultatai_20naudojant_202_20strategija_0',['List&apos;e esanciu studentu rikiavimo rezultatai naudojant 2 strategija',['../md__r_e_a_d_m_e.html#autotoc_md10',1,'']]],
+  ['e_20esanciu_20studentu_20rikiavimo_20rezultatai_20naudojant_203_20strategija_1',['List&apos;e esanciu studentu rikiavimo rezultatai naudojant 3 strategija',['../md__r_e_a_d_m_e.html#autotoc_md11',1,'']]],
+  ['esanciu_20studentu_20rikiavimo_20rezultatai_20naudojant_202_20strategija_2',['Esanciu studentu rikiavimo rezultatai naudojant 2 strategija',['../md__r_e_a_d_m_e.html#autotoc_md12',1,'Deque esanciu studentu rikiavimo rezultatai naudojant 2 strategija'],['../md__r_e_a_d_m_e.html#autotoc_md10',1,'List&apos;e esanciu studentu rikiavimo rezultatai naudojant 2 strategija'],['../md__r_e_a_d_m_e.html#autotoc_md8',1,'Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 2 strategija']]],
+  ['esanciu_20studentu_20rikiavimo_20rezultatai_20naudojant_203_20strategija_3',['Esanciu studentu rikiavimo rezultatai naudojant 3 strategija',['../md__r_e_a_d_m_e.html#autotoc_md13',1,'Deque esanciu studentu rikiavimo rezultatai naudojant 3 strategija'],['../md__r_e_a_d_m_e.html#autotoc_md11',1,'List&apos;e esanciu studentu rikiavimo rezultatai naudojant 3 strategija'],['../md__r_e_a_d_m_e.html#autotoc_md9',1,'Vektoriuje esanciu studentu rikiavimo rezultatai naudojant 3 strategija']]]
+];
