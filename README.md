@@ -218,7 +218,7 @@ Vykdymo laikas ženkliai sutrumpėja, lyginant su 2 strategija
 4. shrink_to_fit: Funkcija vykdoma tik jei vektoriaus dydis yra mažesnis nei jo talpa. Jei taip ir yra, tuomet vektoriaus talpai yra priskiriama vektoriaus dydžio reikšmė.
 5. pop_back: Funkcija vykdoma, jei vektoriaus dydis yra didesnis už nulį. Tuomet yra atlaisvinama paskutinio vektoriaus elemento vieta, ištrinant tą elementą iš atminties.
 
-### std::vector vs. Vector klases spartos palyginimas
+### std::vector vs. Vector konteineriu uzpildymo spartos palyginimas
 
 | El. kiekis  | std::vector pildymo laikas | Vector pildymo laikas     |
 | ----------- | -------------------------- | ------------------------- |
@@ -227,3 +227,14 @@ Vykdymo laikas ženkliai sutrumpėja, lyginant su 2 strategija
 | 1000000     | 6816 mikrosekundes         | 5803 mikrosekundes        |
 | 10000000    | 59936 mikrosekundes        | 60396 mikrosekundes       |
 | 100000000   | 575138 mikrosekundes       | 565729 mikrosekundes      |
+
+### std::vector vs. Vector konteineriu darbo su studentu failais spartos palyginimas
+
+|                        | Duomenu nuskaitymo trukme | Duomenu rikiavimo trukme | Duomenu skirstymo trukme | Isvedimo trukme  | Viso testo trukme |
+| ---------------------- | ------------------------- | ------------------------ | ------------------------ | ---------------- | ----------------- |
+| Vector 100000          | 0.173407                  | 0.071158                 | 0.029485                 | 0.243146         | 0.517196          |
+| Vector 1000000         | 1.62093                   | 0.97565                  | 0.298364                 | 2.4385           | 5.33345           |
+| Vector 10000000        | 17.2497                   | 12.6539                  | 2.98685                  | 25.5777          | 58.4681           |
+| std::vector 100000     | 0.209535                  | 0.101484                 | 0.032385                 | 0.2511           | 0.594504          |
+| std::vector 1000000    | 1.89343                   | 1.34222                  | 0.326025                 | 2.39114          | 5.95281           |
+| std::vector 10000000   | 19.1226                   | 16.9183                  | 3.39667                  | 26.2336          | 65.6712           |
