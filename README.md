@@ -217,3 +217,13 @@ Vykdymo laikas ženkliai sutrumpėja, lyginant su 2 strategija
 3. reserve: Ši funkcija atlieka savo darbą tik tuomet, jei perduotas argumentas n yra didesnis už dabartinę vektoriaus talpą. Jei taip ir yra, tuomet funkcija pirmiausia paskiria atminties, kuri gali sutalpinti n elementų. Paskui užvedamas ciklas, einantis per jau egzistuojančio vektoriaus dydį. Kiekvienas egzistuojančio vektoriaus elementas yra perkeliamas į naujai priskirtą atmintį ir ištrinamas iš pirminio vektoriaus. Tuomet yra atlaisvinama visa pirminio vektoriaus atmintis, bei atnaujinami vektoriaus dydžio ir talpos kintamieji.
 4. shrink_to_fit: Funkcija vykdoma tik jei vektoriaus dydis yra mažesnis nei jo talpa. Jei taip ir yra, tuomet vektoriaus talpai yra priskiriama vektoriaus dydžio reikšmė.
 5. pop_back: Funkcija vykdoma, jei vektoriaus dydis yra didesnis už nulį. Tuomet yra atlaisvinama paskutinio vektoriaus elemento vieta, ištrinant tą elementą iš atminties.
+
+### std::vector vs. Vector klases spartos palyginimas
+
+| El. kiekis  | std::vector pildymo laikas | Vector pildymo laikas     |
+| ----------- | -------------------------- | ------------------------- |
+| 10000       | 69 mikrosekundes           | 46 mikrosekundes          |
+| 100000      | 945 mikrosekundes          | 773 mikrosekundes         |
+| 1000000     | 6816 mikrosekundes         | 5803 mikrosekundes        |
+| 10000000    | 59936 mikrosekundes        | 60396 mikrosekundes       |
+| 100000000   | 575138 mikrosekundes       | 565729 mikrosekundes      |

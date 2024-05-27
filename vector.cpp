@@ -1,260 +1,73 @@
 #include "vector.h"
+#include <bits/stdc++.h>
 
-// Konstruktoriai
-template<class T>
-Vector<T>::Vector() : sz(0), cap(5), elem(new value_type[cap]) {}
+using namespace std;
 
-template<class T>
-Vector<T>::Vector(int s) : sz(s), cap(s + 5), elem(new value_type[cap]) {}
-
-template<class T>
-Vector<T>::Vector(int s, value_type value) : sz(s), cap(s + 5), elem(new value_type[cap])
-{
-    fill_n(elem, s, value); 
-}
-
-template <class T>
-Vector<T>::Vector(const initializer_list<value_type> &list) : sz(0), cap(list.size() + 5), elem(new value_type[cap])
-{
-    for (int i : list)
-    {
-        push_back(i);
-    }
-}
-
-// Copy konstruktorius
-template<class T>
-Vector<T>::Vector(const Vector &other) : sz(other.sz), cap(other.cap), elem(new value_type[cap])
-{
-    for (int i = 0; i < other.size(); i++)
-    {
-        elem[i] = other.elem[i];
-    }
-}
-
-// Destruktorius: atlaisvina vektoriaus klasės objekto resursus
-template<class T>
-Vector<T>::~Vector()
-{
-    delete[] elem;
-}
-
-// Elemento pridejimo i vektoriaus gala funkcija
-template<class T>
-void Vector<T>::push_back(value_type value)
-{
-    if (sz < cap)
-    {
-        elem[sz] = value;
-        ++sz;
-    }
-    else
-    {
-        cap *= 2;
-        T* newelem = new value_type[cap];
-        for (int i = 0; i < sz; i++)
-        {
-            newelem[i] = elem[i];
-        }
-        newelem[sz] = value;
-        ++sz;
-        delete[] elem;
-        elem = newelem;
-    }
-}
-
-// Elemento isemimo is vektoriaus galo funkcija
-template <class T>
-void Vector<T>::pop_back()
-{
-    if (sz == 0)
-    {
-        throw runtime_error("Vector is empty.");
-    }
-    --sz;
-}
-
-// Funkcija, pasalinanti elementa, esanti nurodyto indekso vietoje
-template <class T>
-void Vector<T>::erase(int index)
-{
-    if (index < 0 || index >= sz)
-    {
-        throw runtime_error("Index out of range.");
-    }
-
-    for (int i = index; i < sz - 1; i++)
-    {
-        elem[i] = elem[i + 1];
-    }
-
-    sz--;
-}
-
-template <class T>
-void Vector<T>::insert(int index, value_type value)
-{
-    if (index < 0 || index >= sz)
-    {
-        throw runtime_error("Index out of range.");
-    }
-
-    if (sz != cap)
-    {
-        for (int i = sz - 1; i >= index; i--)
-        {
-            elem[i + 1] = elem[i];
-        }
-        
-        elem[index] = value;
-        sz++;
-    }
-    else
-    {
-        cap *= 2;
-        int* newelem = new value_type[cap];
-
-        for (int i = 0; i < sz; i++)
-        {
-            newelem[i] = elem[i];
-        }
-
-        delete[] elem;
-        elem = newelem;
-        insert(index, value);
-    }
-}
-
-// Funkcija, isvalanti vektoriu
-template <class T>
-void Vector<T>::clear()
-{
-    sz = 0;
-}
-
-// Funkcija, grazinanti true arba false, priklausomai nuo to, ar vektorius tuscias ar ne
-template<class T>
-bool Vector<T>::empty() const
-{
-    return sz == 0;
-}
-
-// Funkcija, grazinanti vektoriaus dydi
-template<class T>
-int Vector<T>::size() const
-{
-    return sz;
-}
-
-// Funkcija, grazinanti vektoriaus talpa
-template<class T>
-int Vector<T>::capacity() const
-{
-    return cap;
-}
-
-// Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai lygus
-template<class T>
-bool Vector<T>::operator==(const Vector &other) const
-{
-    if (size() != other.size())
-    {
-        return false;
-    }
-
-    for (int i = 0; i < size(); i++)
-    {
-        if (elem[i] != other.elem[i])
-        {
-            return false;
+void perskirstymuSkaicius(int sz){
+    int perskirstymai_v1 = 0;
+    int perskirstymai_v2 = 0;
+    vector<int> v1;
+    std::Vector<int> v2;
+    for (int i = 0; i < sz; ++i){
+        v1.push_back(i);
+        if(v1.capacity() == v1.size()) {
+            ++perskirstymai_v1;
         }
     }
+    v1.clear();
 
-    return true;
+    for (int i = 0; i < sz; ++i) {
+        v2.push_back(i);
+        if(v2.capacity() == v2.size()) {
+            ++perskirstymai_v2;
+        }
+    }
+    v2.clear();
+
+    std::cout << "Perskirstymu skaicius std::vector vektoriuje, uzpildant ji 100 000 000 elementu: " << perskirstymai_v1 << std::endl;
+    std::cout << "Perskirstymu skaicius Vector vektoriuje, uzpildant ji 100 000 000 elementu: " << perskirstymai_v2 << std::endl;
 }
 
-// Operatorius, lyginantis du vektorius ir grazinantis tiesa, jei tie vektoriai nelygus
-template<class T>
-bool Vector<T>::operator!=(const Vector &other) const
-{
-    return !(*this == other);
-}
 
-// Operatorius, priskiriantis desineje lygybes puseje esancio vektoriaus reiksmes kaireje puseje esanciam vektoriui
-template <class T>
-Vector<T> &Vector<T>::operator=(const Vector &other)
-{
-    if (other.sz > sz)
-    {
-        delete[] elem;
-        cap = other.sz + 5;
-        elem = new value_type[cap];
+int main() {
+    const int n = 5;
+    perskirstymuSkaicius(100000000);
+
+    for (unsigned int sz : {10000, 100000, 1000000, 10000000, 100000000}) {
+        std::vector<int> v1;
+        Vector<int> v2;
+
+        long visas_laikas_v1 = 0;
+        long visas_laikas_v2 = 0;
+
+        for (int j = 0; j < n; ++j)
+        {
+            auto pradzia_v1 = std::chrono::high_resolution_clock::now();
+
+            for (int i = 1; i <= sz; ++i)
+                v1.push_back(i);
+
+            auto pabaiga_v1 = std::chrono::high_resolution_clock::now();
+            auto trukme_v1 = std::chrono::duration_cast<std::chrono::microseconds>(pabaiga_v1 - pradzia_v1);
+            visas_laikas_v1 += trukme_v1.count();
+
+            auto pradzia_v2 = std::chrono::high_resolution_clock::now();
+
+            for (int i = 1; i <= sz; ++i)
+                v2.push_back(i);
+
+            auto pabaiga_v2 = std::chrono::high_resolution_clock::now();
+            auto trukme_v2 = std::chrono::duration_cast<std::chrono::microseconds>(pabaiga_v2 - pradzia_v2);
+            visas_laikas_v2 += trukme_v2.count();
+
+            v1.clear();
+            v2.clear();
+        }
+
+        std::cout << "Vidutinis " << sz << " dydzio std::vector konteinerio uzpildymo laikas: " << visas_laikas_v1 / n << " mikrosekundes" << std::endl;
+        std::cout << "Vidutinis " << sz << " dydzio Vector konteinerio uzpildymo laikas: " << visas_laikas_v2 / n << " mikrosekundes" << std::endl;
     }
 
-    for (int i = 0; i < other.size(); i++)
-    {
-        elem[i] = other.elem[i];
-    }
 
-    sz = other.sz;
-
-    return *this;
-}
-
-// Operatorius, leidziantis pasiekti konkretu vektoriaus elementa
-template <class T>
-T &Vector<T>::operator[](int index)
-{
-    if (index < 0 || index >= sz)
-    {
-        throw runtime_error("Index out of range.");
-    }
-    return elem[index];
-}
-
-// Funkcija, grazinanti vektoriaus elementa, esanti i funkcija perduoto indekso vietoje
-template <class T>
-T &Vector<T>::at(int index)
-{
-    if (index < 0 || index >= sz)
-    {
-        throw runtime_error("Index out of range.");
-    }
-    
-    return elem[index];
-}
-
-// Funkcija, grazinanti pirmaji vektoriaus elementa
-template <class T>
-T &Vector<T>::front()
-{
-    return elem[0];
-}
-
-// Funkcija, grazinanti paskutini vektoriaus elementa
-template <class T>
-T &Vector<T>::back()
-{
-    return elem[sz - 1];
-}
-
-// Perkraunamas, vektoriaus isvedimo operatorius
-template<class U>
-ostream &operator<<(ostream &output, const Vector<U> &other)
-{
-    for (int i = 0; i < other.sz; i++)
-    {
-        output << other.elem[i] << " ";
-    }
-
-    output << "||";
-
-    for (int i = other.sz; i < other.cap; i++)
-    {
-        output << other.elem[i] << " ";
-    }
-
-    output << endl;
-    
-    return output;
+    return 0;
 }

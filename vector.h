@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <initializer_list>
 #include <stdexcept>
+#include <utility>
 
 namespace std
 {
@@ -161,11 +162,14 @@ public:
     // Operatorius, tikrinantis
     bool operator==(const Vector& x) const
     {
-        if (sz != x.sz || cap != x.cap) {
+        if (sz != x.sz || cap != x.cap)
+        {
             return false;
         }
-        for (size_type i = 0; i < sz; ++i) {
-            if (elem[i] != x.elem[i]) {
+        for (size_type i = 0; i < sz; ++i)
+        {
+            if (elem[i] != x.elem[i])
+            {
                 return false;
             }
         }
@@ -173,10 +177,12 @@ public:
     }
 
     // Priskyrimo operatorius su initializer list'u
-    Vector& operator=(initializer_list<T> il) {
+    Vector& operator=(initializer_list<T> il)
+    {
         clear();
         reserve(il.size());
-        for (auto& elem : il) {
+        for (auto& elem : il)
+        {
             emplace_back(elem);
         }
         return *this;
@@ -406,7 +412,7 @@ public:
         return elem[sz++];
     }
 
-    // Funkcija, ikopijuojanti elementa i vektoriaus gala
+    // Funkcija, sukonstruojanti elementa vektoriaus gale
     void push_back(const T& x)
     {
         if (sz == cap)
