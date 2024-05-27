@@ -1,6 +1,6 @@
 # ObjektinisProgramavimas
 
-Programa apskaičiuojanti studentų galutinius balus iš pateiktų duomenų. Projekto [dokumentacija](https://github.com/justas0221/ObjektinisProgramavimas2uzd/blob/v2.0/latex/LaTeX.pdf).
+Programa apskaičiuojanti studentų galutinius balus iš pateiktų duomenų. Projekto [dokumentacija](https://github.com/justas0221/ObjektinisProgramavimas3uzd/blob/v3.0/latex/ObjektinisProgramavimas3uzd.pdf).
 
 ## Release'ai
 
