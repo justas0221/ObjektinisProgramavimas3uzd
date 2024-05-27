@@ -159,7 +159,7 @@ public:
         return *this;
     }
 
-    // Operatorius, tikrinantis
+    // Operatorius, tikrinantis, ar du vektoriai yra lygus
     bool operator==(const Vector& x) const
     {
         if (sz != x.sz || cap != x.cap)
@@ -274,27 +274,29 @@ public:
     }
 
     // Funkcija, pakeicianti vektoriaus dydi
-    void resize(size_type sz)
+    void resize(size_type new_size)
     {
-        if (sz > cap)
+        if (new_size > cap)
         {
-            reserve(sz);
+            reserve(new_size);
         }
-        if (sz > sz)
+
+        if (new_size > sz)
         {
-            for (size_type i = sz; i < sz; ++i)
+            for (size_type i = sz; i < new_size; ++i)
             {
                 alloc.construct(&elem[i]);
             }
         }
         else
         {
-            for (size_type i = sz; i < sz; ++i)
+            for (size_type i = new_size; i < sz; ++i)
             {
                 alloc.destroy(&elem[i]);
             }
         }
-        sz = sz;
+
+        sz = new_size;
     }
 
     // Funkcija, pakeicianti vektoriaus dydi ir priskirianti naujiems elementams tam tikra reiksme
@@ -302,8 +304,9 @@ public:
     {
         if (newsz > cap)
         {
-            reserve(sz);
+            reserve(newsz);
         }
+
         if (newsz > sz)
         {
             for (size_type i = sz; i < newsz; ++i)
@@ -318,6 +321,7 @@ public:
                 alloc.destroy(&elem[i]);
             }
         }
+
         sz = newsz;
     }
 
@@ -346,9 +350,20 @@ public:
     {
         if (sz < cap)
         {
-            resize(sz);
+            pointer new_data = alloc.allocate(sz);
+            for (size_type i = 0; i < sz; ++i)
+            {
+                alloc.construct(&new_data[i], std::move(elem[i]));
+                alloc.destroy(&elem[i]);
+            }
+            if (elem)
+            {
+                alloc.deallocate(elem, cap);
+            }
+            elem = new_data;
+            cap = sz;
         }
-    };
+    }
 
     // Operatoriai elementu pasiekimui
     reference operator[](size_type n)
@@ -401,7 +416,7 @@ public:
         return elem;
     }
 
-    // Funkcija, vektoriaus gale sukonstruojanti viena ar daugiau nauju elementu
+    // Funkcija, vektoriaus gale sukonstruojanti elementa
     template<class... Args> reference emplace_back(Args&&... args)
     {
         if (sz == cap)
